@@ -1,0 +1,41 @@
+import requests
+from bs4 import BeautifulSoup
+import json
+
+# G마켓 레고 공식스토어 URL
+url = "https://minishop.gmarket.co.kr/lego2019/List"
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
+}
+
+response = requests.get(url, headers=headers)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# 상품 블럭 모두 가져오기
+items = soup.select("div.box__item-container")
+
+products = []
+
+for item in items[:30]:  # 최대 30개까지만
+    try:
+        title = item.select_one("span.text__item").get_text(strip=True)
+        price = item.select_one("strong.text__value").get_text(strip=True)
+        link = "https:" + item.select_one("a.link__item")["href"]
+        img = item.select_one("img.image__item")["src"]
+
+        products.append({
+            "title": title,
+            "price": price,
+            "link": link,
+            "img": img
+        })
+    except Exception as e:
+        print("오류 발생:", e)
+        continue
+
+# 결과 저장
+with open("gmarket_lego_products.json", "w", encoding="utf-8") as f:
+    json.dump(products, f, ensure_ascii=False, indent=2)
+
+print(f"{len(products)}개의 상품을 저장했습니다!")
