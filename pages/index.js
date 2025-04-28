@@ -93,13 +93,14 @@ export default function Home() {
       네이버 공식몰
     </a>
     <a 
-      href="https://www.lego.com/ko-kr 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
-    >
-      공홈
-    </a>
+  href="https://www.lego.com/ko-kr" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
+>
+  공홈
+</a>
+
   </div>
 </section>
 
