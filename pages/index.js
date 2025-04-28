@@ -77,11 +77,18 @@ export default function Home() {
       </section>
 
       {/* 쇼핑몰별 필터 */}
-    <section className="container mx-auto mt-10">
+   <section className="container mx-auto mt-10">
   <h2 className="text-xl font-bold mb-4">쇼핑몰별</h2>
   <div className="flex flex-wrap gap-2">
     <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">쿠팡</a>
-    <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">11번가</a>
+    <a 
+      href="https://shop.11st.co.kr/stores/201220" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
+    >
+      11번가
+    </a>
     <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">G마켓</a>
     <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">SSG</a>
     <a 
@@ -93,16 +100,16 @@ export default function Home() {
       네이버 공식몰
     </a>
     <a 
-  href="https://www.lego.com/ko-kr" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
->
-  공홈
-</a>
-
+      href="https://www.lego.com/ko-kr" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
+    >
+      공홈
+    </a>
   </div>
 </section>
+
 
 
       {/* 하단 푸터 */}
