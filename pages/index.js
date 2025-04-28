@@ -35,16 +35,23 @@ export default function Home() {
       </section>
 
       {/* 쇼핑몰별 필터 */}
-      <section className="container mx-auto mt-10">
-        <h2 className="text-xl font-bold mb-4">쇼핑몰별</h2>
-        <div className="flex flex-wrap gap-2">
-          {['쿠팡', '11번가', 'G마켓', 'SSG'].map((mall) => (
-            <button key={mall} className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">
-              {mall}
-            </button>
-          ))}
-        </div>
-      </section>
+<section className="container mx-auto mt-10">
+  <h2 className="text-xl font-bold mb-4">쇼핑몰별</h2>
+  <div className="flex flex-wrap gap-2">
+    <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">쿠팡</a>
+    <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">11번가</a>
+    <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">G마켓</a>
+    <a href="#" className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">SSG</a>
+    <a 
+      href="https://brand.naver.com/legokorea?NaPm=ct%3Dma0rjc0t%7Cci%3Dcheckout%7Ctr%3Dds%7Ctrx%3Dnull%7Chk%3Df7304b2a603598545a25bd98c644045800b6b7a2" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
+    >
+      네이버 레고공식몰
+    </a>
+  </div>
+</section>
 
       {/* 할인 상품 리스트 */}
       <section className="container mx-auto mt-10">
