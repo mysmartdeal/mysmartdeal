@@ -1,3 +1,5 @@
+import MainSlider from "../components/MainSlider";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
@@ -14,15 +16,9 @@ export default function Home() {
       </nav>
 
       {/* 메인 배너 슬라이드 */}
-      <section className="container mx-auto mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 1</div>
-          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 2</div>
-          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 3</div>
-        </div>
-      </section>
+      <MainSlider />
 
-      {/* 시리즈별 필터 */}
+        {/* 시리즈별 필터 */}
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">시리즈별</h2>
         <div className="flex flex-wrap gap-2">
