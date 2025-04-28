@@ -41,7 +41,7 @@ export default function Home() {
   <h2 className="text-xl font-bold mb-4">시리즈별</h2>
   <div className="flex overflow-x-auto gap-2 p-2">
     {[
-      "전체", "동물의 숲", "아키텍처", "아트", "아바타", "배트맨",
+      "동물의 숲", "아키텍처", "아트", "아바타", "배트맨",
       "블루이", "보타니컬 컬렉션", "Braille Bricks", "브릭헤즈", "시티",
       "클래식", "크리에이터 3in1", "DC", "슈퍼 배드 4", "디즈니", "도트",
       "드림즈", "듀플로", "듀플로 페파 피그", "에듀케이션", "프렌즈",
