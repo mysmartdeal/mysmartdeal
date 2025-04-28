@@ -37,22 +37,32 @@ export default function Home() {
       <MainSlider />
 
       {/* 시리즈별 필터 */}
-      <section className="container mx-auto mt-10">
-        <h2 className="text-xl font-bold mb-4">시리즈별</h2>
-        <div className="flex flex-wrap gap-2">
-          {["전체", "프렌즈", "테크닉", "시티", "닌자고"].map((series) => (
-            <button 
-              key={series}
-              onClick={() => setSelectedSeries(series)}
-              className={`p-2 rounded ${
-                selectedSeries === series ? "bg-blue-500 text-white" : "bg-blue-200 hover:bg-blue-300"
-              }`}
-            >
-              {series}
-            </button>
-          ))}
-        </div>
-      </section>
+     <section className="container mx-auto mt-10">
+  <h2 className="text-xl font-bold mb-4">시리즈별</h2>
+  <div className="flex overflow-x-auto gap-2 p-2">
+    {[
+      "전체", "동물의 숲", "아키텍처", "아트", "아바타", "배트맨",
+      "블루이", "보타니컬 컬렉션", "Braille Bricks", "브릭헤즈", "시티",
+      "클래식", "크리에이터 3in1", "DC", "슈퍼 배드 4", "디즈니", "도트",
+      "드림즈", "듀플로", "듀플로 페파 피그", "에듀케이션", "프렌즈",
+      "Fortnite", "개비의 매직 하우스", "해리포터", "Icons", "아이디어",
+      "쥬라기 월드", "Lord of the Rings", "마블", "마인크래프트", "미니피겨",
+      "몽키 키드", "닌자고", "파워업", "SERIOUS PLAY", "소닉 더 헤지혹",
+      "스피드 챔피언", "스타워즈", "슈퍼 마리오", "테크닉", "젤다의 전설",
+      "웬즈데이", "위키드"
+    ].map((series) => (
+      <button 
+        key={series}
+        onClick={() => setSelectedSeries(series)}
+        className="bg-blue-200 hover:bg-blue-300 p-2 rounded whitespace-nowrap"
+      >
+        {series}
+      </button>
+    ))}
+  </div>
+</section>
+
+
 
       {/* 할인 상품 리스트 */}
       <section className="container mx-auto mt-10">
@@ -80,7 +90,7 @@ export default function Home() {
             rel="noopener noreferrer" 
             className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded"
           >
-            네이버 레고공식몰
+            네이버 공식몰
           </a>
         </div>
       </section>
