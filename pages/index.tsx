@@ -15,45 +15,48 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 메인 배너 슬라이드 (간단하게 고정된 3개) */}
-      <section className="container mx-auto mt-6">
+      {/* 메인 배너 슬라이드 */}
+      <section className="container mx-auto mt-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-white p-6 rounded shadow">베스트 할인 상품 1</div>
-          <div className="bg-white p-6 rounded shadow">베스트 할인 상품 2</div>
-          <div className="bg-white p-6 rounded shadow">베스트 할인 상품 3</div>
+          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 1</div>
+          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 2</div>
+          <div className="bg-blue-100 p-6 rounded shadow text-center">베스트 상품 3</div>
         </div>
       </section>
 
       {/* 시리즈별 필터 */}
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">시리즈별</h2>
-        <div className="flex space-x-4">
-          <button className="bg-blue-100 hover:bg-blue-300 p-2 rounded">프렌즈</button>
-          <button className="bg-blue-100 hover:bg-blue-300 p-2 rounded">테크닉</button>
-          <button className="bg-blue-100 hover:bg-blue-300 p-2 rounded">시티</button>
-          <button className="bg-blue-100 hover:bg-blue-300 p-2 rounded">닌자고</button>
+        <div className="flex flex-wrap gap-2">
+          {['프렌즈', '테크닉', '시티', '닌자고'].map((series) => (
+            <button key={series} className="bg-blue-200 hover:bg-blue-300 p-2 rounded">
+              {series}
+            </button>
+          ))}
         </div>
       </section>
 
       {/* 쇼핑몰별 필터 */}
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">쇼핑몰별</h2>
-        <div className="flex space-x-4">
-          <button className="bg-yellow-100 hover:bg-yellow-300 p-2 rounded">쿠팡</button>
-          <button className="bg-yellow-100 hover:bg-yellow-300 p-2 rounded">11번가</button>
-          <button className="bg-yellow-100 hover:bg-yellow-300 p-2 rounded">G마켓</button>
-          <button className="bg-yellow-100 hover:bg-yellow-300 p-2 rounded">SSG</button>
+        <div className="flex flex-wrap gap-2">
+          {['쿠팡', '11번가', 'G마켓', 'SSG'].map((mall) => (
+            <button key={mall} className="bg-yellow-200 hover:bg-yellow-300 p-2 rounded">
+              {mall}
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* 할인 상품 리스트 (4개씩 카드형) */}
+      {/* 할인 상품 리스트 */}
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">오늘의 할인 상품</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-4 rounded shadow">상품 카드 1</div>
-          <div className="bg-white p-4 rounded shadow">상품 카드 2</div>
-          <div className="bg-white p-4 rounded shadow">상품 카드 3</div>
-          <div className="bg-white p-4 rounded shadow">상품 카드 4</div>
+          {Array.from({ length: 8 }).map((_, idx) => (
+            <div key={idx} className="bg-white p-4 rounded shadow text-center">
+              상품 카드 {idx + 1}
+            </div>
+          ))}
         </div>
       </section>
 
