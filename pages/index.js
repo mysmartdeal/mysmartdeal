@@ -1,18 +1,16 @@
 import MainSlider from "../components/MainSlider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [products, setProducts] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState("전체");
   const [selectedMall, setSelectedMall] = useState("전체");
 
-  const products = [
-    { id: 1, title: "프렌즈 캠핑카", series: "프렌즈", mall: "쿠팡" },
-    { id: 2, title: "테크닉 스포츠카", series: "테크닉", mall: "11번가" },
-    { id: 3, title: "시티 소방서", series: "시티", mall: "G마켓" },
-    { id: 4, title: "닌자고 드래곤", series: "닌자고", mall: "SSG" },
-    { id: 5, title: "디즈니 캐슬", series: "디즈니", mall: "네이버 공식몰" },
-    { id: 6, title: "스타워즈 X-윙", series: "스타워즈", mall: "공홈" },
-  ];
+  useEffect(() => {
+    fetch("/gmarket_lego_products.json")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
 
   const filteredProducts = products.filter((product) => {
     const matchSeries = selectedSeries === "전체" || product.series === selectedSeries;
@@ -38,31 +36,28 @@ export default function Home() {
       <MainSlider />
 
       {/* 시리즈별 필터 */}
-     <section className="container mx-auto mt-10">
-  <h2 className="text-xl font-bold mb-4">시리즈별</h2>
-  <div className="flex overflow-x-auto gap-2 p-2">
-    {[
-      // 형이 지정한 우선순위 12개
-      "테크닉", "스타워즈", "스피드 챔피언", "Icons", "아이디어", "시티", "배트맨", "디즈니", "닌자고", "미니피겨", "마블", "Lord of the Rings",
-      
-      // 나머지 시리즈 전체
-      "동물의 숲", "아키텍처", "아트", "아바타", "블루이", "보타니컬 컬렉션",
-      "Braille Bricks", "브릭헤즈", "클래식", "크리에이터 3in1", "DC", "슈퍼 배드 4",
-      "도트", "드림즈", "듀플로", "듀플로 페파 피그", "에듀케이션", "프렌즈",
-      "Fortnite", "개비의 매직 하우스", "해리포터", "쥬라기 월드", "마인크래프트",
-      "몽키 키드", "파워업", "SERIOUS PLAY", "소닉 더 헤지혹", "슈퍼 마리오",
-      "젤다의 전설", "웬즈데이", "위키드"
-    ].map((series) => (
-      <button 
-        key={series}
-        onClick={() => setSelectedSeries(series)}
-        className="bg-blue-200 hover:bg-blue-300 p-2 rounded whitespace-nowrap"
-      >
-        {series}
-      </button>
-    ))}
-  </div>
-</section>
+      <section className="container mx-auto mt-10">
+        <h2 className="text-xl font-bold mb-4">시리즈별</h2>
+        <div className="flex overflow-x-auto gap-2 p-2">
+          {[
+            "테크닉", "스타워즈", "스피드 챔피언", "Icons", "아이디어", "시티", "배트맨", "디즈니", "닌자고", "미니피겨", "마블", "Lord of the Rings",
+            "동물의 숲", "아키텍처", "아트", "아바타", "블루이", "보타니컬 컬렉션", "Braille Bricks", "브릭헤즈", "클래식", "크리에이터 3in1",
+            "DC", "슈퍼 배드 4", "도트", "드림즈", "듀플로", "듀플로 페파 피그", "에듀케이션", "프렌즈", "Fortnite", "개비의 매직 하우스",
+            "해리포터", "쥬라기 월드", "마인크래프트", "몽키 키드", "파워업", "SERIOUS PLAY", "소닉 더 헤지혹", "슈퍼 마리오", "젤다의 전설",
+            "웬즈데이", "위키드"
+          ].map((series) => (
+            <button 
+              key={series}
+              onClick={() => setSelectedSeries(series)}
+              className={`p-2 rounded whitespace-nowrap ${
+                selectedSeries === series ? "bg-blue-500 text-white" : "bg-blue-200 hover:bg-blue-300"
+              }`}
+            >
+              {series}
+            </button>
+          ))}
+        </div>
+      </section>
 
       {/* 쇼핑몰별 필터 */}
       <section className="container mx-auto mt-10">
@@ -86,10 +81,18 @@ export default function Home() {
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">상품 리스트</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white p-4 rounded shadow text-center">
-              {product.title}
-            </div>
+          {filteredProducts.map((product, idx) => (
+            <a 
+              key={idx} 
+              href={product.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white p-4 rounded shadow text-center hover:shadow-lg transition"
+            >
+              <img src={product.img} alt={product.title} className="h-40 mx-auto object-contain mb-2" />
+              <h3 className="text-md font-semibold">{product.title}</h3>
+              <p className="text-blue-600 font-bold mt-2">{product.price}</p>
+            </a>
           ))}
         </div>
       </section>
