@@ -7,7 +7,7 @@ export default function Home() {
   const [selectedMall, setSelectedMall] = useState("전체");
 
   useEffect(() => {
-    fetch("/gmarket_lego_products.json")
+    fetch("/11st_lego_products.json")  // 11번가 레고 상품 JSON 파일 경로 수정
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
@@ -89,7 +89,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="bg-white p-4 rounded shadow text-center hover:shadow-lg transition"
             >
-              <img src={product.img} alt={product.title} className="h-40 mx-auto object-contain mb-2" />
+              <img src={product.image_url} alt={product.title} className="h-40 mx-auto object-contain mb-2" />
               <h3 className="text-md font-semibold">{product.title}</h3>
               <p className="text-blue-600 font-bold mt-2">{product.price}</p>
             </a>
