@@ -16,9 +16,9 @@ export default function MainSlider() {
   };
 
   const slides = [
-    { id: 1, title: "베스트 레고 상품 1", img: "/lego1.jpg" },
-    { id: 2, title: "베스트 레고 상품 2", img: "/lego2.jpg" },
-    { id: 3, title: "베스트 레고 상품 3", img: "/lego3.jpg" },
+    { id: 1, title: "", img: "/lego1.jpg" },
+    { id: 2, title: "", img: "/lego2.jpg" },
+    { id: 3, title: "", img: "/lego3.jpg" },
   ];
 
   return (
