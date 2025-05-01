@@ -1,0 +1,44 @@
+[
+  {
+    "title": "11번가 레고 할인",
+    "subtitle": "최대 40% 할인! 제휴 링크",
+    "image": "/images/11st.jpg",
+    "url": "http://app.ac/abc11st"
+  },
+  {
+    "title": "G마켓 레고 할인",
+    "subtitle": "지금 특가 세일 중!",
+    "image": "/images/gmarket.jpg",
+    "url": "http://app.ac/abcgmarket"
+  },
+  {
+    "title": "이마트몰 레고 특가",
+    "subtitle": "오프라인보다 싸게!",
+    "image": "/images/emart.jpg",
+    "url": "http://app.ac/abcemart"
+  },
+  {
+    "title": "네이버 쇼핑 레고 모음",
+    "subtitle": "최신 가격비교 한눈에",
+    "image": "/images/naver.jpg",
+    "url": "https://search.shopping.naver.com/search/all?query=레고"
+  },
+  {
+    "title": "옥션 레고 핫딜",
+    "subtitle": "인기상품 한눈에 보기",
+    "image": "/images/auction.jpg",
+    "url": "http://app.ac/abcauction"
+  },
+  {
+    "title": "홈플러스 온라인몰",
+    "subtitle": "레고 인기제품 보기",
+    "image": "/images/homeplus.jpg",
+    "url": "https://front.homeplus.co.kr/search?keyword=레고"
+  },
+  {
+    "title": "롯데온 레고 할인전",
+    "subtitle": "제휴 링크 클릭 시 혜택!",
+    "image": "/images/lotteon.jpg",
+    "url": "http://app.ac/abclotteon"
+  }
+]
