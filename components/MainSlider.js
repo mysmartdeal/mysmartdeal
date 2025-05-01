@@ -30,7 +30,7 @@ export default function MainSlider() {
               <img
                 src={slide.img}
                 alt={slide.title}
-                className="h-[300px] w-full object-contain bg-white"
+                className="h-[300px] w-full object-contain"
                 loading="lazy"
               />
             </div>
