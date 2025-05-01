@@ -1,6 +1,6 @@
 
 import Layout from "../components/Layout";
-// import MainSlider from "../components/MainSlider";
+//import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
 
 export default function Home() {
