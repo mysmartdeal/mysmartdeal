@@ -20,7 +20,7 @@ export default function Home() {
       {/* 광고 자리 placeholder (Google AdSense 예정) */}
       <section className="container mx-auto mt-10 mb-10">
         <div className="h-[120px] bg-gray-200 rounded text-center flex items-center justify-center text-gray-500">
-          광고 자리 (Google AdSense 예정)
+         // 광고 자리 (Google AdSense 예정)
         </div>
       </section>
 
