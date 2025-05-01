@@ -16,9 +16,11 @@ export default function MainSlider() {
   };
 
   const slides = [
-    { id: 1, title: "", img: "/lego1.jpg" },
-    { id: 2, title: "", img: "/lego2.jpg" },
-    { id: 3, title: "", img: "/lego3.jpg" },
+    { id: 1, img: "/lego1.jpg" },
+    { id: 2, img: "/lego2.jpg" },
+    { id: 3, img: "/lego3.jpg" },
+    // 이미지가 없는 항목 테스트용 예시:
+    // { id: 4, img: "" }
   ];
 
   return (
@@ -26,13 +28,15 @@ export default function MainSlider() {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="p-4">
-            <div className="bg-blue-100 rounded-lg shadow-md p-6 text-center">
-              <img
-                src={slide.img}
-                alt={slide.title}
-                className="h-[300px] w-full object-contain"
-                loading="lazy"
-              />
+            <div className="rounded-lg shadow-md text-center">
+              {slide.img && (
+                <img
+                  src={slide.img}
+                  alt={`슬라이드 ${slide.id}`}
+                  className="h-[300px] w-full object-contain"
+                  loading="lazy"
+                />
+              )}
             </div>
           </div>
         ))}
