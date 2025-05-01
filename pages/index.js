@@ -1,5 +1,6 @@
 import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
+import HeroSection from "../components/HeroSection";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
