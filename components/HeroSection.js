@@ -15,7 +15,7 @@ export default function HeroSection() {
           href="#cards"
           className="bg-white text-blue-600 font-semibold rounded-full px-6 py-3 shadow hover:scale-105 transition"
         >
-          지금 바로 확인하기
+          쇼핑몰 확인하기
         </a>
         <a
           href="/lotto"
