@@ -26,7 +26,7 @@ export default function MainSlider() {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="p-4">
-            <div className="bg-blue-100 rounded-lg shadow-md p-6 text-center">
+            <div className="bg-blue-100 rounded-lg shadow-md p-6 text-center min-h-[300px]">
               {/* <h2 className="text-xl font-bold mb-2">{slide.title}</h2> */}
               <img src={slide.img} alt={slide.title} className="mx-auto max-h-60 object-contain" />
             </div>
