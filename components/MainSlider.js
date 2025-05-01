@@ -16,9 +16,9 @@ export default function MainSlider() {
   };
 
   const slides = [
-    { id: 1, title: "", img: "/lego1.jpg" },
-    { id: 2, title: "", img: "/lego2.jpg" },
-    { id: 3, title: "", img: "/lego3.jpg" },
+    { id: 1, img: "" },
+    { id: 2, img: "" },
+    { id: 3, img: "" }
   ];
 
   return (
@@ -26,12 +26,20 @@ export default function MainSlider() {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="p-4">
-            <div className="bg-blue-100 rounded-lg shadow-md p-6 text-center min-h-[300px]">
-              {/* <h2 className="text-xl font-bold mb-2">{slide.title}</h2> */}
-              <img src={slide.img} alt={slide.title} className="mx-auto max-h-60 object-contain" />
+            <div className="bg-blue-100 rounded-lg shadow-md text-center h-[300px] flex items-center justify-center">
+              {/* 이미지가 있을 경우에만 표시 */}
+              {slide.img && (
+                <img
+                  src={slide.img}
+                  alt={`슬라이드 ${slide.id}`}
+                  className="h-[300px] w-full object-contain"
+                  loading="lazy"
+                />
+              )}
             </div>
           </div>
         ))}
       </Slider>
     </div>
   );
+}
