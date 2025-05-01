@@ -1,4 +1,5 @@
-import HeroSection from "../components/HeroSection";
+
+import Layout from "../components/Layout";
 import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
 
@@ -17,14 +18,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Hero 브랜드 인트로 섹션 */}
-      <HeroSection />
-
-      {/* 메인 슬라이드 */}
+    <Layout>
       <MainSlider />
 
-      {/* 레고 상품 리스트 */}
       <section className="container mx-auto mt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, idx) => (
@@ -43,7 +39,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 제휴 링크 카드 섹션 */}
       <section id="cards" className="container mx-auto mt-16">
         <h2 className="text-2xl font-bold mb-4 text-center">제휴 쇼핑몰 레고 할인 모음</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -70,10 +65,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 푸터 */}
       <footer className="bg-white mt-16 p-6 text-center text-gray-500 text-sm">
         &copy; 2025 MySmartDeal. All rights reserved.
       </footer>
-    </div>
+    </Layout>
   );
 }
