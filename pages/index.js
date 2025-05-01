@@ -1,4 +1,3 @@
-
 import HeroSection from "../components/HeroSection";
 import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
