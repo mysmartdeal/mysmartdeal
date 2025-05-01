@@ -32,7 +32,7 @@ export default function MainSlider() {
                 <img
                   src={slide.img}
                   alt={`슬라이드 ${slide.id}`}
-                  className="h-[280px] w-full object-contain"
+                  className="h-[200px] w-full object-contain"
                   loading="lazy"
                 />
               )}
