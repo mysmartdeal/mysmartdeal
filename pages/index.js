@@ -1,6 +1,6 @@
 
 import Layout from "../components/Layout";
-//import MainSlider from "../components/MainSlider";
+// import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -19,7 +19,14 @@ export default function Home() {
 
   return (
     <Layout>
-      <MainSlider />
+      {/* 광고 자리 placeholder (슬라이더 대신) */}
+      <section className="container mx-auto mt-10 mb-10">
+        <div className="h-[120px] bg-gray-200 rounded text-center flex items-center justify-center text-gray-500">
+          광고 자리 (Google AdSense 예정)
+        </div>
+      </section>
+
+      {/* <MainSlider /> */}
 
       <section className="container mx-auto mt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
