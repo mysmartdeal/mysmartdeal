@@ -16,7 +16,7 @@ export default function MainSlider() {
   };
 
   const slides = [
-    { id: 1, img: "" }, // 이미지 넣고 싶을 때 여기만 채워주면 돼
+    { id: 1, img: "" }, // 이미지 넣고 싶을 때 여기만 채워주면 돼 예 /lego1.jpg
     { id: 2, img: "" },
     { id: 3, img: "" }
   ];
