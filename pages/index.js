@@ -1,6 +1,7 @@
+
+import HeroSection from "../components/HeroSection";
 import MainSlider from "../components/MainSlider";
 import { useEffect, useState } from "react";
-import HeroSection from "../components/HeroSection";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -18,27 +19,20 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* 상단 메뉴바 */}
-      <nav className="bg-white shadow-md">
-        <div className="container mx-auto flex justify-between items-center p-4">
-          <h1 className="text-2xl font-bold text-blue-700">MySmartDeal</h1>
-          <ul className="flex space-x-6">
-            <li><a href="#" className="hover:text-blue-500">홈</a></li>
-          </ul>
-        </div>
-      </nav>
+      {/* Hero 브랜드 인트로 섹션 */}
+      <HeroSection />
 
       {/* 메인 슬라이드 */}
       <MainSlider />
 
-      {/* 할인 상품 리스트 (제목 제거됨) */}
+      {/* 레고 상품 리스트 */}
       <section className="container mx-auto mt-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, idx) => (
-            <a 
-              key={idx} 
-              href={product.link} 
-              target="_blank" 
+            <a
+              key={idx}
+              href={product.link}
+              target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-4 rounded shadow text-center hover:shadow-lg transition"
             >
@@ -51,7 +45,7 @@ export default function Home() {
       </section>
 
       {/* 제휴 링크 카드 섹션 */}
-      <section className="container mx-auto mt-16">
+      <section id="cards" className="container mx-auto mt-16">
         <h2 className="text-2xl font-bold mb-4 text-center">제휴 쇼핑몰 레고 할인 모음</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {cards.map((item, idx) => (
@@ -62,15 +56,22 @@ export default function Home() {
               rel="noopener noreferrer"
               className="bg-white p-4 rounded shadow hover:shadow-md transition text-center"
             >
-              <img src={item.image} alt={item.title} className="h-40 w-full object-contain mb-2" />
-              <h3 className="text-lg font-bold">{item.title}</h3>
+              <div className="w-full h-[300px] bg-white flex items-center justify-center">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <h3 className="text-lg font-bold mt-3">{item.title}</h3>
               <p className="text-blue-600 font-medium">{item.subtitle}</p>
             </a>
           ))}
         </div>
       </section>
 
-      {/* 하단 푸터 */}
+      {/* 푸터 */}
       <footer className="bg-white mt-16 p-6 text-center text-gray-500 text-sm">
         &copy; 2025 MySmartDeal. All rights reserved.
       </footer>
