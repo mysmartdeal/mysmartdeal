@@ -7,14 +7,23 @@ export default function Home() {
   const [selectedMall, setSelectedMall] = useState("전체");
 
   useEffect(() => {
-    fetch("/11st_lego_products.json")  // 11번가 레고 상품 JSON 파일 경로 수정
+    fetch("/11st_lego_products.json")
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => {
+        // JSON에 series 필드가 없을 수도 있으므로 기본값 추가
+        const withDefaults = data.map((item) => ({
+          ...item,
+          series: item.series || "기타", // 없으면 기타로
+          mall: item.mall || "기타",     // 없으면 기타로
+        }));
+        setProducts(withDefaults);
+      })
+      .catch((err) => console.error("데이터 로딩 실패:", err));
   }, []);
 
   const filteredProducts = products.filter((product) => {
     const matchSeries = selectedSeries === "전체" || product.series === selectedSeries;
-    const matchMall = selectedMall === "전체" || product.mall === selectedMall;
+    const matchMall = selectedMall === "전체" || product.mall.includes(selectedMall);
     return matchSeries && matchMall;
   });
 
@@ -40,11 +49,12 @@ export default function Home() {
         <h2 className="text-xl font-bold mb-4">시리즈별</h2>
         <div className="flex overflow-x-auto gap-2 p-2">
           {[
-            "테크닉", "스타워즈", "스피드 챔피언", "Icons", "아이디어", "시티", "배트맨", "디즈니", "닌자고", "미니피겨", "마블", "Lord of the Rings",
-            "동물의 숲", "아키텍처", "아트", "아바타", "블루이", "보타니컬 컬렉션", "Braille Bricks", "브릭헤즈", "클래식", "크리에이터 3in1",
-            "DC", "슈퍼 배드 4", "도트", "드림즈", "듀플로", "듀플로 페파 피그", "에듀케이션", "프렌즈", "Fortnite", "개비의 매직 하우스",
-            "해리포터", "쥬라기 월드", "마인크래프트", "몽키 키드", "파워업", "SERIOUS PLAY", "소닉 더 헤지혹", "슈퍼 마리오", "젤다의 전설",
-            "웬즈데이", "위키드"
+            "전체", "테크닉", "스타워즈", "스피드 챔피언", "Icons", "아이디어", "시티", "배트맨", "디즈니", "닌자고",
+            "미니피겨", "마블", "Lord of the Rings", "동물의 숲", "아키텍처", "아트", "아바타", "블루이", "보타니컬 컬렉션",
+            "Braille Bricks", "브릭헤즈", "클래식", "크리에이터 3in1", "DC", "슈퍼 배드 4", "도트", "드림즈", "듀플로",
+            "듀플로 페파 피그", "에듀케이션", "프렌즈", "Fortnite", "개비의 매직 하우스", "해리포터", "쥬라기 월드",
+            "마인크래프트", "몽키 키드", "파워업", "SERIOUS PLAY", "소닉 더 헤지혹", "슈퍼 마리오", "젤다의 전설",
+            "웬즈데이", "위키드", "기타"
           ].map((series) => (
             <button 
               key={series}
@@ -80,21 +90,25 @@ export default function Home() {
       {/* 할인 상품 리스트 */}
       <section className="container mx-auto mt-10">
         <h2 className="text-xl font-bold mb-4">상품 리스트</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((product, idx) => (
-            <a 
-              key={idx} 
-              href={product.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-white p-4 rounded shadow text-center hover:shadow-lg transition"
-            >
-              <img src={product.image_url} alt={product.title} className="h-40 mx-auto object-contain mb-2" />
-              <h3 className="text-md font-semibold">{product.title}</h3>
-              <p className="text-blue-600 font-bold mt-2">{product.price}</p>
-            </a>
-          ))}
-        </div>
+        {filteredProducts.length === 0 ? (
+          <p className="text-center text-gray-500">조건에 맞는 상품이 없습니다.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {filteredProducts.map((product, idx) => (
+              <a 
+                key={idx} 
+                href={product.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white p-4 rounded shadow text-center hover:shadow-lg transition"
+              >
+                <img src={product.image_url} alt={product.title} className="h-40 mx-auto object-contain mb-2" />
+                <h3 className="text-md font-semibold">{product.title}</h3>
+                <p className="text-blue-600 font-bold mt-2">{product.price}</p>
+              </a>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* 하단 푸터 */}
