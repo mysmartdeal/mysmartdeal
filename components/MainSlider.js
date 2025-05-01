@@ -26,7 +26,7 @@ export default function MainSlider() {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="p-4">
-            <div className="bg-blue-100 rounded-lg shadow-md text-center h-[200px] flex items-center justify-center p-0">
+            <div className="bg-white-100 rounded-lg shadow-md text-center h-[200px] flex items-center justify-center p-0">
               {slide.img && (
                 <img
                   src={slide.img}
