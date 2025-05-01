@@ -31,7 +31,7 @@ export default function MainSlider() {
                 <img
                   src={slide.img}
                   alt={`슬라이드 ${slide.id}`}
-                  className="h-[180px] object-contain"
+                  className="h-[150px] object-contain"
                   loading="lazy"
                 />
               )}
