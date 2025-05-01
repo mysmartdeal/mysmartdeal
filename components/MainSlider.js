@@ -16,7 +16,7 @@ export default function MainSlider() {
   };
 
   const slides = [
-    { id: 1, img: "" },
+    { id: 1, img: "" }, // 이미지 넣고 싶을 때 여기만 채워주면 돼
     { id: 2, img: "" },
     { id: 3, img: "" }
   ];
@@ -26,13 +26,12 @@ export default function MainSlider() {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="p-4">
-            <div className="bg-blue-100 rounded-lg shadow-md text-center h-[300px] flex items-center justify-center">
-              {/* 이미지가 있을 경우에만 표시 */}
+            <div className="bg-blue-100 rounded-lg shadow-md text-center h-[200px] flex items-center justify-center p-0">
               {slide.img && (
                 <img
                   src={slide.img}
                   alt={`슬라이드 ${slide.id}`}
-                  className="h-[200px] w-full object-contain"
+                  className="h-[180px] object-contain"
                   loading="lazy"
                 />
               )}
