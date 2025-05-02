@@ -46,7 +46,7 @@
     "title": "홈플러스 레고 할인",
     "subtitle": "레고 할인 바로가기",
     "image": "/images/homeplus.png",
-    "url": "https://mfront.homeplus.co.kr/search?entry=direct&keyword=%EB%A0%88%EA%B3%A0"
+    "url": "https://mfront.homeplus.co.kr/search?benefit=BASIC&entry=direct&inputKeyword=%EB%A0%88%EA%B3%A0&keyword=%EB%A0%88%EA%B3%A0&searchType=NONE"
   },
   {
    "title": "코스트코 레고 할인",
