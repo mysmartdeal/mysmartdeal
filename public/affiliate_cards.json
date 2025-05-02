@@ -2,7 +2,7 @@
  
   {
     "title": "쿠팡 레고 할인",
-    "subtitle": "쿠팡 레고 할인 바로가기",
+    "subtitle": "레고 할인 바로가기",
     "image": "/images/coupang.png",
     "url": "http://app.ac/abc11st"
   },
@@ -14,19 +14,19 @@
   },
   {
     "title": "11번가 레고 할인",
-    "subtitle": "11번가 공식 할인 바로가기",
+    "subtitle": "공식스토어 할인 바로가기",
     "image": "/images/11st.png",
     "url": "http://app.ac/abc11st"
   },
   {
     "title": "레고 공홈 할인",
-    "subtitle": "공홈 세일 바로가기",
+    "subtitle": "세일 바로가기",
     "image": "/images/lego.png",
     "url": " https://www.lego.com/ko-kr/categories/sales-and-deals"
   },
   {
     "title": "이마트몰 레고 할인",
-    "subtitle": "이마트 레고 할인 바로가기!",
+    "subtitle": "레고 할인 바로가기!",
     "image": "/images/emart.png",
     "url": "http://app.ac/NqGAN4253"
   },
@@ -38,19 +38,19 @@
   },
   {
     "title": "토이저러스 레고 할인",
-    "subtitle": "토이저러스 레고 할인 바로가기!",
+    "subtitle": "레고 할인 바로가기!",
     "image": "/images/toy.png",
     "url": "http://app.ac/IE6aV7S13"
   }, 
   {
     "title": "홈플러스 레고 할인",
-    "subtitle": "홈플 레고 할인 바로가기",
+    "subtitle": "레고 할인 바로가기",
     "image": "/images/homeplus.png",
     "url": "https://mfront.homeplus.co.kr/search?entry=direct&keyword=%EB%A0%88%EA%B3%A0"
   },
   {
    "title": "코스트코 레고 할인",
-    "subtitle": "코스트코 레고 할인 바로가기!",
+    "subtitle": "레고 할인 바로가기!",
     "image": "/images/costco.png",
     "url": "http://app.ac/IE6aV7S13"
   }
