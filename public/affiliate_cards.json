@@ -35,13 +35,7 @@
     "image": "/images/naver.jpg",
     "url": "https://search.shopping.naver.com/search/all?query=레고"
   },
-  {
-    "title": "옥션 레고 핫딜",
-    "subtitle": "인기상품 한눈에 보기",
-    "image": "/images/auction.jpg",
-    "url": "http://app.ac/abcauction"
-  },
-  {
+   {
     "title": "홈플러스 온라인몰",
     "subtitle": "레고 인기제품 보기",
     "image": "/images/homeplus.jpg",
