@@ -27,7 +27,7 @@ export default function Home() {
       {/* 광고 자리 placeholder */}
       <section className="container mx-auto mt-6 px-4 sm:px-6">
         <div className="h-[100px] bg-gray-200 rounded text-center flex items-center justify-center text-gray-500 text-sm sm:text-base">
-          광고 자리 (Google AdSense 예정)
+          
         </div>
       </section>
 
