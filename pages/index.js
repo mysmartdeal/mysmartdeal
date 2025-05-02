@@ -1,4 +1,3 @@
-
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 
@@ -16,12 +15,19 @@ export default function Home() {
       .then((data) => setCards(data));
   }, []);
 
+  // ✅ 클릭 수 저장 함수 (로컬 스토리지에 저장만 함)
+  const handleClick = (url) => {
+    const history = JSON.parse(localStorage.getItem("clickHistory") || "{}");
+    history[url] = (history[url] || 0) + 1;
+    localStorage.setItem("clickHistory", JSON.stringify(history));
+  };
+
   return (
     <Layout>
-      {/* 광고 자리 placeholder (Google AdSense 예정) */}
+      {/* 광고 자리 placeholder */}
       <section className="container mx-auto mt-6 px-4 sm:px-6">
         <div className="h-[100px] bg-gray-200 rounded text-center flex items-center justify-center text-gray-500 text-sm sm:text-base">
-          
+          광고 자리 (Google AdSense 예정)
         </div>
       </section>
 
@@ -58,6 +64,7 @@ export default function Home() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => handleClick(item.url)} // ✅ 클릭 기록
               className="bg-white p-4 rounded-2xl shadow hover:shadow-xl transition-all text-center"
             >
               <div className="w-full h-[260px] bg-white flex items-center justify-center">
