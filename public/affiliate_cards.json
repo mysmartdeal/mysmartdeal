@@ -1,5 +1,17 @@
 [
   {
+    "title": "레고 공홈 할인",
+    "subtitle": "최대 40% 할인! 제휴 링크",
+    "image": "/images/lego.jpg",
+    "url": "http://app.ac/abc11st"
+  },
+  {
+    "title": "쿠팡 레고 할인",
+    "subtitle": "최대 40% 할인! 제휴 링크",
+    "image": "/images/coupang.jpg",
+    "url": "http://app.ac/abc11st"
+  },
+  {
     "title": "11번가 레고 할인",
     "subtitle": "최대 40% 할인! 제휴 링크",
     "image": "/images/11st.jpg",
@@ -38,7 +50,13 @@
   {
     "title": "토이저러스 레고 할인전",
     "subtitle": "제휴 링크 클릭 시 혜택!",
-    "image": "/images/lotteon.jpg",
+    "image": "/images/toy.jpg",
+    "url": "http://app.ac/IE6aV7S13"
+  },
+  {
+   "title": "코스트코 레고 할인",
+    "subtitle": "제휴 링크 클릭 시 혜택!",
+    "image": "/images/costco.jpg",
     "url": "http://app.ac/IE6aV7S13"
   }
 ]
