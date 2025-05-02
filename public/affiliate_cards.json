@@ -46,7 +46,7 @@
     "title": "홈플러스 온라인몰",
     "subtitle": "레고 인기제품 보기",
     "image": "/images/homeplus.png",
-    "url": "https://front.homeplus.co.kr/search?keyword=레고"
+    "url": "https://mfront.homeplus.co.kr/search?entry=direct&keyword=%EB%A0%88%EA%B3%A0"
   },
   {
    "title": "코스트코 레고 할인",
