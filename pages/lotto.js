@@ -18,6 +18,14 @@ export default function LottoPage() {
     setGames(newGames);
   };
 
+  const getBallColor = (num) => {
+    if (num <= 9) return "bg-yellow-300";
+    if (num <= 19) return "bg-sky-300";
+    if (num <= 29) return "bg-pink-300";
+    if (num <= 39) return "bg-gray-400";
+    return "bg-green-400";
+  };
+
   return (
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
@@ -37,7 +45,7 @@ export default function LottoPage() {
                 {game.map((num, idx) => (
                   <span
                     key={idx}
-                    className="w-12 h-12 rounded-full bg-yellow-300 text-black flex items-center justify-center text-lg font-bold shadow"
+                    className={`w-12 h-12 rounded-full ${getBallColor(num)} text-black flex items-center justify-center text-lg font-bold shadow`}
                   >
                     {num}
                   </span>
