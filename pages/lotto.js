@@ -1,20 +1,13 @@
+
 import Layout from "../components/Layout";
 import { useState } from "react";
+import { generateSmartLottoSet } from "../utils/smartLotto";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
 
-  const generateLotto = () => {
-    const newGames = [];
-
-    for (let i = 0; i < 5; i++) {
-      const numbers = new Set();
-      while (numbers.size < 6) {
-        numbers.add(Math.floor(Math.random() * 45) + 1);
-      }
-      newGames.push([...numbers].sort((a, b) => a - b));
-    }
-
+  const handleGenerate = () => {
+    const newGames = generateSmartLottoSet(5);
     setGames(newGames);
   };
 
@@ -30,12 +23,14 @@ export default function LottoPage() {
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🎯 무료 로또 조합 받기</h1>
-        <p className="text-gray-600 mb-6">버튼을 눌러 5게임의 랜덤 로또 번호를 받아보세요.</p>
+        <p className="text-gray-600 mb-6">
+          버튼을 눌러 통계 기반의 로또 번호 5게임을 받아보세요.
+        </p>
         <button
-          onClick={generateLotto}
+          onClick={handleGenerate}
           className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-full hover:bg-blue-700 transition"
         >
-          로또 번호 5게임 생성
+          로또 번호 생성
         </button>
 
         {games.length > 0 && (
