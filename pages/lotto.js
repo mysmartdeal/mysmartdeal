@@ -65,3 +65,4 @@ function generateSmartLottoSet(count = 5, mode = "hot", fixed = []) {
 }
 
 export { generateSmartLottoSet };
+export default LottoPage;
