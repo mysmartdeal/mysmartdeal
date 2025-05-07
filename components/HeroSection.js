@@ -21,7 +21,7 @@ export default function HeroSection() {
           href="/lotto"
           className="bg-yellow-400 text-black font-semibold rounded-full px-6 py-3 shadow hover:scale-105 transition"
         >
-          🎯 무료 로또 조합 받기 (준비 중)
+          🎯 무료 로또 조합 받기
         </a>
       </div>
     </section>
