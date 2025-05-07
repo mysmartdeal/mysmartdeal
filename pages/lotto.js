@@ -5,7 +5,6 @@ import { generateSmartLottoSet } from "../utils/smartLotto";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
-  const [mode, setMode] = useState("hot");
   const [fixed, setFixed] = useState("");
   const [highlight, setHighlight] = useState([]);
 
@@ -15,7 +14,7 @@ export default function LottoPage() {
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
-    const { games: generated, highlight: hot } = generateSmartLottoSet(5, mode, fixedNums);
+    const { games: generated, highlight: hot } = generateSmartLottoSet(5, "hot", fixedNums);
     setGames(generated);
     setHighlight(hot);
   };
@@ -33,18 +32,10 @@ export default function LottoPage() {
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🎯 전략형 로또 조합 추천</h1>
         <p className="text-gray-600 mb-6">
-          고정 번호, 추천 모드 등을 설정하고 통계 기반 조합을 생성하세요.
+          고정 번호를 입력하면 나머지 번호는 통계 기반으로 자동 생성됩니다.
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
-          <select
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
-            className="border px-4 py-2 rounded"
-          >
-            <option value="hot">🔥 자주 나온 번호 기반</option>
-            <option value="cold">❄ 잘 안 나온 번호 기반</option>
-          </select>
           <input
             type="text"
             value={fixed}
