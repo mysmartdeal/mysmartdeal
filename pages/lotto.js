@@ -32,7 +32,9 @@ export default function LottoPage() {
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🎯 전략형 로또 조합 추천</h1>
-        <p className="text-gray-600 mb-6">고정 번호, 추천 모드 등을 설정하고 통계 기반 조합을 생성하세요.</p>
+        <p className="text-gray-600 mb-6">
+          고정 번호, 추천 모드 등을 설정하고 통계 기반 조합을 생성하세요.
+        </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
           <select
@@ -65,7 +67,12 @@ export default function LottoPage() {
                 {game.map((num, idx) => (
                   <span
                     key={idx}
-                    className={\`w-12 h-12 rounded-full \${getBallColor(num)} text-black flex items-center justify-center text-lg font-bold shadow \${highlight.includes(num) ? "ring-4 ring-red-400" : ""}\`}
+                    className={
+                      "w-12 h-12 rounded-full " +
+                      getBallColor(num) +
+                      " text-black flex items-center justify-center text-lg font-bold shadow" +
+                      (highlight.includes(num) ? " ring-4 ring-red-400" : "")
+                    }
                   >
                     {num}
                   </span>
