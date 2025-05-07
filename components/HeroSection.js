@@ -7,7 +7,7 @@ export default function HeroSection() {
         MySmartDeal
       </h1>
       <p className="text-lg sm:text-xl text-blue-100 mb-6">
-        쇼핑몰별 최적의 레고 할인 정보를 한눈에
+        쇼핑몰별 레고 할인 정보를 한눈에
       </p>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4">
