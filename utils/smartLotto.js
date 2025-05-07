@@ -1,4 +1,5 @@
 
+// 내부에 hotNumbers, coldNumbers 직접 정의 (lottoStats.js 필요 없음)
 const ranges = {
   "1-9": Array.from({ length: 9 }, (_, i) => i + 1),
   "10-19": Array.from({ length: 10 }, (_, i) => i + 10),
@@ -7,7 +8,7 @@ const ranges = {
   "40-45": Array.from({ length: 6 }, (_, i) => i + 40),
 };
 
-const hotNumbers = [33, 34, 37, 40, 12, 45, 13, 14, 18, 27]; // 예시 Hot Top 10
+const hotNumbers = [33, 34, 37, 40, 12, 45, 13, 14, 18, 27]; // 상위 10개 핫 넘버 (직접 포함)
 const coldNumbers = Array.from({ length: 45 }, (_, i) => i + 1).filter(n => !hotNumbers.includes(n));
 
 function generateSmartLottoSet(count = 5, mode = "hot", fixed = []) {
