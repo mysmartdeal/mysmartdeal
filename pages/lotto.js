@@ -1,60 +1,78 @@
 
-const ranges = {
-  "1-9": Array.from({ length: 9 }, (_, i) => i + 1),
-  "10-19": Array.from({ length: 10 }, (_, i) => i + 10),
-  "20-29": Array.from({ length: 10 }, (_, i) => i + 20),
-  "30-39": Array.from({ length: 10 }, (_, i) => i + 30),
-  "40-45": Array.from({ length: 6 }, (_, i) => i + 40),
-};
+import Layout from "../components/Layout";
+import { useState } from "react";
+import { generateSmartLottoSet } from "../utils/smartLotto";
 
-const hotNumbers = [33, 34, 37, 40, 12, 45, 13, 14, 18, 27];
-const coldNumbers = Array.from({ length: 45 }, (_, i) => i + 1).filter(n => !hotNumbers.includes(n));
+export default function LottoPage() {
+  const [games, setGames] = useState([]);
+  const [fixed, setFixed] = useState("");
+  const [highlight, setHighlight] = useState([]);
 
-function getRandomElements(array, count, exclude = []) {
-  const filtered = array.filter((n) => !exclude.includes(n));
-  const shuffled = filtered.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
+  const handleGenerate = () => {
+    const fixedNums = fixed
+      .split(",")
+      .map((n) => parseInt(n.trim()))
+      .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
-function generateSmartLottoSet(count = 5, mode = "hot", fixed = []) {
-  const pool = mode === "hot" ? hotNumbers.concat(coldNumbers) : coldNumbers.concat(hotNumbers);
-  const results = [];
-
-  while (results.length < count) {
-    const pick = new Set([...fixed]);
-    const rangeKeys = Object.keys(ranges).sort(() => 0.5 - Math.random());
-
-    for (let i = 0; i < rangeKeys.length && pick.size < 6; i++) {
-      const group = ranges[rangeKeys[i]];
-      const candidates = group.filter((n) => pool.includes(n));
-      const selected = getRandomElements(candidates, 1, [...pick]);
-      if (selected.length) pick.add(selected[0]);
-    }
-
-    for (const n of pool) {
-      if (pick.size < 6) pick.add(n);
-    }
-
-    const sorted = Array.from(pick).sort((a, b) => a - b);
-
-    let has3Sequence = false;
-    for (let i = 0; i < sorted.length - 2; i++) {
-      if (
-        sorted[i + 1] - sorted[i] === 1 &&
-        sorted[i + 2] - sorted[i + 1] === 1
-      ) {
-        has3Sequence = true;
-        break;
-      }
-    }
-
-    if (!has3Sequence) results.push(sorted);
-  }
-
-  return {
-    games: results,
-    highlight: hotNumbers
+    const { games: generated, highlight: hot } = generateSmartLottoSet(5, "hot", fixedNums);
+    setGames(generated);
+    setHighlight(hot);
   };
-}
 
-export { generateSmartLottoSet };
+  const getBallColor = (num) => {
+    if (num <= 9) return "bg-yellow-300";
+    if (num <= 19) return "bg-sky-300";
+    if (num <= 29) return "bg-pink-300";
+    if (num <= 39) return "bg-gray-400";
+    return "bg-green-400";
+  };
+
+  return (
+    <Layout>
+      <div className="container mx-auto py-16 px-4 text-center">
+        <h1 className="text-3xl font-bold mb-4">🎯 전략형 로또 조합 추천</h1>
+        <p className="text-gray-600 mb-6">
+          고정 번호를 입력하면 나머지 번호는 통계 기반으로 자동 생성됩니다.
+        </p>
+
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+          <input
+            type="text"
+            value={fixed}
+            onChange={(e) => setFixed(e.target.value)}
+            placeholder="고정 숫자 (예: 7, 14)"
+            className="border px-4 py-2 rounded w-64"
+          />
+          <button
+            onClick={handleGenerate}
+            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
+            조합 생성
+          </button>
+        </div>
+
+        {games.length > 0 && (
+          <div className="mt-10 space-y-6">
+            {games.map((game, gIdx) => (
+              <div key={gIdx} className="flex justify-center gap-4">
+                {game.map((num, idx) => (
+                  <span
+                    key={idx}
+                    className={
+                      "w-12 h-12 rounded-full " +
+                      getBallColor(num) +
+                      " text-black flex items-center justify-center text-lg font-bold shadow" +
+                      (highlight.includes(num) ? " ring-4 ring-red-400" : "")
+                    }
+                  >
+                    {num}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+}
