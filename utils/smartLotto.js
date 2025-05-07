@@ -1,7 +1,4 @@
 
-import { hotNumbers } from "./lottoStats";
-
-// Define number ranges
 const ranges = {
   "1-9": Array.from({ length: 9 }, (_, i) => i + 1),
   "10-19": Array.from({ length: 10 }, (_, i) => i + 10),
@@ -10,43 +7,48 @@ const ranges = {
   "40-45": Array.from({ length: 6 }, (_, i) => i + 40),
 };
 
-function generateSmartLottoSet(count = 5) {
+const hotNumbers = [33, 34, 37, 40, 12, 45, 13, 14, 18, 27]; // 예시 Hot Top 10
+const coldNumbers = Array.from({ length: 45 }, (_, i) => i + 1).filter(n => !hotNumbers.includes(n));
+
+function generateSmartLottoSet(count = 5, mode = "hot", fixed = []) {
+  const pool = mode === "hot" ? hotNumbers.concat(coldNumbers) : coldNumbers.concat(hotNumbers);
   const results = [];
 
   while (results.length < count) {
-    const pick = new Set();
+    const pick = new Set([...fixed]);
 
-    // 1. 구간 분포 기반으로 각 구간에서 1개씩 시도
     for (const group of Object.values(ranges)) {
-      const filtered = group.filter((n) => hotNumbers.includes(n));
-      if (filtered.length) {
-        pick.add(filtered[Math.floor(Math.random() * filtered.length)]);
+      const candidates = group.filter((n) => pool.includes(n) && !pick.has(n));
+      if (candidates.length) {
+        pick.add(candidates[Math.floor(Math.random() * candidates.length)]);
       }
-      if (pick.size === 6) break;
+      if (pick.size >= 6) break;
     }
 
-    // 2. 부족한 경우 hotNumbers에서 추가
-    for (const n of hotNumbers) {
+    for (const n of pool) {
       if (pick.size < 6) pick.add(n);
     }
 
     const sorted = Array.from(pick).sort((a, b) => a - b);
 
-    // 3. 연속 번호 필터: 3개 이상 연속 제거
-    let hasSequence = false;
+    let has3Sequence = false;
     for (let i = 0; i < sorted.length - 2; i++) {
       if (
         sorted[i + 1] - sorted[i] === 1 &&
         sorted[i + 2] - sorted[i + 1] === 1
       ) {
-        hasSequence = true;
+        has3Sequence = true;
         break;
       }
     }
-    if (!hasSequence) results.push(sorted);
+
+    if (!has3Sequence) results.push(sorted);
   }
 
-  return results;
+  return {
+    games: results,
+    highlight: hotNumbers
+  };
 }
 
 export { generateSmartLottoSet };
