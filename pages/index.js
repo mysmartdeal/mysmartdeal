@@ -1,4 +1,3 @@
-
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 
@@ -27,13 +26,12 @@ export default function Home() {
       {/* 광고 자리 placeholder */}
       <section className="container mx-auto mt-6 px-4 sm:px-6">
         <div className="h-[100px] bg-gray-200 rounded text-center flex items-center justify-center text-gray-500 text-sm sm:text-base">
-          
         </div>
       </section>
 
       {/* 레고 상품 리스트 */}
       <section className="container mx-auto mt-10 px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product, idx) => (
             <a
               key={idx}
