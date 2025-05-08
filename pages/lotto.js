@@ -87,26 +87,10 @@ export default function LottoPage() {
           과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 필터링 조합
         </p>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
-          <input
-            type="text"
-            value={fixed}
-            onChange={(e) => setFixed(e.target.value)}
-            placeholder="고정 숫자 (예: 7, 14)"
-            className="border px-4 py-2 rounded w-64"
-          />
-          <button
-            onClick={handleGenerate}
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
-          >
-            조합 생성
-          </button>
-        </div>
-
         {/* HOT 번호 선택 */}
         <div className="mb-6">
           <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이 나온) 번호</h3>
-          <div className="inline-flex flex-wrap gap-[2px] justify-center mb-4 max-w-[280px] sm:max-w-full mx-auto">
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-[2px] justify-center mb-4 max-w-xs sm:max-w-full mx-auto">
             {hot.map((num) => (
               <button
                 key={num}
@@ -124,7 +108,7 @@ export default function LottoPage() {
         {/* COLD 번호 제외 */}
         <div className="mb-6">
           <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
-          <div className="inline-flex flex-wrap gap-[2px] justify-center mb-4 max-w-[280px] sm:max-w-full mx-auto">
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-[2px] justify-center mb-4 max-w-xs sm:max-w-full mx-auto">
             {cold.map((num) => (
               <button
                 key={num}
@@ -137,6 +121,23 @@ export default function LottoPage() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* 조합 생성 입력/버튼 */}
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+          <input
+            type="text"
+            value={fixed}
+            onChange={(e) => setFixed(e.target.value)}
+            placeholder="고정 숫자 (예: 7, 14)"
+            className="border px-4 py-2 rounded w-64 mx-auto"
+          />
+          <button
+            onClick={handleGenerate}
+            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto"
+          >
+            조합 생성
+          </button>
         </div>
 
         {generatedAt && (
