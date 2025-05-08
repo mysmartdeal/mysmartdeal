@@ -52,31 +52,24 @@ export default function LottoPage() {
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
-    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
-    const coldPool = selectedCold.length > 0 ? selectedCold : cold;
-
     const generated = [];
 
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // HOT에서 무조건 1~2개 포함
-      const hotCopy = [...hotPool];
-      while (pick.size < fixedNums.length + 2 && hotCopy.length > 0) {
-        const n = hotCopy.splice(Math.floor(Math.random() * hotCopy.length), 1)[0];
-        if (!pick.has(n)) pick.add(n);
-      }
+      // HOT 선택한 번호 무조건 포함
+      selectedHot.forEach((n) => {
+        if (pick.size < 6) pick.add(n);
+      });
 
-      // COLD에서 무조건 1개 포함
-      const coldCopy = [...coldPool];
-      while (pick.size < fixedNums.length + 3 && coldCopy.length > 0) {
-        const n = coldCopy.splice(Math.floor(Math.random() * coldCopy.length), 1)[0];
-        if (!pick.has(n)) pick.add(n);
-      }
+      // COLD 선택한 번호 무조건 포함
+      selectedCold.forEach((n) => {
+        if (pick.size < 6) pick.add(n);
+      });
 
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
-        if (!pick.has(n)) pick.add(n);
+        pick.add(n);
       }
 
       generated.push([...pick].sort((a, b) => a - b));
