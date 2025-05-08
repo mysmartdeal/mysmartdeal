@@ -95,17 +95,16 @@ export default function LottoPage() {
           </div>
         )}
 
-        {/* 원본 크기 이미지 미리보기 */}
+        {/* 자동 이미지 미리보기 - 모바일 최적화 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
           <div className="flex flex-col items-center gap-6">
             {gallery.map((file, idx) => (
-              <div key={idx} className="w-full overflow-auto flex justify-center">
+              <div key={idx} className="w-full flex justify-center">
                 <img
                   src={`/lotto-shots/${file}`}
                   alt={file}
-                  className="object-none"
-                  style={{ maxWidth: "100%", height: "auto" }}
+                  className="object-contain w-full max-w-[700px] max-h-[500px] h-auto rounded shadow"
                 />
               </div>
             ))}
