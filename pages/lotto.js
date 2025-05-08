@@ -1,10 +1,15 @@
+// pages/lotto.js
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { getHotColdNumbers } from "../utils/statistics";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
-  const [fixed, setFixed] = useState(""); // 형이 고정할 숫자 입력
+  const [fixed, setFixed] = useState("");
+  const [selectedHot, setSelectedHot] = useState([]);
+  const [excludedCold, setExcludedCold] = useState([]);
+  const [hot, setHot] = useState([]);
+  const [cold, setCold] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
 
@@ -12,7 +17,24 @@ export default function LottoPage() {
     fetch("/api/lotto-images")
       .then((res) => res.json())
       .then((data) => setGallery(data.images || []));
+
+    getHotColdNumbers().then(({ hot, cold }) => {
+      setHot(hot);
+      setCold(cold);
+    });
   }, []);
+
+  const toggleHotSelect = (num) => {
+    setSelectedHot((prev) =>
+      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
+    );
+  };
+
+  const toggleColdExclude = (num) => {
+    setExcludedCold((prev) =>
+      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
+    );
+  };
 
   const getBallColor = (num) => {
     if (num <= 9) return "bg-yellow-300";
@@ -23,34 +45,34 @@ export default function LottoPage() {
   };
 
   const handleGenerate = async () => {
-    const { hot, cold } = await getHotColdNumbers();
-
     const fixedNums = fixed
       .split(",")
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
+    const filteredCold = cold.filter((n) => !excludedCold.includes(n));
     const generated = [];
 
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // Hot 번호 2개
-      while (pick.size < fixedNums.length + 2) {
-        const n = hot[Math.floor(Math.random() * hot.length)];
-        if (!pick.has(n)) pick.add(n);
+      // Hot 번호 중 선택된 번호 랜덤 1~2개
+      const hotCopy = [...selectedHot];
+      while (pick.size < fixedNums.length + 2 && hotCopy.length > 0) {
+        const index = Math.floor(Math.random() * hotCopy.length);
+        pick.add(hotCopy.splice(index, 1)[0]);
       }
 
-      // Cold 번호 1개
-      while (pick.size < fixedNums.length + 3) {
-        const n = cold[Math.floor(Math.random() * cold.length)];
-        if (!pick.has(n)) pick.add(n);
+      // Cold 번호 중 1개
+      while (pick.size < fixedNums.length + 3 && filteredCold.length > 0) {
+        const n = filteredCold[Math.floor(Math.random() * filteredCold.length)];
+        pick.add(n);
       }
 
-      // 나머지 랜덤으로 채움 (최대 6개까지)
+      // 나머지 랜덤
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
-        if (!pick.has(n)) pick.add(n);
+        pick.add(n);
       }
 
       generated.push([...pick].sort((a, b) => a - b));
@@ -62,13 +84,11 @@ export default function LottoPage() {
 
   return (
     <Layout>
-      <div className="container mx-auto py-16 px-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">🔥통계를 이용한 무료 로또 조합기🔥</h1>
-        <p className="text-gray-600 mb-6">
-          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 필터링 조합
-        </p>
+      <div className="container mx-auto py-10 px-4 text-center">
+        <h1 className="text-3xl font-bold mb-4">🎯 전략적 조합 생성기</h1>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+        {/* 고정 숫자 입력 */}
+        <div className="mb-4">
           <input
             type="text"
             value={fixed}
@@ -76,32 +96,69 @@ export default function LottoPage() {
             placeholder="고정 숫자 (예: 7, 14)"
             className="border px-4 py-2 rounded w-64"
           />
-          <button
-            onClick={handleGenerate}
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
-          >
-            조합 생성
-          </button>
         </div>
 
-        {generatedAt && (
-          <div className="text-sm text-gray-500 mb-4">
-            생성 일시: {generatedAt}
+        {/* HOT 번호 선택 */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-2">🔥 포함할 HOT 번호</h3>
+          <div className="flex flex-wrap justify-center gap-2">
+            {hot.map((num) => (
+              <button
+                key={num}
+                onClick={() => toggleHotSelect(num)}
+                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                  selectedHot.includes(num)
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
           </div>
+        </div>
+
+        {/* COLD 번호 제외 */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
+          <div className="flex flex-wrap justify-center gap-2">
+            {cold.map((num) => (
+              <button
+                key={num}
+                onClick={() => toggleColdExclude(num)}
+                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                  excludedCold.includes(num)
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={handleGenerate}
+          className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mb-4"
+        >
+          조합 생성
+        </button>
+
+        {generatedAt && (
+          <div className="text-sm text-gray-500 mb-6">생성 일시: {generatedAt}</div>
         )}
 
         {games.length > 0 && (
-          <div className="mt-10 space-y-6">
+          <div className="space-y-6">
             {games.map((game, gIdx) => (
               <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
                 {game.map((num, idx) => (
                   <span
                     key={idx}
-                    className={
-                      "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full " +
-                      getBallColor(num) +
-                      " text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow"
-                    }
+                    className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+                      num
+                    )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
                   >
                     {num}
                   </span>
@@ -110,22 +167,6 @@ export default function LottoPage() {
             ))}
           </div>
         )}
-
-        {/* 반응형 이미지 미리보기 */}
-        <div className="mt-20 text-left max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
-          <div className="flex flex-col items-center gap-6">
-            {gallery.map((file, idx) => (
-              <div key={idx} className="w-full flex justify-center">
-                <img
-                  src={`/lotto-shots/${file}`}
-                  alt={file}
-                  className="object-contain w-full max-w-[700px] sm:max-w-[900px] lg:max-w-[1200px] max-h-[600px] h-auto rounded shadow"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </Layout>
   );
