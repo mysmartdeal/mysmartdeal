@@ -9,7 +9,7 @@ export default function LottoPage() {
   const [hot, setHot] = useState([]);
   const [cold, setCold] = useState([]);
   const [selectedHot, setSelectedHot] = useState([]);
-  const [excludedCold, setExcludedCold] = useState([]);
+  const [selectedCold, setSelectedCold] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
 
@@ -30,8 +30,8 @@ export default function LottoPage() {
     );
   };
 
-  const toggleColdExclude = (num) => {
-    setExcludedCold((prev) =>
+  const toggleColdSelect = (num) => {
+    setSelectedCold((prev) =>
       prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
     );
   };
@@ -47,26 +47,30 @@ export default function LottoPage() {
   const handleGenerate = async () => {
     const { hot, cold } = await getHotColdNumbers();
 
-    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
-    const coldPool = cold.filter((n) => !excludedCold.includes(n));
-
     const fixedNums = fixed
       .split(",")
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
+
+    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
+    const coldPool = selectedCold.length > 0 ? selectedCold : cold;
 
     const generated = [];
 
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      while (pick.size < fixedNums.length + 2 && hotPool.length > 0) {
-        const n = hotPool[Math.floor(Math.random() * hotPool.length)];
+      // HOT에서 무조건 1~2개 포함
+      const hotCopy = [...hotPool];
+      while (pick.size < fixedNums.length + 2 && hotCopy.length > 0) {
+        const n = hotCopy.splice(Math.floor(Math.random() * hotCopy.length), 1)[0];
         if (!pick.has(n)) pick.add(n);
       }
 
-      while (pick.size < fixedNums.length + 3 && coldPool.length > 0) {
-        const n = coldPool[Math.floor(Math.random() * coldPool.length)];
+      // COLD에서 무조건 1개 포함
+      const coldCopy = [...coldPool];
+      while (pick.size < fixedNums.length + 3 && coldCopy.length > 0) {
+        const n = coldCopy.splice(Math.floor(Math.random() * coldCopy.length), 1)[0];
         if (!pick.has(n)) pick.add(n);
       }
 
@@ -108,16 +112,16 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* COLD 번호 제외 */}
+        {/* COLD 번호 선택 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
+          <h3 className="font-semibold mb-2">❄️ 포함할 상위 10개 COLD(적게 나온) 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
             {cold.map((num) => (
               <button
                 key={num}
-                onClick={() => toggleColdExclude(num)}
+                onClick={() => toggleColdSelect(num)}
                 className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
-                  excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
+                  selectedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
               >
                 {num}
