@@ -30,23 +30,23 @@ export default function Home() {
       </section>
 
       {/* 레고 상품 리스트 */}
-      <section className="container mx-auto mt-10 px-4 sm:px-6">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="container mx-auto mt-10 px-2 sm:px-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {products.map((product, idx) => (
             <a
               key={idx}
               href={product.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white p-4 rounded shadow hover:shadow-lg transition text-center"
+              className="bg-white p-2 rounded shadow hover:shadow-lg transition text-center"
             >
               <img
                 src={product.image_url}
                 alt={product.title}
-                className="h-40 mx-auto object-contain mb-2"
+                className="h-32 mx-auto object-contain mb-2"
               />
-              <h3 className="text-base font-semibold">{product.title}</h3>
-              <p className="text-blue-600 font-bold mt-2 text-sm">{product.price}</p>
+              <h3 className="text-sm font-semibold line-clamp-2">{product.title}</h3>
+              <p className="text-blue-600 font-bold mt-1 text-xs">{product.price}</p>
             </a>
           ))}
         </div>
