@@ -97,7 +97,7 @@ export default function LottoPage() {
 
         {/* 자동 이미지 미리보기 */}
         <div className="mt-20 text-left max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4">📸 최근 당첨 결과</h2>
+          <h2 className="text-2xl font-bold mb-4">최근 당첨 결과</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {gallery.map((file, idx) => (
               <div key={idx} className="bg-white rounded shadow p-2">
