@@ -1,4 +1,3 @@
-
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { generateSmartLottoSet } from "../utils/smartLotto";
@@ -6,7 +5,6 @@ import { generateSmartLottoSet } from "../utils/smartLotto";
 export default function LottoPage() {
   const [games, setGames] = useState([]);
   const [fixed, setFixed] = useState("");
-  const [highlight, setHighlight] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
 
@@ -29,9 +27,8 @@ export default function LottoPage() {
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
-    const { games: generated, highlight: hot } = generateSmartLottoSet(5, "random", fixedNums);
+    const { games: generated } = generateSmartLottoSet(5, "random", fixedNums);
     setGames(generated);
-    setHighlight(hot);
     setGeneratedAt(new Date().toLocaleString("ko-KR"));
   };
 
@@ -83,8 +80,7 @@ export default function LottoPage() {
                     className={
                       "w-12 h-12 rounded-full " +
                       getBallColor(num) +
-                      " text-black flex items-center justify-center text-lg font-bold shadow" +
-                      (highlight.includes(num) ? " ring-4 ring-red-400" : "")
+                      " text-black flex items-center justify-center text-lg font-bold shadow"
                     }
                   >
                     {num}
