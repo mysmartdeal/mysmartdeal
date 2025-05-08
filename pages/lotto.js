@@ -4,6 +4,7 @@ import { getHotColdNumbers } from "../utils/statistics";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
+  const [fixed, setFixed] = useState(""); // 형이 고정할 숫자 입력
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
 
@@ -24,25 +25,32 @@ export default function LottoPage() {
   const handleGenerate = async () => {
     const { hot, cold } = await getHotColdNumbers();
 
+    const fixedNums = fixed
+      .split(",")
+      .map((n) => parseInt(n.trim()))
+      .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
+
     const generated = [];
 
     for (let i = 0; i < 5; i++) {
-      const pick = new Set();
+      const pick = new Set(fixedNums);
 
       // Hot 번호 2개
-      while (pick.size < 2) {
-        pick.add(hot[Math.floor(Math.random() * hot.length)]);
+      while (pick.size < fixedNums.length + 2) {
+        const n = hot[Math.floor(Math.random() * hot.length)];
+        if (!pick.has(n)) pick.add(n);
       }
 
       // Cold 번호 1개
-      while (pick.size < 3) {
-        pick.add(cold[Math.floor(Math.random() * cold.length)]);
+      while (pick.size < fixedNums.length + 3) {
+        const n = cold[Math.floor(Math.random() * cold.length)];
+        if (!pick.has(n)) pick.add(n);
       }
 
-      // 나머지 랜덤
+      // 나머지 랜덤으로 채움 (최대 6개까지)
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
-        pick.add(n);
+        if (!pick.has(n)) pick.add(n);
       }
 
       generated.push([...pick].sort((a, b) => a - b));
@@ -55,26 +63,35 @@ export default function LottoPage() {
   return (
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">🔥 Hot/Cold 기반 조합 추천</h1>
+        <h1 className="text-3xl font-bold mb-4">🔥 Hot/Cold + 고정 숫자 기반 조합 추천</h1>
         <p className="text-gray-600 mb-6">
-          과거 당첨번호를 분석해 자주 나온 번호와 안 나온 번호를 포함한 전략적 조합을 생성합니다.
+          고정 숫자 입력 + 자주 나온 번호(HOT) + 거의 안 나온 번호(COLD)를 활용한 전략 조합
         </p>
 
-        <button
-          onClick={handleGenerate}
-          className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mb-4"
-        >
-          조합 생성
-        </button>
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+          <input
+            type="text"
+            value={fixed}
+            onChange={(e) => setFixed(e.target.value)}
+            placeholder="고정 숫자 (예: 7, 14)"
+            className="border px-4 py-2 rounded w-64"
+          />
+          <button
+            onClick={handleGenerate}
+            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
+            조합 생성
+          </button>
+        </div>
 
         {generatedAt && (
-          <div className="text-sm text-gray-500 mb-6">
+          <div className="text-sm text-gray-500 mb-4">
             생성 일시: {generatedAt}
           </div>
         )}
 
         {games.length > 0 && (
-          <div className="mt-6 space-y-6">
+          <div className="mt-10 space-y-6">
             {games.map((game, gIdx) => (
               <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
                 {game.map((num, idx) => (
@@ -94,7 +111,7 @@ export default function LottoPage() {
           </div>
         )}
 
-        {/* 이미지 갤러리 */}
+        {/* 반응형 이미지 미리보기 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
           <div className="flex flex-col items-center gap-6">
