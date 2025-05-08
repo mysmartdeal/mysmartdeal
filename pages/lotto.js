@@ -96,12 +96,12 @@ export default function LottoPage() {
 
         <div className="mb-6">
           <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이) 번호</h3>
-          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 justify-center mb-4">
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-1 justify-center mb-2">
             {hot.map((num) => (
               <button
                 key={num}
                 onClick={() => toggleHotSelect(num)}
-                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
                   selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
                 }`}
               >
@@ -113,12 +113,12 @@ export default function LottoPage() {
 
         <div className="mb-6">
           <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게) 번호</h3>
-          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 justify-center mb-4">
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-1 justify-center mb-2">
             {cold.map((num) => (
               <button
                 key={num}
                 onClick={() => toggleColdExclude(num)}
-                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
                   excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
               >
