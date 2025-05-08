@@ -52,18 +52,21 @@ export default function LottoPage() {
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
+    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
+    const coldPool = cold.filter((n) => !excludedCold.includes(n));
+
     const generated = [];
 
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      while (pick.size < fixedNums.length + 2) {
-        const n = hot[Math.floor(Math.random() * hot.length)];
+      while (pick.size < fixedNums.length + 2 && hotPool.length > 0) {
+        const n = hotPool[Math.floor(Math.random() * hotPool.length)];
         if (!pick.has(n)) pick.add(n);
       }
 
-      while (pick.size < fixedNums.length + 3) {
-        const n = cold[Math.floor(Math.random() * cold.length)];
+      while (pick.size < fixedNums.length + 3 && coldPool.length > 0) {
+        const n = coldPool[Math.floor(Math.random() * coldPool.length)];
         if (!pick.has(n)) pick.add(n);
       }
 
