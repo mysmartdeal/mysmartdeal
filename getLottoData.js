@@ -16,7 +16,7 @@ const cheerio = require("cheerio");
     const $ = cheerio.load(html);
 
     const round = $(".win_result h4 strong").first().text().replace(/[^0-9]/g, "");
-    const date = $(".win_result p").text().trim().split("
+    const date = $(".win_result p").text().trim().split("\\n")[0].replace(/[()]/g, "").trim();
 ")[0].replace(/[()]/g, "").trim();
     const balls = [];
     $(".num.win span").each((_, el) => {
