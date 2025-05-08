@@ -124,17 +124,17 @@ export default function LottoPage() {
         </div>
 
         {/* 조합 생성 입력/버튼 */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+        <div className="mb-6">
           <input
             type="text"
             value={fixed}
             onChange={(e) => setFixed(e.target.value)}
             placeholder="고정 숫자 (예: 7, 14)"
-            className="border px-4 py-2 rounded w-64 mx-auto"
+            className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
           />
           <button
             onClick={handleGenerate}
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto"
+            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
           >
             조합 생성
           </button>
