@@ -100,7 +100,7 @@ export default function LottoPage() {
 
         {/* HOT 번호 선택 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 포함할 HOT(자주 나온) 번호</h3>
+          <h3 className="font-semibold mb-2">🔥 포함할 HOT(자주 나온) 상위 10개 번호</h3>
           <div className="flex flex-wrap justify-center gap-2">
             {hot.map((num) => (
               <button
