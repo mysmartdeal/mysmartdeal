@@ -55,7 +55,7 @@ export default function Home() {
       {/* 제휴 링크 카드 섹션 */}
       <section id="cards" className="container mx-auto mt-16 px-4 sm:px-6">
         <h2 className="text-2xl font-bold mb-6 text-center">쇼핑몰 레고 할인 모음</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cards.map((item, idx) => (
             <a
               key={idx}
@@ -65,11 +65,11 @@ export default function Home() {
               onClick={() => handleClick(item.url)}
               className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition text-center"
             >
-              <div className="w-full h-[260px] bg-white flex items-center justify-center">
+              <div className="w-full h-[200px] sm:h-[240px] bg-white flex items-center justify-center">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="h-full max-h-[240px] object-contain"
+                  className="h-full max-h-[200px] sm:max-h-[240px] object-contain"
                   loading="lazy"
                 />
               </div>
