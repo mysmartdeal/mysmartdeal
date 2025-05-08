@@ -97,7 +97,7 @@ export default function LottoPage() {
 
         {/* 원본 크기 이미지 미리보기 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-center">📸 최근 조합 스크린샷</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">📸 최근 당첨 결과</h2>
           <div className="flex flex-col items-center gap-6">
             {gallery.map((file, idx) => (
               <div key={idx} className="w-full overflow-auto flex justify-center">
