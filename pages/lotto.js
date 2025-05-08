@@ -57,19 +57,16 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // Hot 번호 2개
       while (pick.size < fixedNums.length + 2) {
         const n = hot[Math.floor(Math.random() * hot.length)];
         if (!pick.has(n)) pick.add(n);
       }
 
-      // Cold 번호 1개
       while (pick.size < fixedNums.length + 3) {
         const n = cold[Math.floor(Math.random() * cold.length)];
         if (!pick.has(n)) pick.add(n);
       }
 
-      // 나머지 랜덤으로 채움 (최대 6개까지)
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         if (!pick.has(n)) pick.add(n);
@@ -108,26 +105,8 @@ export default function LottoPage() {
 
         {/* HOT 번호 선택 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많) 번호</h3>
-          <div className="grid grid-cols-5 sm:grid-cols-10 gap-[3px] justify-center mb-2">
-            {hot.map((num) => (
-              <button
-                key={num}
-                onClick={() => toggleHotSelect(num)}
-                className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
-                  selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* COLD 번호 제외 */}
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게) 번호</h3>
-          <div className="grid grid-cols-5 sm:grid-cols-10 gap-[3px] justify-center mb-2">
+          <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이 나온) 번호</h온) 번호</h3>
+          <div className="inline-flex flex-wrap gap-[2px] justify-center mb-4 max-w-[280px] sm:max-w-full mx-auto">
             {cold.map((num) => (
               <button
                 key={num}
