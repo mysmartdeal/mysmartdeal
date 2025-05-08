@@ -56,20 +56,17 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // Hot 번호 중 선택된 번호 랜덤 1~2개
       const hotCopy = [...selectedHot];
       while (pick.size < fixedNums.length + 2 && hotCopy.length > 0) {
         const index = Math.floor(Math.random() * hotCopy.length);
         pick.add(hotCopy.splice(index, 1)[0]);
       }
 
-      // Cold 번호 중 1개
       while (pick.size < fixedNums.length + 3 && filteredCold.length > 0) {
         const n = filteredCold[Math.floor(Math.random() * filteredCold.length)];
         pick.add(n);
       }
 
-      // 나머지 랜덤
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         pick.add(n);
@@ -87,7 +84,6 @@ export default function LottoPage() {
       <div className="container mx-auto py-10 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🎯 전략적 조합 생성기</h1>
 
-        {/* 고정 숫자 입력 */}
         <div className="mb-4">
           <input
             type="text"
@@ -98,9 +94,8 @@ export default function LottoPage() {
           />
         </div>
 
-        {/* HOT 번호 선택 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 포함할 HOT(자주 나온) 상위 10개 번호</h3>
+          <h3 className="font-semibold mb-2">🔥 포함할 HOT 번호</h3>
           <div className="flex flex-wrap justify-center gap-2">
             {hot.map((num) => (
               <button
@@ -118,9 +113,8 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* COLD 번호 제외 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 COLD(자주 안나온) 번호</h3>
+          <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
           <div className="flex flex-wrap justify-center gap-2">
             {cold.map((num) => (
               <button
@@ -167,7 +161,23 @@ export default function LottoPage() {
             ))}
           </div>
         )}
+
+        {/* 복원된 이미지 갤러리 */}
+        <div className="mt-20 text-left max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
+          <div className="flex flex-col items-center gap-6">
+            {gallery.map((file, idx) => (
+              <div key={idx} className="w-full flex justify-center">
+                <img
+                  src={`/lotto-shots/${file}`}
+                  alt={file}
+                  className="object-contain w-full max-w-[700px] sm:max-w-[900px] lg:max-w-[1200px] max-h-[600px] h-auto rounded shadow"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );
-}
+} 
