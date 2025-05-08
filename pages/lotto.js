@@ -65,7 +65,7 @@ export default function LottoPage() {
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🔥 Hot/Cold + 고정 숫자 기반 조합 추천</h1>
         <p className="text-gray-600 mb-6">
-          고정 숫자 입력 + 자주 나온 번호(HOT) + 거의 안 나온 번호(COLD)를 활용한 전략 조합
+          과거 당첨번호를 분석해 자주 나온 번호 + 거의 안 나온 번호를 활용한 전략 조합
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
