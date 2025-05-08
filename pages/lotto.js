@@ -79,18 +79,10 @@ export default function LottoPage() {
     setGeneratedAt(new Date().toLocaleString("ko-KR"));
   };
 
-  const chunkArray = (array, size) => {
-    const result = [];
-    for (let i = 0; i < array.length; i += size) {
-      result.push(array.slice(i, i + size));
-    }
-    return result;
-  };
-
   return (
     <Layout>
       <div className="container mx-auto py-10 px-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">🎯 전략적 조합 생성기</h1>
+        <h1 className="text-3xl font-bold mb-4">🎯 통계를 이용한 전략적 로또 조합 생성기</h1>
 
         <div className="mb-4">
           <input
@@ -103,45 +95,37 @@ export default function LottoPage() {
         </div>
 
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(자주 나온) 번호</h3>
-          {chunkArray(hot, 5).map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-2 mb-2">
-              {row.map((num) => (
-                <button
-                  key={num}
-                  onClick={() => toggleHotSelect(num)}
-                  className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
-                    selectedHot.includes(num)
-                      ? "bg-red-500 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
-          ))}
+          <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이) 번호</h3>
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 justify-center mb-4">
+            {hot.map((num) => (
+              <button
+                key={num}
+                onClick={() => toggleHotSelect(num)}
+                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                  selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(자주 안나온) 번호</h3>
-          {chunkArray(cold, 5).map((row, rowIndex) => (
-            <div key={rowIndex} className="flex justify-center gap-2 mb-2">
-              {row.map((num) => (
-                <button
-                  key={num}
-                  onClick={() => toggleColdExclude(num)}
-                  className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
-                    excludedCold.includes(num)
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  {num}
-                </button>
-              ))}
-            </div>
-          ))}
+          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게) 번호</h3>
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 justify-center mb-4">
+            {cold.map((num) => (
+              <button
+                key={num}
+                onClick={() => toggleColdExclude(num)}
+                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                  excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
         </div>
 
         <button
