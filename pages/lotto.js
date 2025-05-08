@@ -47,13 +47,13 @@ export default function LottoPage() {
   const handleGenerate = async () => {
     const { hot, cold } = await getHotColdNumbers();
 
+    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
+    const coldPool = cold.filter((n) => !excludedCold.includes(n));
+
     const fixedNums = fixed
       .split(",")
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
-
-    const hotPool = selectedHot.length > 0 ? selectedHot : hot;
-    const coldPool = cold.filter((n) => !excludedCold.includes(n));
 
     const generated = [];
 
