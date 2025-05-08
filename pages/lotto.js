@@ -8,15 +8,19 @@ export default function LottoPage() {
   const [fixed, setFixed] = useState("");
   const [highlight, setHighlight] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
-  const [latest, setLatest] = useState(null);
+  const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
     fetch("/lotto_history.json")
       .then((res) => res.json())
       .then((data) => {
         const recent = data[data.length - 1];
-        setLatest(recent);
+        setGeneratedAt(recent.date);
       });
+
+    fetch("/api/lotto-images")
+      .then((res) => res.json())
+      .then((data) => setGallery(data.images || []));
   }, []);
 
   const handleGenerate = () => {
@@ -46,13 +50,6 @@ export default function LottoPage() {
         <p className="text-gray-600 mb-6">
           고정 숫자를 입력하면 나머지는 1~45 중 무작위로 조합됩니다.
         </p>
-
-        {latest && (
-          <div className="bg-white border rounded-lg shadow p-4 mb-6 text-sm sm:text-base max-w-xl mx-auto">
-            <strong>최근 1등 번호 ({latest.round}회차 | {latest.date}):</strong><br />
-            {latest.numbers.join(", ")} + [보너스: {latest.bonus}]
-          </div>
-        )}
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-6">
           <input
@@ -97,6 +94,19 @@ export default function LottoPage() {
             ))}
           </div>
         )}
+
+        {/* 자동 이미지 미리보기 */}
+        <div className="mt-20 text-left max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold mb-4">📸 최근 조합 스크린샷</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {gallery.map((file, idx) => (
+              <div key={idx} className="bg-white rounded shadow p-2">
+                <img src={`/lotto-shots/${file}`} alt={file} className="w-full object-contain" />
+                <p className="mt-2 text-center text-sm text-gray-500">{file}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );
