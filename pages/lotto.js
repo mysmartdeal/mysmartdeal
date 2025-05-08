@@ -79,6 +79,14 @@ export default function LottoPage() {
     setGeneratedAt(new Date().toLocaleString("ko-KR"));
   };
 
+  const chunkArray = (array, size) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
+
   return (
     <Layout>
       <div className="container mx-auto py-10 px-4 text-center">
@@ -96,40 +104,44 @@ export default function LottoPage() {
 
         <div className="mb-6">
           <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(자주 나온) 번호</h3>
-          <div className="flex flex-wrap justify-center gap-2">
-            {hot.map((num) => (
-              <button
-                key={num}
-                onClick={() => toggleHotSelect(num)}
-                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
-                  selectedHot.includes(num)
-                    ? "bg-red-500 text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
+          {chunkArray(hot, 5).map((row, rowIndex) => (
+            <div key={rowIndex} className="flex justify-center gap-2 mb-2">
+              {row.map((num) => (
+                <button
+                  key={num}
+                  onClick={() => toggleHotSelect(num)}
+                  className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                    selectedHot.includes(num)
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
 
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 COLD(자주 안나온) 번호</h3>
-          <div className="flex flex-wrap justify-center gap-2">
-            {cold.map((num) => (
-              <button
-                key={num}
-                onClick={() => toggleColdExclude(num)}
-                className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
-                  excludedCold.includes(num)
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
+          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(자주 안나온) 번호</h3>
+          {chunkArray(cold, 5).map((row, rowIndex) => (
+            <div key={rowIndex} className="flex justify-center gap-2 mb-2">
+              {row.map((num) => (
+                <button
+                  key={num}
+                  onClick={() => toggleColdExclude(num)}
+                  className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center ${
+                    excludedCold.includes(num)
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
 
         <button
@@ -162,7 +174,6 @@ export default function LottoPage() {
           </div>
         )}
 
-        {/* 복원된 이미지 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
           <div className="flex flex-col items-center gap-6">
@@ -180,4 +191,4 @@ export default function LottoPage() {
       </div>
     </Layout>
   );
-} 
+}
