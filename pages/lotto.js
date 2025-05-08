@@ -73,14 +73,14 @@ export default function LottoPage() {
         {games.length > 0 && (
           <div className="mt-10 space-y-6">
             {games.map((game, gIdx) => (
-              <div key={gIdx} className="flex justify-center gap-4">
+              <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
                 {game.map((num, idx) => (
                   <span
                     key={idx}
                     className={
-                      "w-12 h-12 rounded-full " +
+                      "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full " +
                       getBallColor(num) +
-                      " text-black flex items-center justify-center text-lg font-bold shadow"
+                      " text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow"
                     }
                   >
                     {num}
