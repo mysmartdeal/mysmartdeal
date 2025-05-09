@@ -9,7 +9,7 @@ export default function LottoPage() {
   const [hot, setHot] = useState([]);
   const [cold, setCold] = useState([]);
   const [selectedHot, setSelectedHot] = useState([]);
-  const [selectedCold, setSelectedCold] = useState([]);
+  const [excludedCold, setExcludedCold] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
 
@@ -30,8 +30,8 @@ export default function LottoPage() {
     );
   };
 
-  const toggleColdSelect = (num) => {
-    setSelectedCold((prev) =>
+  const toggleColdExclude = (num) => {
+    setExcludedCold((prev) =>
       prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
     );
   };
@@ -57,19 +57,17 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // HOT 선택한 번호 무조건 포함
+      // HOT 선택된 번호 무조건 포함
       selectedHot.forEach((n) => {
         if (pick.size < 6) pick.add(n);
       });
 
-      // COLD 선택한 번호 무조건 포함
-      selectedCold.forEach((n) => {
-        if (pick.size < 6) pick.add(n);
-      });
-
+      // 랜덤 추가 (COLD는 제외된 번호만 걸러서 사용)
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
-        pick.add(n);
+        if (!pick.has(n) && !excludedCold.includes(n)) {
+          pick.add(n);
+        }
       }
 
       generated.push([...pick].sort((a, b) => a - b));
@@ -105,16 +103,16 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* COLD 번호 선택 */}
+        {/* COLD 번호 제외 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 포함할 상위 10개 COLD(적게 나온) 번호</h3>
+          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
             {cold.map((num) => (
               <button
                 key={num}
-                onClick={() => toggleColdSelect(num)}
+                onClick={() => toggleColdExclude(num)}
                 className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
-                  selectedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
+                  excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
               >
                 {num}
