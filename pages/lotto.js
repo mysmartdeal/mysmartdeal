@@ -151,29 +151,36 @@ export default function LottoPage() {
         </div>
 
         {/* 결과 출력 + 생성일시 */}
-        {games.length > 0 && (
-          <>
-            <div className="mt-6 space-y-4">
-              {games.map((game, gIdx) => (
-                <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
-                  {game.map((num, idx) => (
-                    <span
-                      key={idx}
-                      className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
-                        num
-                      )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
-                    >
-                      {num}
-                    </span>
-                  ))}
-                </div>
+       {games.length > 0 && (
+  <>
+    <div className="mt-6 space-y-4">
+      {games.map((game, gIdx) => {
+        const score = evaluateScore(game, hot, cold);
+        return (
+          <div key={gIdx} className="flex flex-col items-center gap-1">
+            <div className="flex justify-center gap-2 sm:gap-4">
+              {game.map((num, idx) => (
+                <span
+                  key={idx}
+                  className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+                    num
+                  )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
+                >
+                  {num}
+                </span>
               ))}
             </div>
-            <div className="text-sm text-gray-500 mt-6 mb-6">
-              생성 일시: {generatedAt}
-            </div>
-          </>
-        )}
+            <div className="text-xs text-gray-600">🎯 전략 점수: {score}점</div>
+          </div>
+        );
+      })}
+    </div>
+    <div className="text-sm text-gray-500 mt-6 mb-6">
+      생성 일시: {generatedAt}
+    </div>
+  </>
+)}
+
 
         {/* 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
