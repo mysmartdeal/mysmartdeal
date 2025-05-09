@@ -174,7 +174,17 @@ export default function LottoPage() {
             </div>
           </>
         )}
-
+{generatedAt && (
+  <>
+    <div className="text-sm text-gray-500 mt-6 mb-1">
+      생성 일시: {generatedAt}
+    </div>
+    <div className="text-xs text-gray-400">
+      ※ 이 조합은 통계 기반 추천일 뿐, 당첨을 보장하지 않습니다.<br />
+      모든 로또는 결국 확률과 운의 게임입니다.
+    </div>
+  </>
+)}
         {/* 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
