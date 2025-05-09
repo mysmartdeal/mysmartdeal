@@ -11,6 +11,7 @@ export default function LottoPage() {
   const [selectedHot, setSelectedHot] = useState([]);
   const [excludedCold, setExcludedCold] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
+  const [nextRound, setNextRound] = useState(null);
   const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
@@ -22,6 +23,13 @@ export default function LottoPage() {
       setHot(hot);
       setCold(cold);
     });
+
+    fetch("/lotto_history.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const last = data[data.length - 1];
+        setNextRound(last.round + 1);
+      });
   }, []);
 
   const toggleHotSelect = (num) => {
@@ -57,12 +65,10 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // HOT 선택된 번호 무조건 포함
       selectedHot.forEach((n) => {
         if (pick.size < 6) pick.add(n);
       });
 
-      // 랜덤 추가 (COLD는 제외된 번호만 걸러서 사용)
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         if (!pick.has(n) && !excludedCold.includes(n)) {
@@ -139,9 +145,16 @@ export default function LottoPage() {
         </div>
 
         {generatedAt && (
-          <div className="text-sm text-gray-500 mb-4">
-            생성 일시: {generatedAt}
-          </div>
+          <>
+            <div className="text-sm text-gray-500 mb-2">
+              생성 일시: {generatedAt}
+            </div>
+            {nextRound && (
+              <div className="text-sm text-gray-500 mb-4">
+                진행 중인 회차: {nextRound}회
+              </div>
+            )}
+          </>
         )}
 
         {games.length > 0 && (
