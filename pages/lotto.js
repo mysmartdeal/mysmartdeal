@@ -88,9 +88,9 @@ export default function LottoPage() {
       <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
   <span role="img" aria-label="fire">🔥</span> 통계 기반 무료 로또 조합기 <span role="img" aria-label="fire">🔥</span>
 </h1>
-        <p className="text-gray-600 mb-6">
-          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략 조합
-        </p>
+        <p className="text-gray-600 mb-6 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight sm:tracking-normal">
+  과거 당첨 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 조합기
+</p>
 
         {/* HOT 번호 선택 */}
         <div className="mb-6">
