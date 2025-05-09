@@ -142,7 +142,7 @@ export default function LottoPage() {
             조합 생성
           </button>
           {nextRound && (
-            <div className="text-base text-blue-600 font-semibold mt-2">
+            <div className="text-base text-blue-600 font-semibold mt-2 mb-1">
               진행 중인 회차: {nextRound}회
             </div>
           )}
@@ -151,7 +151,7 @@ export default function LottoPage() {
         {/* 결과 출력 + 생성일시 */}
         {games.length > 0 && (
           <>
-            <div className="mt-10 space-y-6">
+            <div className="mt-6 space-y-4">
               {games.map((game, gIdx) => (
                 <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
                   {game.map((num, idx) => (
@@ -167,7 +167,7 @@ export default function LottoPage() {
                 </div>
               ))}
             </div>
-            <div className="text-sm text-gray-500 mt-4 mb-6">
+            <div className="text-sm text-gray-500 mt-2 mb-6">
               생성 일시: {generatedAt}
             </div>
           </>
