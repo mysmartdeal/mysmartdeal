@@ -1,4 +1,3 @@
-// pages/lotto.js
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { getHotColdNumbers } from "../utils/statistics";
@@ -27,7 +26,7 @@ export default function LottoPage() {
     fetch("/lotto_history.json")
       .then((res) => res.json())
       .then((data) => {
-        const last = data[data.length - 1];
+        const last = data[0]; // 맨 위가 최신
         setNextRound(last.round + 1);
       });
   }, []);
@@ -65,10 +64,12 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
+      // HOT 번호 무조건 포함
       selectedHot.forEach((n) => {
         if (pick.size < 6) pick.add(n);
       });
 
+      // 랜덤 번호 추가, COLD 제외
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         if (!pick.has(n) && !excludedCold.includes(n)) {
@@ -88,7 +89,7 @@ export default function LottoPage() {
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🔥통계를 이용한 무료 로또 조합기🔥</h1>
         <p className="text-gray-600 mb-6">
-          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 필터링 조합
+          과거 데이터 기반 통계를 이용한 전략적 필터링 조합
         </p>
 
         {/* HOT 번호 선택 */}
@@ -127,7 +128,7 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* 조합 생성 입력/버튼 */}
+        {/* 입력 + 생성 버튼 */}
         <div className="mb-6">
           <input
             type="text"
@@ -144,19 +145,21 @@ export default function LottoPage() {
           </button>
         </div>
 
+        {/* 생성 시간 + 회차 정보 */}
         {generatedAt && (
           <>
-            <div className="text-sm text-gray-500 mb-2">
+            <div className="text-sm text-gray-500 mb-1">
               생성 일시: {generatedAt}
             </div>
             {nextRound && (
-              <div className="text-sm text-gray-500 mb-4">
+              <div className="text-base text-blue-600 font-semibold mb-6">
                 진행 중인 회차: {nextRound}회
               </div>
             )}
           </>
         )}
 
+        {/* 결과 출력 */}
         {games.length > 0 && (
           <div className="mt-10 space-y-6">
             {games.map((game, gIdx) => (
@@ -164,11 +167,9 @@ export default function LottoPage() {
                 {game.map((num, idx) => (
                   <span
                     key={idx}
-                    className={
-                      "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full " +
-                      getBallColor(num) +
-                      " text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow"
-                    }
+                    className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+                      num
+                    )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
                   >
                     {num}
                   </span>
@@ -178,7 +179,7 @@ export default function LottoPage() {
           </div>
         )}
 
-        {/* 반응형 이미지 미리보기 */}
+        {/* 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
           <div className="flex flex-col items-center gap-6">
