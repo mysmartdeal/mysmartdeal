@@ -26,7 +26,7 @@ export default function LottoPage() {
     fetch("/lotto_history.json")
       .then((res) => res.json())
       .then((data) => {
-        const last = data[0]; // 맨 위가 최신
+        const last = data[0]; // 맨 위가 최신 회차일 경우
         setNextRound(last.round + 1);
       });
   }, []);
@@ -64,12 +64,10 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // HOT 번호 무조건 포함
       selectedHot.forEach((n) => {
         if (pick.size < 6) pick.add(n);
       });
 
-      // 랜덤 번호 추가, COLD 제외
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         if (!pick.has(n) && !excludedCold.includes(n)) {
@@ -145,38 +143,37 @@ export default function LottoPage() {
           </button>
         </div>
 
-        {/* 생성 시간 + 회차 정보 */}
-        {generatedAt && (
-          <>
-            <div className="text-sm text-gray-500 mb-1">
-              생성 일시: {generatedAt}
-            </div>
-            {nextRound && (
-              <div className="text-base text-blue-600 font-semibold mb-6">
-                진행 중인 회차: {nextRound}회
-              </div>
-            )}
-          </>
-        )}
-
-        {/* 결과 출력 */}
+        {/* 결과 출력 + 생성일시/회차 */}
         {games.length > 0 && (
-          <div className="mt-10 space-y-6">
-            {games.map((game, gIdx) => (
-              <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
-                {game.map((num, idx) => (
-                  <span
-                    key={idx}
-                    className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
-                      num
-                    )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
-                  >
-                    {num}
-                  </span>
-                ))}
+          <>
+            <div className="mt-10 space-y-6">
+              {games.map((game, gIdx) => (
+                <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
+                  {game.map((num, idx) => (
+                    <span
+                      key={idx}
+                      className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+                        num
+                      )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
+                    >
+                      {num}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6">
+              <div className="text-sm text-gray-500 mb-1">
+                생성 일시: {generatedAt}
               </div>
-            ))}
-          </div>
+              {nextRound && (
+                <div className="text-base text-blue-600 font-semibold mb-6">
+                  진행 중인 회차: {nextRound}회
+                </div>
+              )}
+            </div>
+          </>
         )}
 
         {/* 갤러리 */}
