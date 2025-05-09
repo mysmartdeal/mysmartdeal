@@ -85,8 +85,8 @@ export default function LottoPage() {
   return (
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
-       <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4 leading-tight sm:leading-normal">
-  🔥통계를 이용한 무료 로또 조합기🔥
+      <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
+  <span role="img" aria-label="fire">🔥</span> 통계 기반 무료 로또 조합기 <span role="img" aria-label="fire">🔥</span>
 </h1>
         <p className="text-gray-600 mb-6">
           과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략 조합
