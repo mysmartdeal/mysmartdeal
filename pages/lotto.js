@@ -12,6 +12,7 @@ export default function LottoPage() {
   const [excludedCold, setExcludedCold] = useState([]);
   const [generatedAt, setGeneratedAt] = useState("");
   const [gallery, setGallery] = useState([]);
+  const [statistics, setStatistics] = useState(null);
 
   useEffect(() => {
     fetch("/api/lotto-images")
@@ -22,7 +23,28 @@ export default function LottoPage() {
       setHot(hot);
       setCold(cold);
     });
+
+    fetch("/lotto_history.json")
+      .then((res) => res.json())
+      .then((data) => analyzeStats(data));
   }, []);
+
+  const analyzeStats = (data) => {
+    const freq = Array(46).fill(0);
+    const oddEven = { odd: 0, even: 0 };
+    const section = { A: 0, B: 0, C: 0, D: 0, E: 0 };
+
+    data.forEach(draw => {
+      draw.numbers.forEach(n => {
+        freq[n]++;
+        if (n % 2 === 0) oddEven.even++; else oddEven.odd++;
+        if (n <= 9) section.A++; else if (n <= 19) section.B++;
+        else if (n <= 29) section.C++; else if (n <= 39) section.D++; else section.E++;
+      });
+    });
+
+    setStatistics({ freq, oddEven, section });
+  };
 
   const toggleHotSelect = (num) => {
     setSelectedHot((prev) =>
@@ -57,12 +79,10 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const pick = new Set(fixedNums);
 
-      // HOT 선택된 번호 무조건 포함
       selectedHot.forEach((n) => {
         if (pick.size < 6) pick.add(n);
       });
 
-      // 랜덤 추가 (COLD는 제외된 번호만 걸러서 사용)
       while (pick.size < 6) {
         const n = Math.floor(Math.random() * 45) + 1;
         if (!pick.has(n) && !excludedCold.includes(n)) {
@@ -87,7 +107,7 @@ export default function LottoPage() {
 
         {/* HOT 번호 선택 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이 나온) 번호</h3>
+          <h3 className="font-semibold mb-2">🔥 반드시 포함할 HOT 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
             {hot.map((num) => (
               <button
@@ -105,7 +125,7 @@ export default function LottoPage() {
 
         {/* COLD 번호 제외 */}
         <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
+          <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
             {cold.map((num) => (
               <button
@@ -162,6 +182,34 @@ export default function LottoPage() {
                 ))}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* 통계 분석 대시보드 */}
+        {statistics && (
+          <div className="mt-20 text-left max-w-2xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4 text-center">📊 출현 통계 분석</h2>
+            <div className="text-sm mb-4">
+              <h4 className="font-semibold mb-1">✅ 구간별 분포:</h4>
+              <p>A (1~9): {statistics.section.A}회 / B (10~19): {statistics.section.B}회 / C (20~29): {statistics.section.C}회 / D (30~39): {statistics.section.D}회 / E (40~45): {statistics.section.E}회</p>
+            </div>
+            <div className="text-sm mb-4">
+              <h4 className="font-semibold mb-1">✅ 홀짝 비율:</h4>
+              <p>홀수: {statistics.oddEven.odd}회 / 짝수: {statistics.oddEven.even}회</p>
+            </div>
+            <div className="text-sm mb-2">
+              <h4 className="font-semibold mb-1">✅ 번호별 출현 횟수 (Top 5):</h4>
+              <ul className="list-disc ml-5">
+                {statistics.freq
+                  .map((count, num) => ({ num, count }))
+                  .filter(e => e.num > 0)
+                  .sort((a, b) => b.count - a.count)
+                  .slice(0, 5)
+                  .map(({ num, count }) => (
+                    <li key={num}>{num}번 - {count}회</li>
+                  ))}
+              </ul>
+            </div>
           </div>
         )}
 
