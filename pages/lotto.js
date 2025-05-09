@@ -142,7 +142,7 @@ export default function LottoPage() {
             조합 생성
           </button>
           {nextRound && (
-            <div className="text-base text-blue-600 font-semibold mt-2 mb-1">
+            <div className="text-base text-blue-600 font-semibold mt-4">
               진행 중인 회차: {nextRound}회
             </div>
           )}
@@ -167,7 +167,7 @@ export default function LottoPage() {
                 </div>
               ))}
             </div>
-            <div className="text-sm text-gray-500 mt-2 mb-6">
+            <div className="text-sm text-gray-500 mt-6 mb-6">
               생성 일시: {generatedAt}
             </div>
           </>
