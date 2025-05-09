@@ -26,7 +26,7 @@ export default function LottoPage() {
     fetch("/lotto_history.json")
       .then((res) => res.json())
       .then((data) => {
-        const last = data[0]; // 맨 위가 최신 회차일 경우
+        const last = data[0]; // 최신 회차 맨 위 기준
         setNextRound(last.round + 1);
       });
   }, []);
@@ -87,7 +87,7 @@ export default function LottoPage() {
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-3xl font-bold mb-4">🔥통계를 이용한 무료 로또 조합기🔥</h1>
         <p className="text-gray-600 mb-6">
-          과거 데이터 기반 통계를 이용한 전략적 필터링 조합
+          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 필터링 조합
         </p>
 
         {/* HOT 번호 선택 */}
@@ -126,7 +126,7 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* 입력 + 생성 버튼 */}
+        {/* 입력 + 생성 버튼 + 회차 */}
         <div className="mb-6">
           <input
             type="text"
@@ -141,9 +141,14 @@ export default function LottoPage() {
           >
             조합 생성
           </button>
+          {nextRound && (
+            <div className="text-base text-blue-600 font-semibold mt-2">
+              진행 중인 회차: {nextRound}회
+            </div>
+          )}
         </div>
 
-        {/* 결과 출력 + 생성일시/회차 */}
+        {/* 결과 출력 + 생성일시 */}
         {games.length > 0 && (
           <>
             <div className="mt-10 space-y-6">
@@ -162,16 +167,8 @@ export default function LottoPage() {
                 </div>
               ))}
             </div>
-
-            <div className="mt-6">
-              <div className="text-sm text-gray-500 mb-1">
-                생성 일시: {generatedAt}
-              </div>
-              {nextRound && (
-                <div className="text-base text-blue-600 font-semibold mb-6">
-                  진행 중인 회차: {nextRound}회
-                </div>
-              )}
+            <div className="text-sm text-gray-500 mt-4 mb-6">
+              생성 일시: {generatedAt}
             </div>
           </>
         )}
