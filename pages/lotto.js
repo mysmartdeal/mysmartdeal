@@ -85,9 +85,9 @@ export default function LottoPage() {
   return (
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
-        <h1 className="text-3xl font-bold mb-4">🔥통계를 이용한 무료 로또 조합기🔥</h1>
+        <h1 className="text-3xl font-bold mb-4">🔥통계를 이용한 무료 로또 조합🔥</h1>
         <p className="text-gray-600 mb-6">
-          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략적 조합기
+          과거 데이터(최신 회차까지) 기반으로 통계를 이용한 전략 조합
         </p>
 
         {/* HOT 번호 선택 */}
