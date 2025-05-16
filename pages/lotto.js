@@ -12,6 +12,7 @@ export default function LottoPage() {
   const [generatedAt, setGeneratedAt] = useState("");
   const [nextRound, setNextRound] = useState(null);
   const [gallery, setGallery] = useState([]);
+  const [aiCombos, setAiCombos] = useState([]);
 
   useEffect(() => {
     fetch("/api/lotto-images")
@@ -29,6 +30,10 @@ export default function LottoPage() {
         const last = data[0];
         setNextRound(last.round + 1);
       });
+
+    fetch("/ai_lotto_result.json")
+      .then((res) => res.json())
+      .then((data) => setAiCombos(data));
   }, []);
 
   const toggleHotSelect = (num) => {
@@ -51,31 +56,41 @@ export default function LottoPage() {
     return "bg-green-400";
   };
 
-  const handleGenerate = async () => {
-    const { hot, cold } = await getHotColdNumbers();
+  const applyUserConditions = (comboList, fixed, excluded, include) => {
+    return comboList.filter(({ combo }) => {
+      const hasFixed = fixed.every((n) => combo.includes(n));
+      const hasExcluded = excluded.every((n) => !combo.includes(n));
+      const hasIncluded = include.length === 0 || include.some((n) => combo.includes(n));
+      return hasFixed && hasExcluded && hasIncluded;
+    });
+  };
 
+  const generateComboWithConditions = (fixed = [], excluded = []) => {
+    const combo = [...fixed];
+    while (combo.length < 6) {
+      const n = Math.floor(Math.random() * 45) + 1;
+      if (!combo.includes(n) && !excluded.includes(n)) combo.push(n);
+    }
+    return combo.sort((a, b) => a - b);
+  };
+
+  const handleGenerate = () => {
     const fixedNums = fixed
       .split(",")
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
     const generated = [];
+    const filtered = applyUserConditions(aiCombos, fixedNums, excludedCold, selectedHot);
 
     for (let i = 0; i < 5; i++) {
-      const pick = new Set(fixedNums);
-
-      selectedHot.forEach((n) => {
-        if (pick.size < 6) pick.add(n);
-      });
-
-      while (pick.size < 6) {
-        const n = Math.floor(Math.random() * 45) + 1;
-        if (!pick.has(n) && !excludedCold.includes(n)) {
-          pick.add(n);
-        }
+      if (filtered.length > 0) {
+        const randomCombo = filtered[Math.floor(Math.random() * filtered.length)].combo;
+        generated.push([...randomCombo]);
+      } else {
+        const combo = generateComboWithConditions(fixedNums, excludedCold);
+        generated.push(combo);
       }
-
-      generated.push([...pick].sort((a, b) => a - b));
     }
 
     setGames(generated);
@@ -86,10 +101,10 @@ export default function LottoPage() {
     <Layout>
       <div className="container mx-auto py-16 px-4 text-center">
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
-          통계 기반 무료 로또 조합기
+          AI 기반 무료 로또 조합기
         </h1>
         <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          최근 회차까지 분석한 전략적 번호 추천 서비스
+          머신러닝 기반으로 생성된 조합 중 조건에 맞는 5게임을 추천합니다.
         </p>
 
         {/* HOT 번호 선택 */}
@@ -128,7 +143,7 @@ export default function LottoPage() {
           </div>
         </div>
 
-        {/* 입력 + 생성 버튼 + 회차 */}
+        {/* 고정 입력 + 버튼 */}
         <div className="mb-6">
           <input
             type="text"
@@ -141,7 +156,7 @@ export default function LottoPage() {
             onClick={handleGenerate}
             className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
           >
-            조합 생성
+            🎯 AI 기반 5게임 추천 받기
           </button>
           {nextRound && (
             <div className="text-base text-blue-600 font-semibold mt-4">
@@ -150,7 +165,7 @@ export default function LottoPage() {
           )}
         </div>
 
-        {/* 결과 + 생성일시 + 안내 */}
+        {/* 결과 */}
         {games.length > 0 && (
           <>
             <div className="mt-6 space-y-4">
@@ -174,8 +189,7 @@ export default function LottoPage() {
                 생성 일시: {generatedAt}
               </div>
               <div className="text-xs text-gray-400">
-                ※ 이 조합은 통계 기반 추천일 뿐, 당첨을 보장하지 않습니다.<br />
-                모든 로또는 결국 확률과 운의 게임입니다.
+                ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
               </div>
             </div>
           </>
