@@ -16,7 +16,7 @@ export default function HeroSection() {
           href="/"
           className="bg-white text-blue-600 font-semibold rounded-full px-6 py-3 shadow hover:scale-105 transition"
         >
-          HOME
+          H O M E
         </a>
         <a
           href="/lotto"
