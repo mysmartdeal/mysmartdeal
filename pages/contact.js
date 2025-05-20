@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <div style={{ maxWidth: '800px', margin: '3rem auto', padding: '2rem' }}>
+    <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '2rem' }}>
       <h1>📩 문의하기</h1>
       <form
         action="https://formspree.io/f/xovdbpjq"
