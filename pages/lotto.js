@@ -121,7 +121,7 @@ export default function LottoPage() {
 
           {/* HOT 번호 선택 */}
           <div className="mb-6">
-            <h3 className="font-semibold mb-2">🔥 반드시 포함할 HOT 번호</h3>
+            <h3 className="font-semibold mb-2">🔥포함할 상위 10개 HOT(많이 나온) 번호</h3>
             <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
               {hot.map((num) => (
                 <button
@@ -139,7 +139,7 @@ export default function LottoPage() {
 
           {/* COLD 번호 제외 */}
           <div className="mb-6">
-            <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
+            <h3 className="font-semibold mb-2">❄️제외할 상위 10개 COLD(적게 나온) 번호</h3>
             <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
               {cold.map((num) => (
                 <button
