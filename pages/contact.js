@@ -1,8 +1,9 @@
-// pages/contact.js
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -10,13 +11,34 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('메시지가 전송된 것처럼 보입니다 :) (이메일 연동은 아직 없음)');
-    setForm({ name: '', email: '', message: '' });
+    setStatus('전송 중...');
+
+    emailjs
+      .send(
+        'service_en30nc5',      // 오빠 서비스 ID
+        'template_u434fzy',     // 템플릿 ID
+        {
+          from_name: form.name,
+          reply_to: form.email,
+          message: form.message,
+        },
+        'lv6C_Cuih2klty8PM'      // 퍼블릭 키
+      )
+      .then(
+        () => {
+          setStatus('✅ 전송 완료! 메일 확인 후 빠르게 답변드릴게요.');
+          setForm({ name: '', email: '', message: '' });
+        },
+        (error) => {
+          console.error(error);
+          setStatus('❌ 전송 실패. 다시 시도해주세요.');
+        }
+      );
   };
 
   return (
     <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '2rem' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>📩 문의하기</h1>
+      <h1>📩 문의하기</h1>
       <form onSubmit={handleSubmit}>
         <label>이름</label>
         <input
@@ -46,6 +68,7 @@ export default function Contact() {
           style={{ ...inputStyle, resize: 'vertical' }}
         />
         <button type="submit" style={buttonStyle}>전송</button>
+        <p style={{ marginTop: '1rem', color: '#555' }}>{status}</p>
       </form>
     </div>
   );
