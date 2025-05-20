@@ -80,10 +80,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 푸터 */}
-      <footer className="bg-white mt-16 py-6 text-center text-gray-400 text-sm px-4">
-        &copy; 2025 MySmartDeal. All rights reserved.
-      </footer>
+     
     </Layout>
   );
 }
