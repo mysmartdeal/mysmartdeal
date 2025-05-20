@@ -15,14 +15,14 @@ export default function Contact() {
 
     emailjs
       .send(
-        'service_en30nc5',      // 오빠 서비스 ID
-        'template_u434fzy',     // 템플릿 ID
+        'service_en30nc5',
+        'template_u434fzy',
         {
           from_name: form.name,
           reply_to: form.email,
           message: form.message,
         },
-        'lv6C_Cuih2klty8PM'      // 퍼블릭 키
+        'lv6C_Cuih2klty8PM'
       )
       .then(
         () => {
