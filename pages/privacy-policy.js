@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
           6. 문의
         </h2>
         <p className="text-gray-700 mb-6">
-          문의 사항은 <strong>contact@mysmartdeal.co.kr</strong> 로 연락주시기 바랍니다.
+          문의 사항은 <strong>mysmartdeal.official@gmail.com</strong> 로 연락주시기 바랍니다.
         </p>
 
         <p className="text-sm text-gray-400 mt-12">최종 수정일: 2025년 5월</p>
