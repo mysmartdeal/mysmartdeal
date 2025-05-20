@@ -116,7 +116,7 @@ export default function LottoPage() {
             AI 기반 무료 로또 조합기
           </h1>
           <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-            머신러닝 기반으로 생성된 8,145,060 가지 조합 중 조건에 맞는 5게임을 추천합니다.
+            머신러닝 기반으로 생성된 8,145,060가지 조합 중 조건에 맞는 5게임을 추천합니다.
           </p>
 
           {/* HOT 번호 선택 */}
