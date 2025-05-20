@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { getHotColdNumbers } from "../utils/statistics";
@@ -44,7 +45,7 @@ export default function LottoPage() {
 
   const toggleColdExclude = (num) => {
     setExcludedCold((prev) =>
-      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
+      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, n]
     );
   };
 
@@ -98,119 +99,131 @@ export default function LottoPage() {
   };
 
   return (
-    <Layout>
-      <div className="container mx-auto py-16 px-4 text-center">
-        <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
-          AI 기반 무료 로또 조합기
-        </h1>
-        <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          머신러닝 기반으로 생성된 조합 중 조건에 맞는 5게임을 추천합니다.
-        </p>
+    <>
+      <Head>
+        <title>무료 로또 번호 조합기 | MySmartDeal</title>
+        <meta name="description" content="AI 기반 무료 로또 번호 추천! 최신 당첨번호 반영, 고정숫자 설정, 연속번호 필터링까지 지원하는 실전형 조합 생성기." />
+        <meta property="og:title" content="무료 로또 번호 조합기 | MySmartDeal" />
+        <meta property="og:description" content="최신 로또 당첨 번호 기반! AI 전략 추천 5게임을 무료로 받아보세요." />
+        <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto.jpg" />
+        <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
+        <meta property="og:type" content="website" />
+      </Head>
 
-        {/* HOT 번호 선택 */}
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">🔥 반드시 포함할 HOT 번호</h3>
-          <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
-            {hot.map((num) => (
-              <button
-                key={num}
-                onClick={() => toggleHotSelect(num)}
-                className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
-                  selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-        </div>
+      <Layout>
+        <div className="container mx-auto py-16 px-4 text-center">
+          <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
+            AI 기반 무료 로또 조합기
+          </h1>
+          <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
+            머신러닝 기반으로 생성된 조합 중 조건에 맞는 5게임을 추천합니다.
+          </p>
 
-        {/* COLD 번호 제외 */}
-        <div className="mb-6">
-          <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
-          <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
-            {cold.map((num) => (
-              <button
-                key={num}
-                onClick={() => toggleColdExclude(num)}
-                className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
-                  excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* 고정 입력 + 버튼 */}
-        <div className="mb-6">
-          <input
-            type="text"
-            value={fixed}
-            onChange={(e) => setFixed(e.target.value)}
-            placeholder="고정 숫자 (예: 7, 14)"
-            className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
-          />
-          <button
-            onClick={handleGenerate}
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
-          >
-            🎯 AI 기반 5게임 추천 받기
-          </button>
-          {nextRound && (
-            <div className="text-base text-blue-600 font-semibold mt-4">
-              진행 중인 회차: {nextRound}회
+          {/* HOT 번호 선택 */}
+          <div className="mb-6">
+            <h3 className="font-semibold mb-2">🔥 반드시 포함할 HOT 번호</h3>
+            <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
+              {hot.map((num) => (
+                <button
+                  key={num}
+                  onClick={() => toggleHotSelect(num)}
+                  className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
+                    selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
+                  }`}
+                >
+                  {num}
+                </button>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* 결과 */}
-        {games.length > 0 && (
-          <>
-            <div className="mt-6 space-y-4">
-              {games.map((game, gIdx) => (
-                <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
-                  {game.map((num, idx) => (
-                    <span
-                      key={idx}
-                      className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
-                        num
-                      )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
-                    >
-                      {num}
-                    </span>
-                  ))}
+          {/* COLD 번호 제외 */}
+          <div className="mb-6">
+            <h3 className="font-semibold mb-2">❄️ 제외할 COLD 번호</h3>
+            <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
+              {cold.map((num) => (
+                <button
+                  key={num}
+                  onClick={() => toggleColdExclude(num)}
+                  className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
+                    excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
+                  }`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 고정 입력 + 버튼 */}
+          <div className="mb-6">
+            <input
+              type="text"
+              value={fixed}
+              onChange={(e) => setFixed(e.target.value)}
+              placeholder="고정 숫자 (예: 7, 14)"
+              className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
+            />
+            <button
+              onClick={handleGenerate}
+              className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
+            >
+              🎯 AI 기반 5게임 추천 받기
+            </button>
+            {nextRound && (
+              <div className="text-base text-blue-600 font-semibold mt-4">
+                진행 중인 회차: {nextRound}회
+              </div>
+            )}
+          </div>
+
+          {/* 결과 */}
+          {games.length > 0 && (
+            <>
+              <div className="mt-6 space-y-4">
+                {games.map((game, gIdx) => (
+                  <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
+                    {game.map((num, idx) => (
+                      <span
+                        key={idx}
+                        className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+                          num
+                        )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
+                      >
+                        {num}
+                      </span>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6">
+                <div className="text-sm text-gray-500 mb-1">
+                  생성 일시: {generatedAt}
+                </div>
+                <div className="text-xs text-gray-400">
+                  ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* 갤러리 */}
+          <div className="mt-20 text-left max-w-5xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
+            <div className="flex flex-col items-center gap-6">
+              {gallery.map((file, idx) => (
+                <div key={idx} className="w-full flex justify-center">
+                  <img
+                    src={`/lotto-shots/${file}`}
+                    alt={file}
+                    className="object-contain w-full max-w-[700px] sm:max-w-[900px] lg:max-w-[1200px] max-h-[600px] h-auto rounded shadow"
+                  />
                 </div>
               ))}
             </div>
-            <div className="mt-6">
-              <div className="text-sm text-gray-500 mb-1">
-                생성 일시: {generatedAt}
-              </div>
-              <div className="text-xs text-gray-400">
-                ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* 갤러리 */}
-        <div className="mt-20 text-left max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
-          <div className="flex flex-col items-center gap-6">
-            {gallery.map((file, idx) => (
-              <div key={idx} className="w-full flex justify-center">
-                <img
-                  src={`/lotto-shots/${file}`}
-                  alt={file}
-                  className="object-contain w-full max-w-[700px] sm:max-w-[900px] lg:max-w-[1200px] max-h-[600px] h-auto rounded shadow"
-                />
-              </div>
-            ))}
           </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }
