@@ -103,7 +103,7 @@ export default function LottoPage() {
       <Head>
         <title>무료 로또 번호 조합기 | MySmartDeal</title>
         <meta name="description" content="AI 기반 무료 로또 번호 추천! 최신 당첨번호 반영, 고정숫자 설정, 연속번호 필터링까지 지원하는 실전형 조합 생성기." />
-        <meta property="og:title" content="무료 로또 번호 조합기 | MySmartDeal" />
+        <meta property="og:title" content="AI 무료 로또 번호 조합기 | AI Lotto Generator" />
         <meta property="og:description" content="최신 로또 당첨 번호 기반! AI 전략 추천 5게임을 무료로 받아보세요." />
         <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto.jpg" />
         <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
