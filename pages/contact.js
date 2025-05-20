@@ -3,7 +3,7 @@ export default function Contact() {
     <div style={{ maxWidth: '600px', margin: '3rem auto', padding: '2rem' }}>
       <h1>📩 문의하기</h1>
       <form
-        action="https://formspree.io/f/오빠의_ID"  // 여기를 오빠 ID로 바꾸면 끝!
+        action="https://formspree.io/f/xovdbpjq"
         method="POST"
       >
         <label>이름</label>
