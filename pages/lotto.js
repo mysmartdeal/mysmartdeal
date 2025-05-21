@@ -44,8 +44,9 @@ export default function LottoPage() {
   };
 
   const toggleColdExclude = (num) => {
+    if (typeof num !== "number" || isNaN(num) || num < 1 || num > 45) return;
     setExcludedCold((prev) =>
-      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, n]
+      prev.includes(num) ? prev.filter((n) => n !== num) : [...prev, num]
     );
   };
 
@@ -81,15 +82,18 @@ export default function LottoPage() {
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
+    const validExcludedCold = excludedCold
+      .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
+
     const generated = [];
-    const filtered = applyUserConditions(aiCombos, fixedNums, excludedCold, selectedHot);
+    const filtered = applyUserConditions(aiCombos, fixedNums, validExcludedCold, selectedHot);
 
     for (let i = 0; i < 5; i++) {
       if (filtered.length > 0) {
         const randomCombo = filtered[Math.floor(Math.random() * filtered.length)].combo;
         generated.push([...randomCombo]);
       } else {
-        const combo = generateComboWithConditions(fixedNums, excludedCold);
+        const combo = generateComboWithConditions(fixedNums, validExcludedCold);
         generated.push(combo);
       }
     }
