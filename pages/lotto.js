@@ -124,9 +124,9 @@ export default function LottoPage() {
           </p>
 
           {/* HOT 번호 선택 */}
-          <div className="mb-6">
+          <div className="mb-6 flex flex-col items-center">
             <h3 className="font-semibold mb-2">🔥포함할 상위 10개 HOT(많이 나온) 번호</h3>
-            <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
+            <div className="flex flex-wrap justify-center gap-[6px] max-w-[280px]">
               {hot.map((num) => (
                 <button
                   key={num}
@@ -141,16 +141,16 @@ export default function LottoPage() {
             </div>
             <button
               onClick={() => setSelectedHot([])}
-              className="text-sm text-blue-600 mt-2 hover:underline"
+              className="text-xs text-blue-600 mt-2 hover:underline"
             >
               🔄 HOT 선택 초기화
             </button>
           </div>
 
           {/* COLD 번호 제외 */}
-          <div className="mb-6">
+          <div className="mb-6 flex flex-col items-center">
             <h3 className="font-semibold mb-2">❄️제외할 상위 10개 COLD(적게 나온) 번호</h3>
-            <div className="inline-flex flex-wrap justify-center gap-[2px] max-w-[260px] sm:max-w-full mx-auto">
+            <div className="flex flex-wrap justify-center gap-[6px] max-w-[280px]">
               {cold.map((num) => (
                 <button
                   key={num}
@@ -165,7 +165,7 @@ export default function LottoPage() {
             </div>
             <button
               onClick={() => setExcludedCold([])}
-              className="text-sm text-blue-600 mt-2 hover:underline"
+              className="text-xs text-blue-600 mt-2 hover:underline"
             >
               🔄 COLD 제외 초기화
             </button>
