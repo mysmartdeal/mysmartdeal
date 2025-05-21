@@ -131,7 +131,7 @@ export default function LottoPage() {
               <button
                 key={num}
                 onClick={() => toggleHotSelect(num)}
-                className={`w-10 h-10 text-sm md:w-8 md:h-8 md:text-xs rounded-full font-bold flex items-center justify-center ${
+                className={`w-10 h-10 text-sm sm:w-10 sm:h-10 md:w-10 md:h-10 rounded-full font-bold flex items-center justify-center ${
                   selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
                 }`}
               >
@@ -157,7 +157,7 @@ export default function LottoPage() {
               <button
                 key={num}
                 onClick={() => toggleColdExclude(num)}
-                className={`w-10 h-10 text-sm md:w-8 md:h-8 md:text-xs rounded-full font-bold flex items-center justify-center ${
+                className={`w-10 h-10 text-sm sm:w-10 sm:h-10 md:w-10 md:h-10 rounded-full font-bold flex items-center justify-center ${
                   excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
                 }`}
               >
