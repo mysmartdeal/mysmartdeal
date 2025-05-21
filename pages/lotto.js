@@ -124,9 +124,9 @@ export default function LottoPage() {
           </p>
 
           {/* HOT 번호 선택 */}
-          <div className="mb-6 flex flex-col items-center">
-            <h3 className="font-semibold mb-2">🔥포함할 상위 10개 HOT(많이 나온) 번호</h3>
-            <div className="flex flex-wrap justify-center gap-[6px] max-w-[280px]">
+          <div className="mb-6 text-center">
+            <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이 나온) 번호</h3>
+            <div className="inline-flex flex-wrap justify-center gap-[6px]">
               {hot.map((num) => (
                 <button
                   key={num}
@@ -139,18 +139,20 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setSelectedHot([])}
-              className="text-xs text-blue-600 mt-2 hover:underline"
-            >
-              🔄 HOT 초기화
-            </button>
+            <div className="mt-2">
+              <button
+                onClick={() => setSelectedHot([])}
+                className="px-3 py-1 border border-blue-500 text-blue-600 rounded text-xs hover:bg-blue-50 transition"
+              >
+                🔄 HOT 초기화
+              </button>
+            </div>
           </div>
 
           {/* COLD 번호 제외 */}
-          <div className="mb-6 flex flex-col items-center">
-            <h3 className="font-semibold mb-2">❄️제외할 상위 10개 COLD(적게 나온) 번호</h3>
-            <div className="flex flex-wrap justify-center gap-[6px] max-w-[280px]">
+          <div className="mb-6 text-center">
+            <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
+            <div className="inline-flex flex-wrap justify-center gap-[6px]">
               {cold.map((num) => (
                 <button
                   key={num}
@@ -163,12 +165,14 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setExcludedCold([])}
-              className="text-xs text-blue-600 mt-2 hover:underline"
-            >
-              🔄 COLD 초기화
-            </button>
+            <div className="mt-2">
+              <button
+                onClick={() => setExcludedCold([])}
+                className="px-3 py-1 border border-blue-500 text-blue-600 rounded text-xs hover:bg-blue-50 transition"
+              >
+                🔄 COLD 초기화
+              </button>
+            </div>
           </div>
 
           {/* 고정 입력 + 버튼 */}
