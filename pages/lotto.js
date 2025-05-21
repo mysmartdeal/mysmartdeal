@@ -139,6 +139,12 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
+            <button
+              onClick={() => setSelectedHot([])}
+              className="text-sm text-blue-600 mt-2 hover:underline"
+            >
+              🔄 HOT 선택 초기화
+            </button>
           </div>
 
           {/* COLD 번호 제외 */}
@@ -157,6 +163,12 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
+            <button
+              onClick={() => setExcludedCold([])}
+              className="text-sm text-blue-600 mt-2 hover:underline"
+            >
+              🔄 COLD 제외 초기화
+            </button>
           </div>
 
           {/* 고정 입력 + 버튼 */}
