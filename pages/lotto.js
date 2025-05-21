@@ -143,7 +143,7 @@ export default function LottoPage() {
               onClick={() => setSelectedHot([])}
               className="text-xs text-blue-600 mt-2 hover:underline"
             >
-              🔄 HOT 선택 초기화
+              🔄 HOT 초기화
             </button>
           </div>
 
@@ -167,7 +167,7 @@ export default function LottoPage() {
               onClick={() => setExcludedCold([])}
               className="text-xs text-blue-600 mt-2 hover:underline"
             >
-              🔄 COLD 제외 초기화
+              🔄 COLD 초기화
             </button>
           </div>
 
