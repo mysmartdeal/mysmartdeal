@@ -124,14 +124,14 @@ export default function LottoPage() {
           </p>
 
           {/* HOT 번호 선택 */}
-          <div className="mb-6 text-center">
+          <div className="mb-6 text-center px-4 sm:px-6">
             <h3 className="font-semibold mb-2">🔥 포함할 상위 10개 HOT(많이 나온) 번호</h3>
-            <div className="inline-flex flex-wrap justify-center gap-[6px]">
+            <div className="inline-flex flex-wrap justify-center gap-2">
               {hot.map((num) => (
                 <button
                   key={num}
                   onClick={() => toggleHotSelect(num)}
-                  className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-sm font-bold flex items-center justify-center ${
                     selectedHot.includes(num) ? "bg-red-500 text-white" : "bg-gray-200"
                   }`}
                 >
@@ -139,10 +139,10 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
-            <div className="mt-2">
+            <div className="mt-3">
               <button
                 onClick={() => setSelectedHot([])}
-                className="px-3 py-1 border border-blue-500 text-blue-600 rounded text-xs hover:bg-blue-50 transition"
+                className="px-4 py-1.5 border border-blue-500 text-blue-600 rounded-md text-sm hover:bg-blue-50 transition"
               >
                 🔄 HOT 초기화
               </button>
@@ -150,14 +150,14 @@ export default function LottoPage() {
           </div>
 
           {/* COLD 번호 제외 */}
-          <div className="mb-6 text-center">
+          <div className="mb-6 text-center px-4 sm:px-6">
             <h3 className="font-semibold mb-2">❄️ 제외할 상위 10개 COLD(적게 나온) 번호</h3>
-            <div className="inline-flex flex-wrap justify-center gap-[6px]">
+            <div className="inline-flex flex-wrap justify-center gap-2">
               {cold.map((num) => (
                 <button
                   key={num}
                   onClick={() => toggleColdExclude(num)}
-                  className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center ${
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-sm font-bold flex items-center justify-center ${
                     excludedCold.includes(num) ? "bg-blue-500 text-white" : "bg-gray-200"
                   }`}
                 >
@@ -165,10 +165,10 @@ export default function LottoPage() {
                 </button>
               ))}
             </div>
-            <div className="mt-2">
+            <div className="mt-3">
               <button
                 onClick={() => setExcludedCold([])}
-                className="px-3 py-1 border border-blue-500 text-blue-600 rounded text-xs hover:bg-blue-50 transition"
+                className="px-4 py-1.5 border border-blue-500 text-blue-600 rounded-md text-sm hover:bg-blue-50 transition"
               >
                 🔄 COLD 초기화
               </button>
