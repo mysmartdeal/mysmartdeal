@@ -28,7 +28,7 @@ export default function HeroSection() {
           href="/smartlog"
           className="bg-white text-blue-600 font-semibold border border-blue-200 rounded-full px-6 py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
         >
-          🧠 블로그 보기
+          📖 Blog
         </a>
       </div>
     </section>
