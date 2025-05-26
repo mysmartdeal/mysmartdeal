@@ -1,4 +1,4 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + TOP 버튼
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + 전체글 보기 + TOP 버튼
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -89,16 +89,20 @@ export default function PostPage({ post, slug, recentPosts }) {
         </button>
       </div>
 
-      {/* ✅ 복사 알림 메시지 */}
       {copied && (
         <div className="fixed top-4 inset-x-0 mx-auto w-fit bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
           ✅ 링크가 복사되었습니다!
         </div>
       )}
 
-      {/* ✅ 최신 글 목록 */}
+      {/* ✅ 최신 글 + 전체글 보기 */}
       <div className="mt-12 border-t pt-4">
-        <h2 className="text-sm font-bold text-gray-600 mb-2">📂 최근 글</h2>
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-sm font-bold text-gray-600">📂 최근 글</h2>
+          <Link href="/smartlog" className="text-xs text-blue-600 hover:underline">
+            전체글 보기
+          </Link>
+        </div>
         <ul className="space-y-2">
           {recentPosts.map((item) => (
             <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600">
