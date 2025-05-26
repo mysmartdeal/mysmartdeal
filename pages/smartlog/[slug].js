@@ -1,8 +1,8 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 이모지 공유 버튼 (npm 없이 사용)
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 공유 + 링크 복사 + 토스트 메시지 적용
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
@@ -20,6 +20,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function PostPage({ post, slug }) {
+  const [copied, setCopied] = useState(false);
   const previewText = post.content.replace(/<[^>]+>/g, '').slice(0, 100);
   const ogImage = `/images/smartlog-thumbnails/${slug}.jpg`;
   const fullUrl = `https://mysmartdeal.co.kr/smartlog/${slug}`;
@@ -34,7 +35,13 @@ export default function PostPage({ post, slug }) {
         });
       });
     }
-  }, []);
+  }, [post.title, previewText, fullUrl]);
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(fullUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-6">
@@ -64,14 +71,36 @@ export default function PostPage({ post, slug }) {
         </div>
       )}
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-wrap gap-4 items-center">
         <button
           id="share-btn"
           className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
         >
           <span className="text-lg">🔗</span> 공유
         </button>
+        <button
+          onClick={copyLink}
+          className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
+        >
+          <span className="text-lg">📋</span> 링크 복사
+        </button>
       </div>
+
+      {copied && (
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
+          ✅ 링크가 복사되었습니다!
+        </div>
+      )}
+
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadein 0.3s ease-in-out;
+        }
+        @keyframes fadein {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   );
 }
