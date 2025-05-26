@@ -16,7 +16,7 @@ export async function getStaticProps() {
 export default function SmartlogPage({ posts }) {
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">📝 Smartlog 블로그</h1>
+      <h1 className="text-3xl font-bold mb-6">📝 SmartLog 블로그</h1>
       {posts.map((post) => (
         <Link href={`/smartlog/${post.slug}`} key={post.slug}>
           <a className="block mb-6 p-4 border rounded hover:bg-gray-50 transition">
