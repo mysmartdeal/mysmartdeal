@@ -20,7 +20,7 @@ export default function HeroSection() {
           href="/lotto"
           className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-full px-6 py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
         >
-          🎯 무료 로또 조합 받기
+          🔮 무료 로또 조합 받기
         </a>
 
         {/* 블로그 버튼 */}
