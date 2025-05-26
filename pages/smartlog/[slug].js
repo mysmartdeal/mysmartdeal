@@ -1,4 +1,4 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + 전체글 보기 + TOP 버튼
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + 전체글 보기 + TOP 버튼 (스크롤 있을 때만 표시)
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -38,6 +38,7 @@ export async function getStaticProps({ params }) {
 
 export default function PostPage({ post, slug, recentPosts }) {
   const [copied, setCopied] = useState(false);
+  const [showTop, setShowTop] = useState(false);
   const previewText = post.content.replace(/<[^>]+>/g, '').slice(0, 100);
   const ogImage = `/images/smartlog-thumbnails/${slug}.jpg`;
   const fullUrl = `https://mysmartdeal.co.kr/smartlog/${slug}`;
@@ -51,6 +52,14 @@ export default function PostPage({ post, slug, recentPosts }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowTop(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <div className="max-w-3xl mx-auto p-6 relative">
@@ -115,13 +124,15 @@ export default function PostPage({ post, slug, recentPosts }) {
         </ul>
       </div>
 
-      {/* ✅ TOP 버튼 */}
-      <button
-        onClick={scrollToTop}
-        className="fixed bottom-6 right-6 bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1 text-xs rounded shadow"
-      >
-        ▲ TOP
-      </button>
+      {/* ✅ TOP 버튼 (조건부 표시) */}
+      {showTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1 text-xs rounded shadow"
+        >
+          ▲ TOP
+        </button>
+      )}
 
       <style jsx>{`
         .animate-fade-in {
