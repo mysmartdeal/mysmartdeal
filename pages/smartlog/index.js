@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
-import Layout from '@/components/Layout'; // ✅ Layout 불러오기
+import Layout from '../../components/Layout'; // ✅ 경로 수정
 
 // 텍스트 미리보기 생성
 function getTextPreview(html, maxLength = 60) {
@@ -29,7 +29,7 @@ export async function getStaticProps() {
 
 export default function SmartlogPage({ posts }) {
   return (
-    <Layout> {/* ✅ Layout으로 감싸기 시작 */}
+    <Layout>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
           <span>📝</span> <span>SmartLog 블로그</span>
@@ -60,6 +60,6 @@ export default function SmartlogPage({ posts }) {
           })}
         </div>
       </div>
-    </Layout> {/* ✅ Layout으로 감싸기 끝 */}
+    </Layout>
   );
 }
