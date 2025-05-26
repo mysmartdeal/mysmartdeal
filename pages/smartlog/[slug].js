@@ -1,4 +1,4 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 공유 + 링크 복사 + 토스트 메시지 적용
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 아이콘 교체
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -24,18 +24,6 @@ export default function PostPage({ post, slug }) {
   const previewText = post.content.replace(/<[^>]+>/g, '').slice(0, 100);
   const ogImage = `/images/smartlog-thumbnails/${slug}.jpg`;
   const fullUrl = `https://mysmartdeal.co.kr/smartlog/${slug}`;
-
-  useEffect(() => {
-    if (navigator.share) {
-      document.getElementById('share-btn')?.addEventListener('click', () => {
-        navigator.share({
-          title: post.title,
-          text: previewText,
-          url: fullUrl,
-        });
-      });
-    }
-  }, [post.title, previewText, fullUrl]);
 
   const copyLink = () => {
     navigator.clipboard.writeText(fullUrl);
@@ -71,23 +59,17 @@ export default function PostPage({ post, slug }) {
         </div>
       )}
 
-      <div className="mt-6 flex flex-wrap gap-4 items-center">
-        <button
-          id="share-btn"
-          className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
-        >
-          <span className="text-lg">🔗</span> 공유
-        </button>
+      <div className="mt-6">
         <button
           onClick={copyLink}
           className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
         >
-          <span className="text-lg">📋</span> 링크 복사
+          <span className="text-lg">🔗</span> 링크 복사
         </button>
       </div>
 
       {copied && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
           ✅ 링크가 복사되었습니다!
         </div>
       )}
@@ -97,7 +79,7 @@ export default function PostPage({ post, slug }) {
           animation: fadein 0.3s ease-in-out;
         }
         @keyframes fadein {
-          from { opacity: 0; transform: translateY(10px); }
+          from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
