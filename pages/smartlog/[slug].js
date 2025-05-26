@@ -1,9 +1,8 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 아이콘 공유 버튼 적용
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 이모지 공유 버튼 (npm 없이 사용)
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { Share2 } from 'lucide-react';
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
@@ -68,9 +67,9 @@ export default function PostPage({ post, slug }) {
       <div className="mt-6">
         <button
           id="share-btn"
-          className="flex items-center gap-1 text-sm text-gray-600 hover:text-blue-600 transition"
+          className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
         >
-          <Share2 size={18} /> 공유
+          <span className="text-lg">🔗</span> 공유
         </button>
       </div>
     </div>
