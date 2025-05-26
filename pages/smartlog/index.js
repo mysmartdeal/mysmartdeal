@@ -2,10 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 
-// 썸네일 추출 함수: 본문에서 <img src="..."> 첫 번째 것 가져오기
-function extractFirstImage(html) {
-  const match = html.match(/<img[^>]+src="([^">]+)"/);
-  return match ? match[1] : null;
+// 자동 썸네일 경로 추출
+function getAutoThumbnailFromSlug(slug) {
+  return `/images/smartlog-thumbnails/${slug}.jpg`;
+}
+
+// HTML 태그 제거 후 텍스트 요약
+function getTextPreview(html, maxLength = 60) {
+  const text = html.replace(/<[^>]+>/g, '');
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
 }
 
 export async function getStaticProps() {
@@ -13,7 +18,9 @@ export async function getStaticProps() {
   const files = fs.readdirSync(dir);
   const posts = files.map((file) => {
     const content = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-    content.thumbnail = extractFirstImage(content.content);
+    const slug = file.replace(/\.json$/, '');
+    content.slug = slug;
+    content.thumbnail = getAutoThumbnailFromSlug(slug);
     return content;
   }).sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -29,21 +36,23 @@ export default function SmartlogPage({ posts }) {
 
       <div className="flex flex-col gap-4">
         {posts.map((post) => {
-          const textPreview = post.content.replace(/<[^>]+>/g, '').slice(0, 60) + '...';
+          const hasImage = post.thumbnail !== null;
+          const previewText = getTextPreview(post.content);
 
           return (
             <Link href={`/smartlog/${post.slug}`} key={post.slug}>
               <a className="flex items-start gap-4 p-3 border rounded hover:bg-gray-50 transition">
                 <div className="flex-shrink-0 w-16 h-16 bg-gray-100 overflow-hidden rounded">
-                  {post.thumbnail ? (
+                  {hasImage ? (
                     <img
                       src={post.thumbnail}
                       alt={post.title}
                       className="w-full h-full object-cover"
+                      onError={(e) => { e.target.style.display = 'none'; }}
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full w-full text-gray-400 text-xs text-center p-1">
-                      {textPreview}
+                      {previewText}
                     </div>
                   )}
                 </div>
