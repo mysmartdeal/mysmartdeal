@@ -1,4 +1,3 @@
-
 import React from "react";
 
 export default function HeroSection() {
@@ -8,7 +7,7 @@ export default function HeroSection() {
         MySmartDeal
       </h1>
       <p className="text-lg sm:text-xl text-blue-100 mb-6">
-       MySmartLife
+        MySmartLife
       </p>
 
       <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -23,6 +22,12 @@ export default function HeroSection() {
           className="bg-yellow-400 text-black font-semibold rounded-full px-6 py-3 shadow hover:scale-105 transition"
         >
           🎯 무료 로또 조합 받기
+        </a>
+        <a
+          href="/smartlog"
+          className="bg-white text-blue-600 font-semibold rounded-full px-6 py-3 shadow hover:scale-105 transition"
+        >
+          📘 블로그 보기
         </a>
       </div>
     </section>
