@@ -12,7 +12,7 @@ export default function HeroSection() {
           href="/"
           className="bg-white text-blue-600 font-semibold rounded-full px-6 py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
         >
-          🏠 HOME
+          HOME
         </a>
 
         {/* 로또 버튼 */}
