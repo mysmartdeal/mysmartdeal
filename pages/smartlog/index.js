@@ -32,7 +32,7 @@ export default function SmartlogPage({ posts }) {
     <Layout>
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-          <span>📝</span> <span>SmartLog 블로그</span>
+          <span>📝</span> <span>SmartLog</span>
         </h1>
 
         <div className="flex flex-col gap-4">
