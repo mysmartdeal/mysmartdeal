@@ -1,4 +1,4 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 아이콘 교체
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 고정형 상단 토스트 메시지
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -69,7 +69,7 @@ export default function PostPage({ post, slug }) {
       </div>
 
       {copied && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
+        <div className="fixed top-4 inset-x-0 mx-auto w-fit bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
           ✅ 링크가 복사되었습니다!
         </div>
       )}
