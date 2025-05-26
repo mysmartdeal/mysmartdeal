@@ -3,6 +3,10 @@ import path from 'path';
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
+  if (!fs.existsSync(dir)) {
+    console.warn('📂 smartlog-posts 폴더가 존재하지 않음!');
+    return { paths: [], fallback: false };
+  }
   const files = fs.readdirSync(dir);
   const paths = files.map((file) => ({
     params: { slug: file.replace(/\.json$/, '') },
@@ -12,6 +16,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const filePath = path.join(process.cwd(), 'public/smartlog-posts', `${params.slug}.json`);
+  if (!fs.existsSync(filePath)) {
+    return { notFound: true };
+  }
   const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   return { props: { post: content } };
 }
