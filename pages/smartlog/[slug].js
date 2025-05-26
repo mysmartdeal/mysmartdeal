@@ -1,8 +1,9 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 고정형 상단 토스트 메시지
+// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + TOP 버튼
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
@@ -14,12 +15,28 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const filePath = path.join(process.cwd(), 'public/smartlog-posts', `${params.slug}.json`);
-  const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  return { props: { post: content, slug: params.slug } };
+  const postDir = path.join(process.cwd(), 'public/smartlog-posts');
+  const files = fs.readdirSync(postDir);
+
+  const posts = files.map((file) => {
+    const slug = file.replace(/\.json$/, '');
+    const content = JSON.parse(fs.readFileSync(path.join(postDir, file), 'utf8'));
+    return { slug, ...content };
+  }).sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const currentPost = posts.find((p) => p.slug === params.slug);
+  const recentPosts = posts.filter((p) => p.slug !== params.slug).slice(0, 5);
+
+  return {
+    props: {
+      post: currentPost,
+      slug: currentPost.slug,
+      recentPosts
+    }
+  };
 }
 
-export default function PostPage({ post, slug }) {
+export default function PostPage({ post, slug, recentPosts }) {
   const [copied, setCopied] = useState(false);
   const previewText = post.content.replace(/<[^>]+>/g, '').slice(0, 100);
   const ogImage = `/images/smartlog-thumbnails/${slug}.jpg`;
@@ -31,8 +48,12 @@ export default function PostPage({ post, slug }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-3xl mx-auto p-6 relative">
       <Head>
         <title>{post.title} | Smartlog</title>
         <meta name="description" content={previewText} />
@@ -68,11 +89,35 @@ export default function PostPage({ post, slug }) {
         </button>
       </div>
 
+      {/* ✅ 복사 알림 메시지 */}
       {copied && (
         <div className="fixed top-4 inset-x-0 mx-auto w-fit bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
           ✅ 링크가 복사되었습니다!
         </div>
       )}
+
+      {/* ✅ 최신 글 목록 */}
+      <div className="mt-12 border-t pt-4">
+        <h2 className="text-sm font-bold text-gray-600 mb-2">📂 최근 글</h2>
+        <ul className="space-y-2">
+          {recentPosts.map((item) => (
+            <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600">
+              <Link href={`/smartlog/${item.slug}`} className="truncate">
+                {item.title}
+              </Link>
+              <span className="text-xs text-gray-400 whitespace-nowrap">{item.date}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* ✅ TOP 버튼 */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1 text-xs rounded shadow"
+      >
+        ▲ TOP
+      </button>
 
       <style jsx>{`
         .animate-fade-in {
