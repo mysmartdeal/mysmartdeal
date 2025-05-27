@@ -1,9 +1,10 @@
-// ✅ [slug].js – 메타태그 + OG 태그 + 라벨 + 링크 복사 + 상단 토스트 + 최신글 + 전체글 보기 + TOP 버튼 (스크롤 있을 때만 표시)
+// ✅ [slug].js – Layout 포함 (기존 기능 유지 + HeroSection 포함)
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Layout from '../../components/Layout'; // ✅ Layout 추가
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
@@ -62,87 +63,89 @@ export default function PostPage({ post, slug, recentPosts }) {
   }, []);
 
   return (
-    <div className="max-w-3xl mx-auto p-6 relative">
-      <Head>
-        <title>{post.title} | Smartlog</title>
-        <meta name="description" content={previewText} />
-        <meta name="keywords" content={(post.labels || []).join(', ')} />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={previewText} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:url" content={fullUrl} />
-      </Head>
+    <Layout> {/* ✅ 전체 Layout으로 감싸기 */}
+      <div className="max-w-3xl mx-auto p-6 relative">
+        <Head>
+          <title>{post.title} | Smartlog</title>
+          <meta name="description" content={previewText} />
+          <meta name="keywords" content={(post.labels || []).join(', ')} />
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={previewText} />
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:url" content={fullUrl} />
+        </Head>
 
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-      <p className="text-sm text-gray-400 mb-6">{post.date}</p>
+        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+        <p className="text-sm text-gray-400 mb-6">{post.date}</p>
 
-      <div dangerouslySetInnerHTML={{ __html: post.content }} className="prose prose-lg"></div>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} className="prose prose-lg"></div>
 
-      {post.labels && post.labels.length > 0 && (
-        <div className="mt-8 flex flex-wrap gap-2 text-sm text-blue-600">
-          {post.labels.map((label) => (
-            <span key={label} className="bg-blue-50 px-2 py-1 rounded">
-              #{label}
-            </span>
-          ))}
+        {post.labels && post.labels.length > 0 && (
+          <div className="mt-8 flex flex-wrap gap-2 text-sm text-blue-600">
+            {post.labels.map((label) => (
+              <span key={label} className="bg-blue-50 px-2 py-1 rounded">
+                #{label}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-6">
+          <button
+            onClick={copyLink}
+            className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
+          >
+            <span className="text-lg">🔗</span> 링크 복사
+          </button>
         </div>
-      )}
 
-      <div className="mt-6">
-        <button
-          onClick={copyLink}
-          className="text-gray-600 hover:text-blue-600 text-sm flex items-center gap-1 transition"
-        >
-          <span className="text-lg">🔗</span> 링크 복사
-        </button>
+        {copied && (
+          <div className="fixed top-4 inset-x-0 mx-auto w-fit bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
+            ✅ 링크가 복사되었습니다!
+          </div>
+        )}
+
+        {/* ✅ 최신 글 + 전체글 보기 */}
+        <div className="mt-12 border-t pt-4">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-sm font-bold text-gray-600">📂 최근 글</h2>
+            <Link href="/smartlog" className="text-xs text-blue-600 hover:underline">
+              전체글 보기
+            </Link>
+          </div>
+          <ul className="space-y-2">
+            {recentPosts.map((item) => (
+              <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600">
+                <Link href={`/smartlog/${item.slug}`} className="truncate">
+                  {item.title}
+                </Link>
+                <span className="text-xs text-gray-400 whitespace-nowrap">{item.date}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* ✅ TOP 버튼 (조건부 표시) */}
+        {showTop && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-6 right-6 bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1 text-xs rounded shadow"
+          >
+            ▲ TOP
+          </button>
+        )}
+
+        <style jsx>{`
+          .animate-fade-in {
+            animation: fadein 0.3s ease-in-out;
+          }
+          @keyframes fadein {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
       </div>
-
-      {copied && (
-        <div className="fixed top-4 inset-x-0 mx-auto w-fit bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg animate-fade-in">
-          ✅ 링크가 복사되었습니다!
-        </div>
-      )}
-
-      {/* ✅ 최신 글 + 전체글 보기 */}
-      <div className="mt-12 border-t pt-4">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-bold text-gray-600">📂 최근 글</h2>
-          <Link href="/smartlog" className="text-xs text-blue-600 hover:underline">
-            전체글 보기
-          </Link>
-        </div>
-        <ul className="space-y-2">
-          {recentPosts.map((item) => (
-            <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600">
-              <Link href={`/smartlog/${item.slug}`} className="truncate">
-                {item.title}
-              </Link>
-              <span className="text-xs text-gray-400 whitespace-nowrap">{item.date}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* ✅ TOP 버튼 (조건부 표시) */}
-      {showTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1 text-xs rounded shadow"
-        >
-          ▲ TOP
-        </button>
-      )}
-
-      <style jsx>{`
-        .animate-fade-in {
-          animation: fadein 0.3s ease-in-out;
-        }
-        @keyframes fadein {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-    </div>
+    </Layout>
   );
 }
