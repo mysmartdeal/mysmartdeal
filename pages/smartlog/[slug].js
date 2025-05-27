@@ -1,10 +1,10 @@
-// ✅ [slug].js – Layout 포함 (기존 기능 유지 + HeroSection 포함)
+// ✅ [slug].js – 최근글 디자인 개선 포함 전체 코드
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Layout from '../../components/Layout'; // ✅ Layout 추가
+import Layout from '../../components/Layout';
 
 export async function getStaticPaths() {
   const dir = path.join(process.cwd(), 'public/smartlog-posts');
@@ -63,7 +63,7 @@ export default function PostPage({ post, slug, recentPosts }) {
   }, []);
 
   return (
-    <Layout> {/* ✅ 전체 Layout으로 감싸기 */}
+    <Layout>
       <div className="max-w-3xl mx-auto p-6 relative">
         <Head>
           <title>{post.title} | Smartlog</title>
@@ -106,17 +106,17 @@ export default function PostPage({ post, slug, recentPosts }) {
           </div>
         )}
 
-        {/* ✅ 최신 글 + 전체글 보기 */}
+        {/* ✅ 최근 글 목록 - 디자인 개선 */}
         <div className="mt-12 border-t pt-4">
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between mb-2 border-b pb-2">
             <h2 className="text-sm font-bold text-gray-600">📂 최근 글</h2>
             <Link href="/smartlog" className="text-xs text-blue-600 hover:underline">
               전체글 보기
             </Link>
           </div>
-          <ul className="space-y-2">
+          <ul className="divide-y divide-gray-200">
             {recentPosts.map((item) => (
-              <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600">
+              <li key={item.slug} className="flex justify-between text-sm text-gray-700 hover:text-blue-600 py-2">
                 <Link href={`/smartlog/${item.slug}`} className="truncate">
                   {item.title}
                 </Link>
@@ -126,7 +126,6 @@ export default function PostPage({ post, slug, recentPosts }) {
           </ul>
         </div>
 
-        {/* ✅ TOP 버튼 (조건부 표시) */}
         {showTop && (
           <button
             onClick={scrollToTop}
