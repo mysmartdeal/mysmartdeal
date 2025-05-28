@@ -27,22 +27,18 @@ export default function LottoPage() {
 
   fetch("/lotto_history.json")
     .then((res) => res.json())
-    .then((data) => {
-      const last = data[0];
+    .then(() => {
       const now = new Date();
-      const day = now.getDay();
-      const cutoff = new Date(now);
+      const baseRound = 1174;
 
-      if (day === 6) {
-        cutoff.setHours(21, 30, 0, 0);
-      } else {
-        const daysUntilSat = 6 - day;
-        cutoff.setDate(now.getDate() + daysUntilSat);
-        cutoff.setHours(21, 30, 0, 0);
-      }
+      const cutoff = new Date();
+      const day = now.getDay();
+      const daysUntilSat = (6 - day + 7) % 7;
+      cutoff.setDate(now.getDate() + daysUntilSat);
+      cutoff.setHours(21, 30, 0, 0);
 
       const shouldAdd = now >= cutoff;
-      const nextRound = shouldAdd ? last.round + 1 : last.round;
+      const nextRound = shouldAdd ? baseRound + 1 : baseRound;
 
       setNextRound(nextRound);
     });
