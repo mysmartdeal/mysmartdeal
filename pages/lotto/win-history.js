@@ -10,12 +10,12 @@ export default function WinHistoryPage() {
         </h1>
 
         <iframe
-          src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-          width="100%"
-          height="800"
-          title="동행복권 회차별 당첨번호"
-          className="border rounded-lg"
-        />
+  src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+  width="100%"
+  height="1200"
+  title="동행복권 회차별 당첨번호"
+  className="w-full h-[1200px] border-2 rounded-xl overflow-hidden"
+/>
       </div>
     </div>
   );
