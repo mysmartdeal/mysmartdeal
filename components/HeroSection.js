@@ -32,17 +32,21 @@ export default function HeroSection() {
         </a>
       </div>
 
-      {/* 🎯 추가된 버튼 그룹 (무료 로또 버튼 하단) */}
+      {/* 🎯 외부 링크로 변경된 버튼 그룹 */}
       <div className="mt-4 flex justify-center">
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-[300px]">
           <a
-            href="/lotto/win-history"
+            href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 bg-white text-blue-700 font-semibold rounded-full text-sm sm:text-base px-4 py-2 sm:px-5 sm:py-2.5 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
           >
             회차별 당첨번호
           </a>
           <a
-            href="/lotto/win-shops"
+            href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 bg-white text-blue-700 font-semibold rounded-full text-sm sm:text-base px-4 py-2 sm:px-5 sm:py-2.5 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
           >
             당첨판매점 조회
