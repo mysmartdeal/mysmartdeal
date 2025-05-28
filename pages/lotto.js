@@ -51,12 +51,12 @@ export default function LottoPage() {
   };
 
   const getBallColor = (num) => {
-    if (num <= 9) return "bg-yellow-300";
-    if (num <= 19) return "bg-sky-300";
-    if (num <= 29) return "bg-pink-300";
-    if (num <= 39) return "bg-gray-400";
-    return "bg-green-400";
-  };
+  if (num <= 9) return "bg-yellow-600";
+  if (num <= 19) return "bg-sky-600";
+  if (num <= 29) return "bg-rose-600";
+  if (num <= 39) return "bg-gray-600";
+  return "bg-emerald-600";
+};
 
   const applyUserConditions = (comboList, fixed, excluded, include) => {
     return comboList.filter(({ combo }) => {
@@ -208,7 +208,7 @@ export default function LottoPage() {
                       key={idx}
                       className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
                         num
-                      )} text-xs sm:text-base md:text-lg text-black flex items-center justify-center font-bold shadow`}
+                      )} text-xs sm:text-base md:text-lg text-white flex items-center justify-center font-bold shadow`}
                     >
                       {num}
                     </span>
