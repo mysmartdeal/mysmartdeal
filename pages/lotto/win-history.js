@@ -9,14 +9,20 @@ export default function WinHistoryPage() {
           회차별 당첨번호 조회
         </h1>
 
-        <iframe
-  src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-  width="100%"
-  height="1200"
-  title="동행복권 회차별 당첨번호"
-  className="w-full h-[1200px] border-2 rounded-xl overflow-hidden"
-/>
-      </div>
+        <div style={{ overflowX: 'auto' }}>
+  <iframe
+    src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+    width="1280"
+    height="1400"
+    style={{
+      transform: 'scale(0.9)',
+      transformOrigin: 'top center',
+      border: '1px solid #ccc',
+      borderRadius: '12px',
+    }}
+    title="동행복권 회차별 당첨번호"
+  />
+</div>
     </div>
   );
 }
