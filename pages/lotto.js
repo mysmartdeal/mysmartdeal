@@ -51,11 +51,11 @@ export default function LottoPage() {
   };
 
   const getBallColor = (num) => {
-  if (num <= 9) return "bg-yellow-600";
-  if (num <= 19) return "bg-sky-600";
-  if (num <= 29) return "bg-rose-600";
-  if (num <= 39) return "bg-gray-600";
-  return "bg-emerald-600";
+  if (num <= 9) return "bg-yellow-500";
+  if (num <= 19) return "bg-sky-500";
+  if (num <= 29) return "bg-rose-500";
+  if (num <= 39) return "bg-gray-500";
+  return "bg-emerald-500";
 };
 
   const applyUserConditions = (comboList, fixed, excluded, include) => {
