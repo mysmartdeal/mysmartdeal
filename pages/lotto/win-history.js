@@ -1,30 +1,25 @@
 // pages/lotto/win-history.js
-
 import React from "react";
 
 export default function WinHistoryPage() {
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-bold mb-6 text-blue-700 text-center">
-          회차별 당첨번호 조회
-        </h1>
+    <div className="min-h-screen bg-white py-4 px-0">
+      <h1 className="text-2xl font-bold mb-4 text-blue-700 text-center">
+        회차별 당첨번호 조회
+      </h1>
 
-        {/* ✅ 축소된 iframe을 감싸는 div */}
-        <div style={{ overflowX: "auto" }}>
-          <iframe
-            src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-            width="1280"
-            height="1400"
-            style={{
-              transform: "scale(0.9)",
-              transformOrigin: "top center",
-              border: "1px solid #ccc",
-              borderRadius: "12px",
-            }}
-            title="동행복권 회차별 당첨번호"
-          />
-        </div>
+      {/* iframe 직접 전체 페이지 너비로 */}
+      <div className="w-full overflow-x-auto">
+        <iframe
+          src="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+          width="100%"
+          height="1600"
+          style={{
+            minWidth: '1280px', // 내부 콘텐츠 기준
+            border: 'none',
+          }}
+          title="동행복권 회차별 당첨번호"
+        />
       </div>
     </div>
   );
