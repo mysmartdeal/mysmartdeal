@@ -184,25 +184,28 @@ export default function LottoPage() {
 
         {/* 고정 입력 + 버튼 */}
         <div className="mb-6">
-          <input
-            type="text"
-            value={fixed}
-            onChange={(e) => setFixed(e.target.value)}
-            placeholder="고정 숫자 (예: 7, 14)"
-            className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
-          />
-          <button
-            onClick={handleGenerate}
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
-          >
-            🎯 AI 기반 5게임 추천 받기
-          </button>
-          {nextRound && (
-            <div className="text-base text-blue-600 font-semibold mt-4">
-              진행 중인 회차: {nextRound}회
-            </div>
-          )}
-        </div>
+  <input
+    type="text"
+    value={fixed}
+    onChange={(e) => setFixed(e.target.value)}
+    placeholder="고정 숫자 (예: 7, 14)"
+    className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
+  />
+  <button
+    onClick={handleGenerate}
+    className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
+  >
+    🎯 AI 기반 5게임 추천 받기
+  </button>
+  <div className="text-xs text-gray-400 mt-2 mb-4">
+    ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
+  </div>
+  {nextRound && (
+    <div className="text-base text-blue-600 font-semibold mt-4">
+      진행 중인 회차: {nextRound}회
+    </div>
+  )}
+</div>
 
         {/* 결과 */}
         {games.length > 0 && (
