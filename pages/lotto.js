@@ -122,26 +122,38 @@ export default function LottoPage() {
 
   return (
     <Layout>
-  <div className="container mx-auto pt-8 pb-16 px-4 text-center">
+  <div className="mb-6 text-center">
+  {/* 모바일 전용 버튼 (sm 이하) */}
+  <div className="flex sm:hidden justify-center">
+    <a
+      href="https://www.dhlottery.co.kr/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-white text-blue-700 font-semibold rounded-full text-sm px-5 py-2 shadow-md border hover:shadow-lg transition"
+    >
+      동행복권 사이트 바로가기
+    </a>
+  </div>
 
-    {/* ✅ 버튼 박스 */}
-    <div className="flex flex-row justify-center items-center gap-3 sm:gap-4 mb-6 text-center">
-  <a
-    href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-white text-blue-700 font-semibold rounded-full text-sm px-4 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg transition"
-  >
-    회차별 당첨번호
-  </a>
-  <a
-    href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-white text-blue-700 font-semibold rounded-full text-sm px-4 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg transition"
-  >
-    당첨판매점 조회
-  </a>
+  {/* PC 전용 버튼 (sm 이상) */}
+  <div className="hidden sm:flex flex-row justify-center gap-4">
+    <a
+      href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-white text-blue-700 font-semibold rounded-full text-base px-6 py-3 shadow-md border hover:shadow-lg transition"
+    >
+      회차별 당첨번호
+    </a>
+    <a
+      href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-white text-blue-700 font-semibold rounded-full text-base px-6 py-3 shadow-md border hover:shadow-lg transition"
+    >
+      당첨판매점 조회
+    </a>
+  </div>
 </div>
 
     {/* 기존 내용 */}
