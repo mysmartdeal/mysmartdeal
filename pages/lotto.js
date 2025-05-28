@@ -26,11 +26,18 @@ export default function LottoPage() {
     });
 
     fetch("/lotto_history.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const last = data[0];
-        setNextRound(last.round + 1);
-      });
+  .then((res) => res.json())
+  .then((data) => {
+    const last = data[0];
+    const now = new Date();
+
+    const isSaturday = now.getDay() === 6;
+    const isAfter2130 =
+      isSaturday && (now.getHours() > 21 || (now.getHours() === 21 && now.getMinutes() >= 30));
+
+    const next = isAfter2130 ? last.round + 1 : last.round;
+    setNextRound(next);
+  });
 
     fetch("/ai_lotto_result.json")
       .then((res) => res.json())
