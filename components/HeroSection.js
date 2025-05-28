@@ -41,7 +41,7 @@ export default function HeroSection() {
       rel="noopener noreferrer"
       className="bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-sm px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
     >
-      회차별 당첨번호
+      회차 당첨번호
     </a>
     <a
       href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
@@ -49,7 +49,7 @@ export default function HeroSection() {
       rel="noopener noreferrer"
       className="bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-sm px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
     >
-      당첨판매점 조회
+      당첨판매점
     </a>
   </div>
 </div>
