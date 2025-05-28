@@ -145,9 +145,6 @@ export default function LottoPage() {
     </div>
 
     {/* 기존 내용 */}
-    <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
-      AI 기반 무료 로또 조합기
-    </h1>
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
           AI 기반 무료 로또 조합기
         </h1>
