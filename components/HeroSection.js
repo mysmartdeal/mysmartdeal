@@ -23,24 +23,6 @@ export default function HeroSection() {
         >
           🎲 무료 로또 조합 받기 🎲
         </a>
-           <div className="flex justify-center gap-2 mt-2 max-w-[280px] mx-auto">
-  <a
-    href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex-1 bg-white text-blue-600 font-semibold rounded-full text-xs sm:text-sm px-3 py-2 shadow-sm border hover:shadow-md transition text-center"
-  >
-    회차별 당첨번호
-  </a>
-  <a
-    href="https://www.dhlottery.co.kr/store.do?method=topStoreRank"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex-1 bg-white text-blue-600 font-semibold rounded-full text-xs sm:text-sm px-3 py-2 shadow-sm border hover:shadow-md transition text-center"
-  >
-    당첨판매점 조회
-  </a>
-</div> 
         <a
           href="/smartlog"
           className="bg-white text-blue-600 font-semibold border border-blue-200 rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
