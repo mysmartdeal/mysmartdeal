@@ -30,17 +30,21 @@ export default function LottoPage() {
     .then((data) => {
       const last = data[0];
       const now = new Date();
+      const day = now.getDay();
+      const cutoff = new Date(now);
 
-      const cutoff = new Date();
-      cutoff.setDate(now.getDate() + (6 - now.getDay())); // 이번 주 토요일
-      cutoff.setHours(21, 30, 0, 0);
+      if (day === 6) {
+        cutoff.setHours(21, 30, 0, 0);
+      } else {
+        const daysUntilSat = 6 - day;
+        cutoff.setDate(now.getDate() + daysUntilSat);
+        cutoff.setHours(21, 30, 0, 0);
+      }
 
-      const shouldAdd =
-        now >= cutoff &&
-        now < new Date(cutoff.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const shouldAdd = now >= cutoff;
+      const nextRound = shouldAdd ? last.round + 1 : last.round;
 
-      const next = shouldAdd ? last.round + 1 : last.round;
-      setNextRound(next);
+      setNextRound(nextRound);
     });
 
   fetch("/ai_lotto_result.json")
