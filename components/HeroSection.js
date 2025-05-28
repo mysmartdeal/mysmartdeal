@@ -10,7 +10,6 @@ export default function HeroSection() {
         MySmartLife
       </p>
 
-      {/* 상단 기본 버튼 3개 */}
       <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
         <a
           href="/"
@@ -31,28 +30,6 @@ export default function HeroSection() {
           Blog
         </a>
       </div>
-
-      {/* 🎯 외부 링크로 변경된 버튼 그룹 (스타일 통일 버전) */}
-<div className="mt-4 flex justify-center">
-  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-[300px]">
-    <a
-      href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-sm px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
-    >
-      회차 당첨번호
-    </a>
-    <a
-      href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-sm px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
-    >
-      당첨판매점
-    </a>
-  </div>
-</div>
     </section>
   );
 }
