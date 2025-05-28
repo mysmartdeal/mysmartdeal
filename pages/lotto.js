@@ -145,21 +145,10 @@ export default function LottoPage() {
           <div className="mt-3 flex justify-center">
   <button
     onClick={() => setSelectedHot([])}
-    className="flex items-center gap-2 px-4 py-1.5 bg-red-100 text-red-700 font-medium rounded-full hover:bg-red-200 transition"
+    className="flex items-center gap-2 px-4 py-1.5 bg-gray-100 text-gray-700 font-medium rounded-full hover:bg-gray-200 transition"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
     </svg>
     HOT 초기화
   </button>
@@ -184,21 +173,10 @@ export default function LottoPage() {
           <div className="mt-3 flex justify-center">
   <button
     onClick={() => setExcludedCold([])}
-    className="flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 font-medium rounded-full hover:bg-blue-200 transition"
+    className="flex items-center gap-2 px-4 py-1.5 bg-gray-100 text-gray-700 font-medium rounded-full hover:bg-gray-200 transition"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
-      />
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
     </svg>
     COLD 초기화
   </button>
