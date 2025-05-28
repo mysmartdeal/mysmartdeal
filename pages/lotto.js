@@ -126,23 +126,23 @@ export default function LottoPage() {
 
     {/* ✅ 버튼 박스 */}
     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-6">
-      <a
-        href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-white text-blue-700 font-semibold rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg transition"
-      >
-        회차별 당첨번호
-      </a>
-      <a
-        href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-white text-blue-700 font-semibold rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg transition"
-      >
-        당첨판매점 조회
-      </a>
-    </div>
+  <a
+    href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-[120px] sm:w-auto bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-base px-4 sm:px-6 py-2 sm:py-3 shadow-md border hover:shadow-lg transition text-center"
+  >
+    회차별 당첨번호
+  </a>
+  <a
+    href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-[120px] sm:w-auto bg-white text-blue-700 font-semibold rounded-full text-xs sm:text-base px-4 sm:px-6 py-2 sm:py-3 shadow-md border hover:shadow-lg transition text-center"
+  >
+    당첨판매점 조회
+  </a>
+</div>
 
     {/* 기존 내용 */}
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
