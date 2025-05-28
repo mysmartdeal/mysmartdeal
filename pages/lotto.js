@@ -232,9 +232,6 @@ export default function LottoPage() {
               <div className="text-sm text-gray-500 mb-1">
                 생성 일시: {generatedAt}
               </div>
-              <div className="text-xs text-gray-400">
-                ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
-              </div>
             </div>
           </>
         )}
