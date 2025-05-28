@@ -4,23 +4,18 @@ import Layout from "../../components/Layout";
 export default function WinShopsPage() {
   return (
     <Layout>
-      <div className="bg-white py-4 px-0">
-        <h1 className="text-2xl font-bold mb-4 text-blue-700 text-center">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center p-6">
+        <h1 className="text-2xl font-bold mb-6 text-blue-700">
           당첨판매점 조회
         </h1>
-
-        <div className="w-full overflow-x-auto">
-          <iframe
-            src="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
-            width="100%"
-            height="1600"
-            style={{
-              minWidth: "1280px",
-              border: "none",
-            }}
-            title="동행복권 당첨판매점 조회"
-          />
-        </div>
+        <a
+          href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold shadow-md hover:shadow-lg transition"
+        >
+          👉 동행복권 사이트에서 확인하기
+        </a>
       </div>
     </Layout>
   );
