@@ -16,33 +16,31 @@ export default function LottoPage() {
   const [aiCombos, setAiCombos] = useState([]);
 
   useEffect(() => {
-  fetch("/api/lotto-images")
-    .then((res) => res.json())
-    .then((data) => setGallery(data.images || []));
+    fetch("/api/lotto-images")
+      .then((res) => res.json())
+      .then((data) => setGallery(data.images || []));
 
-  getHotColdNumbers().then(({ hot, cold }) => {
-    setHot(hot);
-    setCold(cold);
-  });
-
-  fetch("/lotto_history.json")
-    .then((res) => res.json())
-    .then(() => {
-      const baseRound = 1174;
-      const baseDate = new Date("2025-05-31T21:30:00+09:00"); // 이번 주 토요일 21:30
-
-      const now = new Date();
-      const msPerWeek = 7 * 24 * 60 * 60 * 1000;
-      const weeksPassed = Math.floor((now - baseDate) / msPerWeek);
-
-      const nextRound = baseRound + Math.max(0, weeksPassed);
-      setNextRound(nextRound);
+    getHotColdNumbers().then(({ hot, cold }) => {
+      setHot(hot);
+      setCold(cold);
     });
 
-  fetch("/ai_lotto_result.json")
-    .then((res) => res.json())
-    .then((data) => setAiCombos(data));
-}, []);
+    fetch("/lotto_history.json")
+      .then((res) => res.json())
+      .then(() => {
+        const baseRound = 1174;
+        const baseDate = new Date("2025-05-31T21:30:00+09:00");
+        const now = new Date();
+        const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+        const weeksPassed = Math.floor((now - baseDate) / msPerWeek);
+        const nextRound = baseRound + Math.max(0, weeksPassed);
+        setNextRound(nextRound);
+      });
+
+    fetch("/ai_lotto_result.json")
+      .then((res) => res.json())
+      .then((data) => setAiCombos(data));
+  }, []);
 
   const toggleHotSelect = (num) => {
     setSelectedHot((prev) =>
@@ -58,12 +56,12 @@ export default function LottoPage() {
   };
 
   const getBallColor = (num) => {
-  if (num <= 9) return "bg-yellow-400";
-  if (num <= 19) return "bg-sky-400";
-  if (num <= 29) return "bg-rose-400";
-  if (num <= 39) return "bg-gray-400";
-  return "bg-emerald-400";
-};
+    if (num <= 9) return "bg-yellow-400";
+    if (num <= 19) return "bg-sky-400";
+    if (num <= 29) return "bg-rose-400";
+    if (num <= 39) return "bg-gray-400";
+    return "bg-emerald-400";
+  };
 
   const applyUserConditions = (comboList, fixed, excluded, include) => {
     return comboList.filter(({ combo }) => {
@@ -98,7 +96,6 @@ export default function LottoPage() {
     for (let i = 0; i < 5; i++) {
       const chance = Math.random();
       if (chance < 0.2 && selectedHot.length > 0 && selectedHot.length <= 6) {
-        // 20% 확률로 HOT 번호 모두 포함된 조합 생성
         let combo = [...selectedHot];
         while (combo.length < 6) {
           const n = Math.floor(Math.random() * 45) + 1;
@@ -121,45 +118,8 @@ export default function LottoPage() {
   };
 
   return (
-   <Layout>
-    <div className="container mx-auto pt-6 pb-16 px-4 text-center">
-
-      {/* ✅ 모바일 & PC 버튼 그룹 */}
-      <div className="mb-6 text-center">
-        {/* 모바일 전용 버튼 */}
-        <div className="flex sm:hidden justify-center">
-          <a
-            href="https://www.dhlottery.co.kr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-blue-700 font-semibold rounded-full text-sm px-5 py-2 shadow-md border hover:shadow-lg transition"
-          >
-            동행복권 사이트 바로가기
-          </a>
-        </div>
-
-        {/* PC 전용 버튼 */}
-        <div className="hidden sm:flex flex-row justify-center gap-4">
-          <a
-            href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-blue-700 font-semibold rounded-full text-base px-6 py-3 shadow-md border hover:shadow-lg transition"
-          >
-            회차별 당첨번호
-          </a>
-          <a
-            href="https://www.dhlottery.co.kr/store.do?method=topStore&pageGubun=L645"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white text-blue-700 font-semibold rounded-full text-base px-6 py-3 shadow-md border hover:shadow-lg transition"
-          >
-            당첨판매점 조회
-          </a>
-        </div>
-      </div>
-
-    {/* 기존 내용 */}
+    <Layout>
+      <div className="container mx-auto pt-6 pb-16 px-4 text-center">
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
           AI 기반 무료 로또 조합기
         </h1>
@@ -167,7 +127,6 @@ export default function LottoPage() {
           머신러닝 기반으로 생성된 8,145,060가지 조합 중 조건에 맞는 5게임을 추천합니다.
         </p>
 
-        {/* HOT 번호 선택 */}
         <div className="mb-6 text-center px-4 sm:px-6">
           <h3 className="font-semibold mb-2">포함할 상위 10개 HOT(많이 나온) 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-2">
@@ -183,30 +142,19 @@ export default function LottoPage() {
               </button>
             ))}
           </div>
-         {/* HOT 초기화 */}
-<div className="mt-3">
-  <button
-    onClick={() => setSelectedHot([])}
-    className="flex items-center gap-2 px-4 py-1.5 bg-red-100 text-red-700 font-medium rounded-full hover:bg-red-200 transition"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-4 w-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
-      />
-    </svg>
-    HOT 초기화
-  </button>
-</div>
-        {/* COLD 번호 제외 */}
+          <div className="mt-3">
+            <button
+              onClick={() => setSelectedHot([])}
+              className="flex items-center gap-2 px-4 py-1.5 bg-red-100 text-red-700 font-medium rounded-full hover:bg-red-200 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
+              </svg>
+              HOT 초기화
+            </button>
+          </div>
+        </div>
+
         <div className="mb-6 text-center px-4 sm:px-6">
           <h3 className="font-semibold mb-2">제외할 상위 10개 COLD(적게 나온) 번호</h3>
           <div className="inline-flex flex-wrap justify-center gap-2">
@@ -222,57 +170,45 @@ export default function LottoPage() {
               </button>
             ))}
           </div>
-          {/* ✅ COLD 초기화 버튼 */}
-  <div className="mt-3">
-    <button
-      onClick={() => setExcludedCold([])}
-      className="flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 font-medium rounded-full hover:bg-blue-200 transition"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
-        />
-      </svg>
-      COLD 초기화
-    </button>
-  </div>
-</div>
+          <div className="mt-3">
+            <button
+              onClick={() => setExcludedCold([])}
+              className="flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 font-medium rounded-full hover:bg-blue-200 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
+              </svg>
+              COLD 초기화
+            </button>
+          </div>
+        </div>
 
-        {/* 고정 입력 + 버튼 */}
+        {/* 고정 입력 및 조합 생성 */}
         <div className="mb-6">
-  <input
-    type="text"
-    value={fixed}
-    onChange={(e) => setFixed(e.target.value)}
-    placeholder="고정 숫자 (예: 7, 14)"
-    className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
-  />
-  <button
-    onClick={handleGenerate}
-    className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
-  >
-    🎯 AI 기반 5게임 추천 받기
-  </button>
-  <div className="text-xs text-gray-400 mt-2 mb-4">
-    ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
-  </div>
-  {nextRound && (
-    <div className="text-base text-blue-600 font-semibold mt-4">
-      진행 중인 회차: {nextRound}회
-    </div>
-  )}
-</div>
+          <input
+            type="text"
+            value={fixed}
+            onChange={(e) => setFixed(e.target.value)}
+            placeholder="고정 숫자 (예: 7, 14)"
+            className="border px-4 py-2 rounded w-64 mx-auto block mb-2"
+          />
+          <button
+            onClick={handleGenerate}
+            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
+          >
+            🎯 AI 기반 5게임 추천 받기
+          </button>
+          <div className="text-xs text-gray-400 mt-2 mb-4">
+            ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
+          </div>
+          {nextRound && (
+            <div className="text-base text-blue-600 font-semibold mt-4">
+              진행 중인 회차: {nextRound}회
+            </div>
+          )}
+        </div>
 
-        {/* 결과 */}
+        {/* 결과 출력 */}
         {games.length > 0 && (
           <>
             <div className="mt-6 space-y-4">
@@ -280,33 +216,27 @@ export default function LottoPage() {
                 <div key={gIdx} className="bg-white rounded-xl shadow-md px-4 py-3 max-w-md mx-auto">
                   <div className="flex justify-center gap-2 sm:gap-4">
                     {game.map((num, idx) => (
-                    <span
-                      key={idx}
-                      className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
-                        num
-                      )} text-xs sm:text-base md:text-lg text-white flex items-center justify-center font-bold shadow`}
-                    >
-                      {num}
-                    </span>
-                  ))}
+                      <span
+                        key={idx}
+                        className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(num)} text-xs sm:text-base md:text-lg text-white flex items-center justify-center font-bold shadow`}
+                      >
+                        {num}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
             <div className="mt-6">
-              <div className="text-sm text-gray-500 mb-1">
-                생성 일시: {generatedAt}
-              </div>
+              <div className="text-sm text-gray-500 mb-1">생성 일시: {generatedAt}</div>
             </div>
           </>
         )}
 
-        {/* 갤러리 */}
+        {/* 이미지 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
-          <div className="text-xs text-gray-400 text-center mb-4">
-  ※ 당첨 결과 출처: 동행복권
-</div>
+          <div className="text-xs text-gray-400 text-center mb-4">※ 당첨 결과 출처: 동행복권</div>
           <div className="flex flex-col items-center gap-6">
             {gallery.map((file, idx) => (
               <div key={idx} className="w-full flex justify-center">
