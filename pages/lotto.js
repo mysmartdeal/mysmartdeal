@@ -215,7 +215,8 @@ export default function LottoPage() {
                     </span>
                   ))}
                 </div>
-              ))}
+              </div>
+            ))}
             </div>
             <div className="mt-6">
               <div className="text-sm text-gray-500 mb-1">
