@@ -121,9 +121,9 @@ export default function LottoPage() {
   };
 
   return (
-    <Layout>
+ <Layout>
   <div className="mb-6 text-center">
-  {/* 모바일 전용 버튼 (sm 이하) */}
+  {/* 모바일 전용 버튼 */}
   <div className="flex sm:hidden justify-center">
     <a
       href="https://www.dhlottery.co.kr/"
@@ -135,7 +135,7 @@ export default function LottoPage() {
     </a>
   </div>
 
-  {/* PC 전용 버튼 (sm 이상) */}
+  {/* PC 전용 버튼 */}
   <div className="hidden sm:flex flex-row justify-center gap-4">
     <a
       href="https://www.dhlottery.co.kr/gameResult.do?method=byWin"
