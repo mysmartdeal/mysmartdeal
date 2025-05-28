@@ -239,6 +239,9 @@ export default function LottoPage() {
         {/* 갤러리 */}
         <div className="mt-20 text-left max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-4 text-center">-최근 당첨 결과-</h2>
+          <div className="text-xs text-gray-400 text-center mb-4">
+  ※ 당첨 결과 데이터 출처: 동행복권
+</div>
           <div className="flex flex-col items-center gap-6">
             {gallery.map((file, idx) => (
               <div key={idx} className="w-full flex justify-center">
