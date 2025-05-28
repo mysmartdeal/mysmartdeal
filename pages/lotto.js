@@ -16,28 +16,31 @@ export default function LottoPage() {
   const [aiCombos, setAiCombos] = useState([]);
 
   useEffect(() => {
-    fetch("/api/lotto-images")
-      .then((res) => res.json())
-      .then((data) => setGallery(data.images || []));
+  fetch("/api/lotto-images")
+    .then((res) => res.json())
+    .then((data) => setGallery(data.images || []));
 
-    getHotColdNumbers().then(({ hot, cold }) => {
-      setHot(hot);
-      setCold(cold);
-    });
-
-    fetch("/lotto_history.json")
-  .then((res) => res.json())
-  .then((data) => {
-    const last = data[0];
-    const now = new Date();
-
-    const isSaturday = now.getDay() === 6;
-    const isAfter2130 =
-      isSaturday && (now.getHours() > 21 || (now.getHours() === 21 && now.getMinutes() >= 30));
-
-    const next = isAfter2130 ? last.round + 1 : last.round;
-    setNextRound(next);
+  getHotColdNumbers().then(({ hot, cold }) => {
+    setHot(hot);
+    setCold(cold);
   });
+
+  fetch("/lotto_history.json")
+    .then((res) => res.json())
+    .then((data) => {
+      const last = data[0];
+      const now = new Date();
+
+      const cutoff = new Date();
+      cutoff.setDate(now.getDate() + (6 - now.getDay())); // 이번 주 토요일
+      cutoff.setHours(21, 30, 0, 0);
+
+      const shouldAdd = now >= cutoff && now < new Date(cutoff.getTime() + 7 * 24 * 60 * 60 * 1000);
+      const nextRound = shouldAdd ? last.round + 1 : last.round;
+
+      setNextRound(nextRound);
+    });
+}, []);
 
     fetch("/ai_lotto_result.json")
       .then((res) => res.json())
