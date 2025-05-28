@@ -121,8 +121,7 @@ export default function LottoPage() {
   };
 
   return (
- return (
-  <Layout>
+   <Layout>
     <div className="container mx-auto py-16 px-4 text-center">
 
       {/* ✅ 모바일 & PC 버튼 그룹 */}
