@@ -122,7 +122,7 @@ export default function LottoPage() {
 
   return (
    <Layout>
-    <div className="container mx-auto py-16 px-4 text-center">
+    <div className="container mx-auto pt-6 pb-16 px-4 text-center">
 
       {/* ✅ 모바일 & PC 버튼 그룹 */}
       <div className="mb-6 text-center">
