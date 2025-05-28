@@ -200,22 +200,24 @@ export default function LottoPage() {
         {/* 결과 */}
         {games.length > 0 && (
           <>
-            <div className="mt-6 space-y-4">
-              {games.map((game, gIdx) => (
-                <div key={gIdx} className="flex justify-center gap-2 sm:gap-4">
-                  {game.map((num, idx) => (
-                    <span
-                      key={idx}
-                      className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
-                        num
-                      )} text-xs sm:text-base md:text-lg text-white flex items-center justify-center font-bold shadow`}
-                    >
-                      {num}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <<div className="mt-6 space-y-4">
+  {games.map((game, gIdx) => (
+    <div key={gIdx} className="bg-white rounded-xl shadow-md px-4 py-3 max-w-md mx-auto">
+      <div className="flex justify-center gap-2 sm:gap-4">
+        {game.map((num, idx) => (
+          <span
+            key={idx}
+            className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full ${getBallColor(
+              num
+            )} text-xs sm:text-base md:text-lg text-white flex items-center justify-center font-bold shadow`}
+          >
+            {num}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
             <div className="mt-6">
               <div className="text-sm text-gray-500 mb-1">
                 생성 일시: {generatedAt}
