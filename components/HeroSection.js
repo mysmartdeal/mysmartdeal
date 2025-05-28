@@ -10,22 +10,23 @@ export default function HeroSection() {
         MySmartLife
       </p>
 
+      {/* ✅ 버튼 그룹: 세로 배치, 가로폭 통일 */}
       <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
         <a
           href="/"
-          className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+          className="w-[240px] bg-white text-blue-600 font-semibold rounded-full text-base px-6 py-3 shadow-md border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
         >
           Home
         </a>
         <a
           href="/lotto"
-          className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+          className="w-[240px] bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-full text-base px-6 py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
         >
           🎲 무료 로또 조합 받기 🎲
         </a>
         <a
           href="/smartlog"
-          className="bg-white text-blue-600 font-semibold border border-blue-200 rounded-full text-sm sm:text-base px-5 py-2 sm:px-6 sm:py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+          className="w-[240px] bg-white text-blue-600 font-semibold border border-blue-200 rounded-full text-base px-6 py-3 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 text-center"
         >
           Blog
         </a>
