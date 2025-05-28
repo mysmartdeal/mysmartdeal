@@ -35,17 +35,18 @@ export default function LottoPage() {
       cutoff.setDate(now.getDate() + (6 - now.getDay())); // 이번 주 토요일
       cutoff.setHours(21, 30, 0, 0);
 
-      const shouldAdd = now >= cutoff && now < new Date(cutoff.getTime() + 7 * 24 * 60 * 60 * 1000);
-      const nextRound = shouldAdd ? last.round + 1 : last.round;
+      const shouldAdd =
+        now >= cutoff &&
+        now < new Date(cutoff.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-      setNextRound(nextRound);
+      const next = shouldAdd ? last.round + 1 : last.round;
+      setNextRound(next);
     });
-}, []);
 
-    fetch("/ai_lotto_result.json")
-      .then((res) => res.json())
-      .then((data) => setAiCombos(data));
-  }, []);
+  fetch("/ai_lotto_result.json")
+    .then((res) => res.json())
+    .then((data) => setAiCombos(data));
+}, []);
 
   const toggleHotSelect = (num) => {
     setSelectedHot((prev) =>
