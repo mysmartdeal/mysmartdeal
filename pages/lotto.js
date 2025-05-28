@@ -28,18 +28,14 @@ export default function LottoPage() {
   fetch("/lotto_history.json")
     .then((res) => res.json())
     .then(() => {
-      const now = new Date();
       const baseRound = 1174;
+      const baseDate = new Date("2025-05-31T21:30:00+09:00"); // 이번 주 토요일 21:30
 
-      const cutoff = new Date();
-      const day = now.getDay();
-      const daysUntilSat = (6 - day + 7) % 7;
-      cutoff.setDate(now.getDate() + daysUntilSat);
-      cutoff.setHours(21, 30, 0, 0);
+      const now = new Date();
+      const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+      const weeksPassed = Math.floor((now - baseDate) / msPerWeek);
 
-      const shouldAdd = now >= cutoff;
-      const nextRound = shouldAdd ? baseRound + 1 : baseRound;
-
+      const nextRound = baseRound + Math.max(0, weeksPassed);
       setNextRound(nextRound);
     });
 
