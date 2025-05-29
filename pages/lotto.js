@@ -129,7 +129,7 @@ export default function LottoPage() {
       rel="noopener noreferrer"
       className="bg-white text-blue-700 font-semibold rounded-full text-sm px-5 py-2 shadow-md border hover:shadow-lg transition"
     >
-      동행복권 사이트 바로가기
+      동행복권 바로가기
     </a>
   </div>
 
