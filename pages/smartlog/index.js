@@ -33,7 +33,7 @@ export default function SmartlogPage({ posts }) {
     <>
     <Head>
       <meta property="og:title" content="MySmartDeal - SmartLog 블로그" />
-      <meta property="og:description" content="전기요금 절약법, 이사 체크리스트, 알레르기 관리 꿀팁까지! 생활형 인사이트 블로그" />
+      <meta property="og:description" content="전반적인 생활정보 블로그" />
       <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-blog.jpg" />
       <meta property="og:url" content="https://www.mysmartdeal.co.kr/smartlog" />
       <meta property="og:type" content="website" />
