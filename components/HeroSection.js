@@ -49,7 +49,7 @@ export default function HeroSection() {
            조합기 공유하기
           </button>
           {copied && (
-            <div className="mt-2 text-sm text-green-200">
+            <div className="mt-2 text-sm text-black-200">
              ✅링크가 복사되었습니다!
             </div>
           )}
