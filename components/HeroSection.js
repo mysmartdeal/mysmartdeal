@@ -44,7 +44,7 @@ export default function HeroSection() {
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
-            className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-base px-5 py-2 shadow-md border hover:shadow-lg transition"
+            className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-sm px-5 py-2 shadow-md border hover:shadow-lg transition"
           >
            조합기 공유
           </button>
