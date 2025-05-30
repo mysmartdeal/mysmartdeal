@@ -272,7 +272,8 @@ export default function LottoPage() {
             </div>
             <div className="mt-6">
               <div className="text-sm text-gray-500 mb-1">생성 일시: {generatedAt}</div>
-            </div>
+            <div className="text-sm text-gray-500">조합이 마음에 드셨다면 스샷 저장하세요 📸</div>
+                </div>
           </>
         )}
 
