@@ -118,6 +118,15 @@ export default function LottoPage() {
   };
 
   return (
+    <>
+    <Head>
+      <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
+      <meta property="og:description" content="AI 추천 로또 조합, 회차별 당첨번호, 판매점 조회까지 한눈에!" />
+      <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
+      <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary_large_image" />
+    </Head>
     <Layout>
       <div className="container mx-auto pt-6 pb-16 px-4 text-center">
     <div className="mb-6 text-center">
