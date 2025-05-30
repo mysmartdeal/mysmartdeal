@@ -33,27 +33,25 @@ export default function HeroSection() {
         >
           Blog
         </a>
-      </div>
 
-      {/* ✅ /lotto 페이지 전용 링크 복사 기능 */}
-      {router.pathname === "/lotto" && (
-        <div className="mt-4 flex flex-col items-center">
+        {/* ✅ /lotto에서만 보이는 작고 가벼운 아이콘 스타일 버튼 */}
+        {router.pathname === "/lotto" && (
           <button
             onClick={() => {
               navigator.clipboard.writeText("https://www.mysmartdeal.co.kr/lotto");
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }}
-            className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-sm px-5 py-2 shadow-md border hover:shadow-lg transition"
+            className="text-xs px-3 py-1.5 rounded-full bg-white text-blue-600 border hover:bg-blue-50 shadow-sm transition"
           >
-           조합기 공유
+            조합기 공유
           </button>
-          {copied && (
-            <div className="mt-2 text-sm text-black-200">
-             ✅링크가 복사되었습니다!
-            </div>
-          )}
-        </div>
+        )}
+      </div>
+
+      {/* ✅ 안내 메시지 */}
+      {copied && router.pathname === "/lotto" && (
+        <div className="mt-2 text-sm text-green-200">📋 링크가 복사되었습니다!</div>
       )}
     </section>
   );
