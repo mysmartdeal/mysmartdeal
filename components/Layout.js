@@ -1,4 +1,5 @@
 import HeroSection from "./HeroSection";
+import ScrollTopButton from "./ScrollTopButton"; // ✅ 추가
 
 export default function Layout({ children }) {
   return (
@@ -17,6 +18,8 @@ export default function Layout({ children }) {
           </a>
         </div>
       </footer>
+          {/* ✅ 모든 페이지에서 보여질 TOP 버튼 */}
+      <ScrollTopButton />
     </div>
   );
 }
