@@ -1,8 +1,9 @@
-import React from "react";
-import { useRouter } from "next/router"; // ✅ 추가
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function HeroSection() {
-  const router = useRouter(); // ✅ 현재 페이지 확인
+  const router = useRouter();
+  const [copied, setCopied] = useState(false);
 
   return (
     <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-12 sm:py-20 text-center px-4 sm:px-6">
@@ -34,18 +35,24 @@ export default function HeroSection() {
         </a>
       </div>
 
-      {/* ✅ /lotto 페이지에서만 링크 복사 버튼 표시 */}
+      {/* ✅ /lotto 페이지 전용 링크 복사 기능 */}
       {router.pathname === "/lotto" && (
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex flex-col items-center">
           <button
             onClick={() => {
               navigator.clipboard.writeText("https://www.mysmartdeal.co.kr/lotto");
-              alert("📋 로또 조합기 링크가 복사되었습니다!");
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
             }}
             className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-base px-5 py-2 shadow-md border hover:shadow-lg transition"
           >
             🔗 이 페이지 링크 복사
           </button>
+          {copied && (
+            <div className="mt-2 text-sm text-green-200">
+              📋 링크가 복사되었습니다!
+            </div>
+          )}
         </div>
       )}
     </section>
