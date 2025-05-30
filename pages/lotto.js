@@ -121,7 +121,7 @@ export default function LottoPage() {
     <>
     <Head>
       <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
-      <meta property="og:description" content="AI 알고리즘을 활용한 최적의 추천 로또 조합" />
+      <meta property="og:description" content="AI 알고리즘을 활용한 최적의 로또 조합 추천" />
       <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
       <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
       <meta property="og:type" content="website" />
