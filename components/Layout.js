@@ -19,7 +19,7 @@ export default function Layout({ children }) {
         </div>
       </footer>
           {/* ✅ 모든 페이지에서 보여질 TOP 버튼 */}
-      <scrolltopbutton />
+      <ScrollTopButton />
     </div>
   );
 }
