@@ -31,9 +31,13 @@ export default function SmartlogPage({ posts }) {
   return (
     <Layout>
       <div className="max-w-3xl mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-          <span>📝</span> <span>SmartLog</span>
-        </h1>
+        <h1 className="text-2xl font-bold mb-6 flex items-center justify-between">
+  <div className="flex items-center gap-2">
+    <span>📝</span>
+    <span>SmartLog</span>
+  </div>
+  <span className="text-sm text-gray-500">전체 ({posts.length}개)</span>
+</h1>
 
         <div className="flex flex-col gap-4">
           {posts.map((post) => {
