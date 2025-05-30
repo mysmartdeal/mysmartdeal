@@ -50,7 +50,7 @@ export default function HeroSection() {
           </button>
           {copied && (
             <div className="mt-2 text-sm text-green-200">
-              📋 링크가 복사되었습니다!
+              링크가 복사되었습니다!
             </div>
           )}
         </div>
