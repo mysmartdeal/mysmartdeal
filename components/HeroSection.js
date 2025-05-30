@@ -46,7 +46,7 @@ export default function HeroSection() {
             }}
             className="bg-white text-blue-600 font-semibold rounded-full text-sm sm:text-base px-5 py-2 shadow-md border hover:shadow-lg transition"
           >
-            🔗 이 페이지 링크 복사
+            🔗조합기 공유하기
           </button>
           {copied && (
             <div className="mt-2 text-sm text-green-200">
