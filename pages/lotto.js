@@ -29,12 +29,18 @@ export default function LottoPage() {
       .then((res) => res.json())
       .then(() => {
         const baseRound = 1174;
-        const baseDate = new Date("2025-05-31T21:30:00+09:00");
-        const now = new Date();
-        const msPerWeek = 7 * 24 * 60 * 60 * 1000;
-        const weeksPassed = Math.floor((now - baseDate) / msPerWeek);
-        const nextRound = baseRound + Math.max(0, weeksPassed);
-        setNextRound(nextRound);
+const baseDate = new Date("2025-05-31T21:30:00+09:00");
+const now = new Date();
+
+let round = baseRound;
+let checkDate = new Date(baseDate);
+
+while (now > checkDate) {
+  round++;
+  checkDate.setDate(checkDate.getDate() + 7); // 매주 토요일로 이동
+}
+
+setNextRound(round);
       });
 
     fetch("/ai_lotto_result.json")
