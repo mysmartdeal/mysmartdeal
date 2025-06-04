@@ -4,50 +4,48 @@ export default function HeroSection() {
   useEffect(() => {
     const now = new Date();
 
-    // 날짜 기반 seed (예: 20250605)
+    // 날짜 기반 seed (예: 20250606)
     const seed = parseInt(now.toISOString().slice(0, 10).replace(/-/g, ""));
 
-    // 날짜 고정된 랜덤 생성 함수
+    // 고정된 랜덤 생성 함수
     function seededRandom(s) {
       const x = Math.sin(s) * 10000;
       return x - Math.floor(x);
     }
 
-    // 일요일이면 범위 다르게
+    // 요일에 따라 방문자 수 범위 달라짐
     const isSunday = now.getDay() === 0;
     const min = isSunday ? 50 : 150;
     const max = isSunday ? 100 : 250;
 
     const rand = seededRandom(seed);
-    const total = Math.floor(min + rand * (max - min)); // 오늘 목표 방문자 수 (고정)
+    const total = Math.floor(min + rand * (max - min)); // 오늘의 총 목표 방문자 수
 
     // 오늘 몇 분 지났는지
     const minutesPassed = now.getHours() * 60 + now.getMinutes();
     const totalMinutes = 1440;
 
-    // 분당 증가량
+    // 현재 누적 방문자 수 계산
     const perMinute = total / totalMinutes;
-
-    // 현재 누적 방문자 수
     const currentVisitors = Math.floor(perMinute * minutesPassed);
 
-    // 애니메이션
+    // 부드러운 숫자 애니메이션 (1초 내)
     const el = document.getElementById("visitor-count");
     if (el) {
-      let count = 0;
-      const duration = 1000; // 애니메이션 총 시간 (ms)
-      const steps = Math.min(currentVisitors, 60);
-      const increment = Math.ceil(currentVisitors / steps);
-      const intervalTime = Math.floor(duration / steps);
+      const duration = 1000; // 1초
+      const start = performance.now();
+      const target = currentVisitors;
 
-      const interval = setInterval(() => {
-        count += increment;
-        if (count >= currentVisitors) {
-          count = currentVisitors;
-          clearInterval(interval);
-        }
-        el.innerText = `${count}명`;
-      }, intervalTime);
+      function animate(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+        const current = Math.floor(target * eased);
+        el.innerText = `${current}명`;
+        if (progress < 1) requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
     }
   }, []);
 
