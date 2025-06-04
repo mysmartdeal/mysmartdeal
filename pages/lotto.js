@@ -191,13 +191,35 @@ setNextRound(round);
               </button>
             ))}
           </div>
-          <div className="mt-3 flex justify-center">
+         <div className="mt-3 flex justify-center">
   <button
-    onClick={() => setSelectedHot([])}
+    onClick={() => {
+      setSelectedHot([]);
+      if (
+        typeof window !== "undefined" &&
+        !document.cookie.includes("exclude_analytics=true")
+      ) {
+        window.gtag?.("event", "reset_hot_button_click", {
+          category: "lotto",
+          label: "HOT 초기화",
+        });
+      }
+    }}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
+      />
     </svg>
     HOT 초기화
   </button>
@@ -221,11 +243,33 @@ setNextRound(round);
           </div>
           <div className="mt-3 flex justify-center">
   <button
-    onClick={() => setExcludedCold([])}
+    onClick={() => {
+      setExcludedCold([]);
+      if (
+        typeof window !== "undefined" &&
+        !document.cookie.includes("exclude_analytics=true")
+      ) {
+        window.gtag?.("event", "reset_cold_button_click", {
+          category: "lotto",
+          label: "COLD 초기화",
+        });
+      }
+    }}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v6h6M20 20v-6h-6M4 20l16-16" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-4 w-4"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4 4v6h6M20 20v-6h-6M4 20l16-16"
+      />
     </svg>
     COLD 초기화
   </button>
