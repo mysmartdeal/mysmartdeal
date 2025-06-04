@@ -200,8 +200,7 @@ setNextRound(round);
     category: "lotto",
     label: "HOT 초기화",
   });
-      }
-    }}
+}}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
   >
     <svg
@@ -246,8 +245,7 @@ setNextRound(round);
     category: "lotto",
     label: "COLD 초기화",
   });
-      }
-    }}
+}}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
   >
     <svg
