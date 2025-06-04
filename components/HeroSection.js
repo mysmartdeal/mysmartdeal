@@ -3,35 +3,40 @@ import React, { useEffect } from "react";
 export default function HeroSection() {
   useEffect(() => {
     const now = new Date();
-    const dayKey = now.toLocaleDateString();
+
+    // 날짜 기반 seed (예: 20250605)
+    const seed = parseInt(now.toISOString().slice(0, 10).replace(/-/g, ""));
+
+    // 날짜 고정된 랜덤 생성 함수
+    function seededRandom(s) {
+      const x = Math.sin(s) * 10000;
+      return x - Math.floor(x);
+    }
+
+    // 일요일이면 범위 다르게
     const isSunday = now.getDay() === 0;
     const min = isSunday ? 50 : 150;
     const max = isSunday ? 100 : 250;
 
-    // 오늘의 목표 총 허수 방문자 수
-    let total = localStorage.getItem(`fakeVisitors_${dayKey}`);
-    if (!total) {
-      total = Math.floor(Math.random() * (max - min + 1)) + min;
-      localStorage.setItem(`fakeVisitors_${dayKey}`, total);
-    } else {
-      total = parseInt(total);
-    }
+    const rand = seededRandom(seed);
+    const total = Math.floor(min + rand * (max - min)); // 오늘 목표 방문자 수 (고정)
 
-    // 0시부터 지금까지 지난 분 수
+    // 오늘 몇 분 지났는지
     const minutesPassed = now.getHours() * 60 + now.getMinutes();
-    const totalMinutes = 1440; // 하루 1440분
+    const totalMinutes = 1440;
 
-    // 분당 증가량 * 누적 분 수 * 아주 살짝 랜덤성
+    // 분당 증가량
     const perMinute = total / totalMinutes;
-    const fluctuation = 0.9 + Math.random() * 0.2; // 0.9 ~ 1.1
-    const currentVisitors = Math.floor(perMinute * minutesPassed * fluctuation);
 
-    // 애니메이션: 숫자가 0에서 자연스럽게 올라감
+    // 현재 누적 방문자 수
+    const currentVisitors = Math.floor(perMinute * minutesPassed);
+
+    // 애니메이션
     const el = document.getElementById("visitor-count");
     if (el) {
       let count = 0;
-      const duration = 1000; // 총 애니메이션 시간 (ms)
-      const steps = Math.min(currentVisitors, 60); // 최대 60스텝
+      const duration = 1000; // 애니메이션 총 시간 (ms)
+      const steps = Math.min(currentVisitors, 60);
       const increment = Math.ceil(currentVisitors / steps);
       const intervalTime = Math.floor(duration / steps);
 
