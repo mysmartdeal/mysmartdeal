@@ -3,14 +3,12 @@ import React, { useEffect } from "react";
 export default function HeroSection() {
   useEffect(() => {
     const now = new Date();
-    const dayKey = now.toLocaleDateString(); // 매일 리셋용 키
+    const dayKey = now.toLocaleDateString();
     const isSunday = now.getDay() === 0;
+    const min = isSunday ? 50 : 150;
+    const max = isSunday ? 100 : 250;
 
-    // 일요일은 50~100명, 평일/토요일은 100~200명
-    const min = isSunday ? 50 : 100;
-    const max = isSunday ? 100 : 200;
-
-    // 1. 오늘의 총 방문자 수 결정 (localStorage에 저장)
+    // 오늘의 목표 총 허수 방문자 수
     let total = localStorage.getItem(`fakeVisitors_${dayKey}`);
     if (!total) {
       total = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -19,31 +17,33 @@ export default function HeroSection() {
       total = parseInt(total);
     }
 
-    // 2. 시간대별 분포 가중치 설정
-    const hourlyWeights = [
-      0.2, 0.2, 0.2, 0.2, 0.4, 0.6,  // 새벽
-      1.0, 1.2, 1.4, 1.6, 1.6, 1.5,  // 오전
-      2.0, 2.5, 2.2, 2.0, 2.0, 2.5,  // 오후
-      3.0, 2.8, 2.6, 2.0, 1.5, 1.0   // 저녁
-    ];
-    const totalWeight = hourlyWeights.reduce((a, b) => a + b, 0);
+    // 0시부터 지금까지 지난 분 수
+    const minutesPassed = now.getHours() * 60 + now.getMinutes();
+    const totalMinutes = 1440; // 하루 1440분
 
-    const hour = now.getHours();
-    const minute = now.getMinutes();
+    // 분당 증가량 * 누적 분 수 * 아주 살짝 랜덤성
+    const perMinute = total / totalMinutes;
+    const fluctuation = 0.9 + Math.random() * 0.2; // 0.9 ~ 1.1
+    const currentVisitors = Math.floor(perMinute * minutesPassed * fluctuation);
 
-    // 지금까지 지나온 시간 기준 누적 가중치 계산
-    let weightedPassed = 0;
-    for (let i = 0; i < hour; i++) {
-      weightedPassed += hourlyWeights[i];
-    }
-    weightedPassed += hourlyWeights[hour] * (minute / 60);
-
-    const ratio = weightedPassed / totalWeight;
-    const currentVisitors = Math.floor(total * ratio);
-
-    // 3. DOM에 반영
+    // 애니메이션: 숫자가 0에서 자연스럽게 올라감
     const el = document.getElementById("visitor-count");
-    if (el) el.innerText = `${currentVisitors}명`;
+    if (el) {
+      let count = 0;
+      const duration = 1000; // 총 애니메이션 시간 (ms)
+      const steps = Math.min(currentVisitors, 60); // 최대 60스텝
+      const increment = Math.ceil(currentVisitors / steps);
+      const intervalTime = Math.floor(duration / steps);
+
+      const interval = setInterval(() => {
+        count += increment;
+        if (count >= currentVisitors) {
+          count = currentVisitors;
+          clearInterval(interval);
+        }
+        el.innerText = `${count}명`;
+      }, intervalTime);
+    }
   }, []);
 
   return (
@@ -78,7 +78,7 @@ export default function HeroSection() {
 
       {/* 방문자 수 표시 */}
       <div className="mt-4 text-sm text-white opacity-60">
-        오늘 방문자 수: <span id="visitor-count">--명</span>
+        오늘 방문자 수: <span id="visitor-count">0명</span>
       </div>
     </section>
   );
