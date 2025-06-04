@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { getHotColdNumbers } from "../utils/statistics";
-import { trackEvent } from "../lib/analytics";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
