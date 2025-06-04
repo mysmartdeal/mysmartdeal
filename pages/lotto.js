@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 import { getHotColdNumbers } from "../utils/statistics";
+import { trackEvent } from "@/lib/analytics";
 
 export default function LottoPage() {
   const [games, setGames] = useState([]);
@@ -193,16 +194,12 @@ setNextRound(round);
           </div>
          <div className="mt-3 flex justify-center">
   <button
-    onClick={() => {
-      setSelectedHot([]);
-      if (
-        typeof window !== "undefined" &&
-        !document.cookie.includes("exclude_analytics=true")
-      ) {
-        window.gtag?.("event", "reset_hot_button_click", {
-          category: "lotto",
-          label: "HOT 초기화",
-        });
+   onClick={() => {
+  setSelectedHot([]);
+  trackEvent("reset_hot_button_click", {
+    category: "lotto",
+    label: "HOT 초기화",
+  });
       }
     }}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
@@ -244,15 +241,11 @@ setNextRound(round);
           <div className="mt-3 flex justify-center">
   <button
     onClick={() => {
-      setExcludedCold([]);
-      if (
-        typeof window !== "undefined" &&
-        !document.cookie.includes("exclude_analytics=true")
-      ) {
-        window.gtag?.("event", "reset_cold_button_click", {
-          category: "lotto",
-          label: "COLD 초기화",
-        });
+  setExcludedCold([]);
+  trackEvent("reset_cold_button_click", {
+    category: "lotto",
+    label: "COLD 초기화",
+  });
       }
     }}
     className="flex items-center gap-2 px-4 py-1.5 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition"
