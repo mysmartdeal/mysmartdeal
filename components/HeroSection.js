@@ -21,13 +21,27 @@ export default function HeroSection() {
     const rand = seededRandom(seed);
     const total = Math.floor(min + rand * (max - min)); // 오늘의 총 목표 방문자 수
 
-    // 오늘 몇 분 지났는지
-    const minutesPassed = now.getHours() * 60 + now.getMinutes();
-    const totalMinutes = 1440;
+    // 시간대별 가중치 설정
+    const hourlyWeights = [
+      0.2, 0.2, 0.2, 0.2, 0.3, 0.4,   // 0~5시
+      0.7, 0.8, 1.0, 1.2, 1.3, 1.3,   // 6~11시
+      1.5, 1.8, 2.0, 2.0, 2.0, 2.2,   // 12~17시
+      2.5, 2.5, 2.0, 1.6, 1.0, 0.6    // 18~23시
+    ];
+    const totalWeight = hourlyWeights.reduce((a, b) => a + b, 0);
 
-    // 현재 누적 방문자 수 계산
-    const perMinute = total / totalMinutes;
-    const currentVisitors = Math.floor(perMinute * minutesPassed);
+    // 현재 시간까지 누적된 비율 계산
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+
+    let weightedPassed = 0;
+    for (let i = 0; i < hour; i++) {
+      weightedPassed += hourlyWeights[i];
+    }
+    weightedPassed += hourlyWeights[hour] * (minute / 60);
+
+    const ratio = weightedPassed / totalWeight;
+    const currentVisitors = Math.floor(total * ratio);
 
     // 부드러운 숫자 애니메이션 (1초 내)
     const el = document.getElementById("visitor-count");
