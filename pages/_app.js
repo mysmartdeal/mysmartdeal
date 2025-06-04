@@ -17,19 +17,22 @@ export default function App({ Component, pageProps }) {
         src={`https://www.googletagmanager.com/gtag/js?id=G-322CF1104G`}
       />
       <Script
-        id="gtag-init"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-322CF1104G', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
+  id="gtag-init"
+  strategy="afterInteractive"
+  dangerouslySetInnerHTML={{
+    __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      if (!document.cookie.includes("exclude_analytics=true")) {
+        gtag('config', 'G-322CF1104G', {
+          page_path: window.location.pathname,
+        });
+      }
+    `,
+  }}
+/>
 
       {/* ✅ 실제 페이지 렌더링 */}
       <Component {...pageProps} />
