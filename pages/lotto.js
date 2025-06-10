@@ -14,7 +14,8 @@ export default function LottoPage() {
   const [nextRound, setNextRound] = useState(null);
   const [gallery, setGallery] = useState([]);
   const [aiCombos, setAiCombos] = useState([]);
-
+  const [loading, setLoading] = useState(false); // 로딩 상태
+  
   useEffect(() => {
     fetch("/api/lotto-images")
       .then((res) => res.json())
@@ -87,11 +88,46 @@ setNextRound(round);
     return combo.sort((a, b) => a - b);
   };
 
-  const handleGenerate = () => {
-    const fixedNums = fixed
-      .split(",")
-      .map((n) => parseInt(n.trim()))
-      .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
+  const handleGenerate = async () => {
+  setLoading(true);         // 로딩 시작
+  setGames([]);             // 이전 결과 잠깐 숨김
+  await new Promise(resolve => setTimeout(resolve, 3000)); // 3초 대기
+
+  const fixedNums = fixed
+    .split(",")
+    .map((n) => parseInt(n.trim()))
+    .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
+
+  const validExcludedCold = excludedCold
+    .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
+
+  const generated = [];
+  const filtered = applyUserConditions(aiCombos, fixedNums, validExcludedCold, selectedHot);
+
+  for (let i = 0; i < 5; i++) {
+    const chance = Math.random();
+    if (chance < 0.2 && selectedHot.length > 0 && selectedHot.length <= 6) {
+      let combo = [...selectedHot];
+      while (combo.length < 6) {
+        const n = Math.floor(Math.random() * 45) + 1;
+        if (!combo.includes(n) && !validExcludedCold.includes(n)) combo.push(n);
+      }
+      generated.push(combo.sort((a, b) => a - b));
+    } else {
+      if (filtered.length > 0) {
+        const randomCombo = filtered[Math.floor(Math.random() * filtered.length)].combo;
+        generated.push([...randomCombo]);
+      } else {
+        const combo = generateComboWithConditions(fixedNums, validExcludedCold);
+        generated.push(combo);
+      }
+    }
+  }
+
+  setGames(generated);
+  setGeneratedAt(new Date().toLocaleString("ko-KR"));
+  setLoading(false); // 로딩 종료
+};
 
     const validExcludedCold = excludedCold
       .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
@@ -257,6 +293,12 @@ setNextRound(round);
           )}
         </div>
 
+{loading && (
+  <div className="text-lg text-gray-700 mt-8 animate-pulse">
+    🎯 AI 분석 중입니다... 잠시만 기다려 주세요.
+  </div>
+)}
+        
         {/* 결과 출력 */}
         {games.length > 0 && (
           <>
