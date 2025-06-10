@@ -179,7 +179,7 @@ export default function LottoPage() {
           AI 무료 로또 조합기
         </h1>
         <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          8,145,060가지 조합 중 딥러닝 분석을 거쳐 조건에 맞는 5조합씩 추천합니다.
+          8,145,060개의 조합 중, 딥러닝 분석 결과 조건을 만족하는 5조합을 추천합니다.
         </p>
 
         <div className="mb-6 text-center px-4 sm:px-6">
