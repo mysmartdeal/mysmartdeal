@@ -251,7 +251,7 @@ export default function LottoPage() {
             onClick={handleGenerate}
             className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
           >
-            조합 추천 받기
+            5조합 단위 추천 받기
           </button>
           <div className="text-xs text-gray-400 mt-2 mb-4">
             ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
