@@ -341,6 +341,7 @@ setNextRound(round);
           </div>
         </div>
       </div>
+              {false && console.log("Render complete")}
     </Layout>
   </>
 );
