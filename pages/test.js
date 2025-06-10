@@ -342,7 +342,6 @@ setNextRound(round);
           </div>
         </div>
       </div>
-    </Layout>
-</>  
+    </Layout> 
 );
 }
