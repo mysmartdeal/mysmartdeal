@@ -14,6 +14,7 @@ export default function LottoPage() {
   const [nextRound, setNextRound] = useState(null);
   const [gallery, setGallery] = useState([]);
   const [aiCombos, setAiCombos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch("/api/lotto-images")
@@ -29,18 +30,18 @@ export default function LottoPage() {
       .then((res) => res.json())
       .then(() => {
         const baseRound = 1174;
-const baseDate = new Date("2025-05-31T21:30:00+09:00");
-const now = new Date();
+        const baseDate = new Date("2025-05-31T21:30:00+09:00");
+        const now = new Date();
 
-let round = baseRound;
-let checkDate = new Date(baseDate);
+        let round = baseRound;
+        let checkDate = new Date(baseDate);
 
-while (now > checkDate) {
-  round++;
-  checkDate.setDate(checkDate.getDate() + 7); // 매주 토요일로 이동
-}
+        while (now > checkDate) {
+          round++;
+          checkDate.setDate(checkDate.getDate() + 7);
+        }
 
-setNextRound(round);
+        setNextRound(round);
       });
 
     fetch("/ai_lotto_result.json")
@@ -87,7 +88,11 @@ setNextRound(round);
     return combo.sort((a, b) => a - b);
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
+    setLoading(true);
+    setGames([]);
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     const fixedNums = fixed
       .split(",")
       .map((n) => parseInt(n.trim()))
@@ -121,20 +126,21 @@ setNextRound(round);
 
     setGames(generated);
     setGeneratedAt(new Date().toLocaleString("ko-KR"));
+    setLoading(false);
   };
 
   return (
     <>
-    <Head>
-      <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
-      <meta property="og:description" content="AI 알고리즘을 활용한 최적의 로또 조합 추천" />
-      <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
-      <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
-      <meta property="og:type" content="website" />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
-    <Layout>
-      <div className="container mx-auto pt-6 pb-16 px-4 text-center">
+      <Head>
+        <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
+        <meta property="og:description" content="AI 알고리즘을 활용한 최적의 로또 조합 추천" />
+        <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
+        <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <Layout>
+        <div className="container mx-auto pt-6 pb-16 px-4 text-center">
     <div className="mb-6 text-center">
   {/* 모바일 전용 버튼 */}
   <div className="flex sm:hidden justify-center">
@@ -170,10 +176,10 @@ setNextRound(round);
 </div>
 
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
-          AI 기반 무료 로또 조합기
+          AI 무료 로또 조합기
         </h1>
         <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          머신러닝 기반으로 생성된 8,145,060가지 조합 중 조건에 맞는 5게임을 추천합니다.
+          8,145,060개의 조합 중, 딥러닝 분석 결과 조건을 만족하는 5조합을 추천합니다.
         </p>
 
         <div className="mb-6 text-center px-4 sm:px-6">
@@ -245,7 +251,7 @@ setNextRound(round);
             onClick={handleGenerate}
             className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
           >
-            AI 기반 5게임 추천 받기
+            5조합 단위 추천 받기
           </button>
           <div className="text-xs text-gray-400 mt-2 mb-4">
             ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
@@ -256,7 +262,12 @@ setNextRound(round);
             </div>
           )}
         </div>
-
+{loading && (
+  <div className="flex flex-col items-center mt-8 animate-pulse text-lg text-gray-600">
+    <img src="/loading_spinner.gif" alt="로딩 중" className="w-10 h-10 mb-3" />
+     AI 분석 중입니다... 잠시만 기다려 주세요.
+  </div>
+)}
         {/* 결과 출력 */}
         {games.length > 0 && (
           <>
@@ -301,6 +312,6 @@ setNextRound(round);
         </div>
       </div>
     </Layout>
-</>  
+  </>
 );
 }
