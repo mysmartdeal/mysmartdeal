@@ -179,7 +179,7 @@ export default function LottoPage() {
           AI 무료 로또 조합기
         </h1>
         <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          8,145,060가지 조합 중 딥러닝 분석 후 조건에 맞는 5게임을 추천합니다.
+          8,145,060가지 조합 중 딥러닝 분석 후 조건에 맞는 5게임씩 추천합니다.
         </p>
 
         <div className="mb-6 text-center px-4 sm:px-6">
@@ -251,7 +251,7 @@ export default function LottoPage() {
             onClick={handleGenerate}
             className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition mx-auto block"
           >
-            5게임 추천 받기
+            5게임씩 추천 받기
           </button>
           <div className="text-xs text-gray-400 mt-2 mb-4">
             ※ 이 조합은 AI 추천 기반이며 당첨을 보장하지 않습니다.
