@@ -14,7 +14,7 @@ export default function LottoPage() {
   const [nextRound, setNextRound] = useState(null);
   const [gallery, setGallery] = useState([]);
   const [aiCombos, setAiCombos] = useState([]);
-  const [loading, setLoading] = useState(false); // 로딩 중 상태 추가
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch("/api/lotto-images")
@@ -30,18 +30,18 @@ export default function LottoPage() {
       .then((res) => res.json())
       .then(() => {
         const baseRound = 1174;
-const baseDate = new Date("2025-05-31T21:30:00+09:00");
-const now = new Date();
+        const baseDate = new Date("2025-05-31T21:30:00+09:00");
+        const now = new Date();
 
-let round = baseRound;
-let checkDate = new Date(baseDate);
+        let round = baseRound;
+        let checkDate = new Date(baseDate);
 
-while (now > checkDate) {
-  round++;
-  checkDate.setDate(checkDate.getDate() + 7); // 매주 토요일로 이동
-}
+        while (now > checkDate) {
+          round++;
+          checkDate.setDate(checkDate.getDate() + 7);
+        }
 
-setNextRound(round);
+        setNextRound(round);
       });
 
     fetch("/ai_lotto_result.json")
@@ -89,45 +89,14 @@ setNextRound(round);
   };
 
   const handleGenerate = async () => {
-  setLoading(true);
-  setGames([]);
-  await new Promise(resolve => setTimeout(resolve, 3000)); // 3초 기다림
+    setLoading(true);
+    setGames([]);
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
-  const fixedNums = fixed
-    .split(",")
-    .map((n) => parseInt(n.trim()))
-    .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
-
-  const validExcludedCold = excludedCold
-    .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
-
-  const generated = [];
-  const filtered = applyUserConditions(aiCombos, fixedNums, validExcludedCold, selectedHot);
-
-  for (let i = 0; i < 5; i++) {
-    const chance = Math.random();
-    if (chance < 0.2 && selectedHot.length > 0 && selectedHot.length <= 6) {
-      let combo = [...selectedHot];
-      while (combo.length < 6) {
-        const n = Math.floor(Math.random() * 45) + 1;
-        if (!combo.includes(n) && !validExcludedCold.includes(n)) combo.push(n);
-      }
-      generated.push(combo.sort((a, b) => a - b));
-    } else {
-      if (filtered.length > 0) {
-        const randomCombo = filtered[Math.floor(Math.random() * filtered.length)].combo;
-        generated.push([...randomCombo]);
-      } else {
-        const combo = generateComboWithConditions(fixedNums, validExcludedCold);
-        generated.push(combo);
-      }
-    }
-  }
-
-  setGames(generated);
-  setGeneratedAt(new Date().toLocaleString("ko-KR"));
-  setLoading(false);
-};
+    const fixedNums = fixed
+      .split(",")
+      .map((n) => parseInt(n.trim()))
+      .filter((n) => !isNaN(n) && n >= 1 && n <= 45);
 
     const validExcludedCold = excludedCold
       .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
@@ -157,20 +126,21 @@ setNextRound(round);
 
     setGames(generated);
     setGeneratedAt(new Date().toLocaleString("ko-KR"));
+    setLoading(false);
   };
 
   return (
     <>
-    <Head>
-      <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
-      <meta property="og:description" content="AI 알고리즘을 활용한 최적의 로또 조합 추천" />
-      <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
-      <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
-      <meta property="og:type" content="website" />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
-    <Layout>
-      <div className="container mx-auto pt-6 pb-16 px-4 text-center">
+      <Head>
+        <meta property="og:title" content="MySmartDeal - 무료 로또 AI 조합기" />
+        <meta property="og:description" content="AI 알고리즘을 활용한 최적의 로또 조합 추천" />
+        <meta property="og:image" content="https://www.mysmartdeal.co.kr/og-lotto-v3.jpg" />
+        <meta property="og:url" content="https://www.mysmartdeal.co.kr/lotto" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <Layout>
+        <div className="container mx-auto pt-6 pb-16 px-4 text-center">
     <div className="mb-6 text-center">
   {/* 모바일 전용 버튼 */}
   <div className="flex sm:hidden justify-center">
