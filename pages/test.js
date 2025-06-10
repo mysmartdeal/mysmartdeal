@@ -176,10 +176,10 @@ export default function LottoPage() {
 </div>
 
         <h1 className="text-xl sm:text-3xl font-bold leading-tight sm:leading-normal tracking-tight mb-2 sm:mb-4">
-          AI 기반 무료 로또 조합기
+          AI 무료 로또 조합기
         </h1>
         <p className="text-gray-600 text-sm sm:text-base leading-snug sm:leading-normal tracking-tight mb-6">
-          머신러닝 기반으로 생성된 8,145,060가지 조합 중 조건에 맞는 5게임을 추천합니다.
+          8,145,060가지 조합 중 딥러닝 분석 후 조건에 맞는 5게임을 추천합니다.
         </p>
 
         <div className="mb-6 text-center px-4 sm:px-6">
