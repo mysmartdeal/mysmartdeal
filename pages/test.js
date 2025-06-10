@@ -89,9 +89,9 @@ setNextRound(round);
   };
 
   const handleGenerate = async () => {
-  setLoading(true);         // 로딩 시작
-  setGames([]);             // 이전 결과 잠깐 숨김
-  await new Promise(resolve => setTimeout(resolve, 3000)); // 3초 대기
+  setLoading(true);
+  setGames([]);
+  await new Promise(resolve => setTimeout(resolve, 3000)); // 3초 기다림
 
   const fixedNums = fixed
     .split(",")
@@ -126,9 +126,8 @@ setNextRound(round);
 
   setGames(generated);
   setGeneratedAt(new Date().toLocaleString("ko-KR"));
-  setLoading(false); // 로딩 종료
+  setLoading(false);
 };
-
 
     const validExcludedCold = excludedCold
       .filter((n) => typeof n === "number" && !isNaN(n) && n >= 1 && n <= 45);
