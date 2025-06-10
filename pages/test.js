@@ -263,7 +263,7 @@ export default function LottoPage() {
           )}
         </div>
 {loading && (
-  <div className="flex flex-col items-center mt-8">
+  <div className="text-lg text-gray-700 mt-8 animate-pulse">
     <img src="/loading_spinner.gif" alt="로딩 중" className="w-12 h-12" />
     <p className="mt-3 text-gray-600 text-sm"> AI 분석 중입니다... 잠시만 기다려 주세요.</p>
   </div>
