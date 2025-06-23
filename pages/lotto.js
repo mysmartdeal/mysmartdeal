@@ -91,7 +91,7 @@ export default function LottoPage() {
   const handleGenerate = async () => {
     setLoading(true);
     setGames([]);
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise(resolve => setTimeout(resolve, 4500));
 
     const fixedNums = fixed
       .split(",")
